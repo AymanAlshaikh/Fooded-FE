@@ -1,6 +1,5 @@
 import logo from "./logo.svg";
 import "./App.css";
-
 import SignIn from "./components/Signin";
 import { Route, Switch } from "react-router";
 import Signup from "./components/Authentication/signup";
