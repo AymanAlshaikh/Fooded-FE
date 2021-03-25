@@ -25,6 +25,7 @@ export const signup = (newUser, history) => {
 
 export const signin = (userData, history) => {
   return async (dispatch) => {
+    console.log(userData);
     try {
       const res = await instance.post("/signin", userData);
       dispatch(setUser(res.data.token));
