@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -89,7 +89,7 @@ const Signup = () => {
               <TextField
                 autoComplete="fname"
                 name="username"
-                variant="outlined"
+                // variant="normal"
                 fullWidth
                 id="username"
                 label="Username"
@@ -103,7 +103,7 @@ const Signup = () => {
               <TextField
                 autoComplete="fname"
                 name="firstName"
-                variant="outlined"
+                // variant="normal"
                 required
                 fullWidth
                 id="firstName"
@@ -115,7 +115,7 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                variant="outlined"
+                // variant="normal"
                 required
                 fullWidth
                 id="lastName"
@@ -128,7 +128,7 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                // variant="outlined"
                 required
                 fullWidth
                 id="phoneNumber"
@@ -141,7 +141,7 @@ const Signup = () => {
             </Grid>
             <Grid item xs={4}>
               <TextField
-                variant="outlined"
+                // variant="outlined"
                 required
                 fullWidth
                 id="house"
@@ -154,7 +154,7 @@ const Signup = () => {
             </Grid>
             <Grid item xs={4}>
               <TextField
-                variant="outlined"
+                // variant="outlined"
                 required
                 fullWidth
                 id="road"
@@ -167,7 +167,7 @@ const Signup = () => {
             </Grid>
             <Grid item xs={4}>
               <TextField
-                variant="outlined"
+                // variant="outlined"
                 required
                 fullWidth
                 id="block"
@@ -180,7 +180,7 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                // variant="outlined"
                 required
                 fullWidth
                 id="city"
@@ -193,7 +193,7 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                // variant="outlined"
                 required
                 fullWidth
                 id="email"
@@ -211,7 +211,7 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                // variant="outlined"
                 required
                 fullWidth
                 name="password"

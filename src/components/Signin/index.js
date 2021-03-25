@@ -54,32 +54,36 @@ export default function SignIn() {
           Sign in
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
-            // variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="username"
-            name="username"
-            // autoComplete="email"
-            autoFocus
-            inputRef={register({ required: true })}
-          />
-          {errors.username && <p>username is required</p>}
-          <TextField
-            // variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            inputRef={register({ required: true })}
-          />
-          {errors.password && <p>password is required</p>}
+          <Grid item xs={12} sm={12}>
+            <TextField
+              // variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="username"
+              name="username"
+              // autoComplete="email"
+              autoFocus
+              inputRef={register({ required: true })}
+            />
+            {errors.username && <p>username is required</p>}
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <TextField
+              // variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              inputRef={register({ required: true })}
+            />
+            {errors.password && <p>password is required</p>}
+          </Grid>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -87,8 +91,8 @@ export default function SignIn() {
           <Button
             type="submit"
             fullWidth
-            // variant="contained"
-            color="secondary"
+            variant="contained"
+            color="primary"
             className={classes.submit}
           >
             Sign In
