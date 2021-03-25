@@ -1,11 +1,11 @@
 import * as types from "../actions/types";
 
 const initialState = {
-  user: null, // user Data,
+  user: null,
   loading: true,
 };
 
-const userReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_USER:
       return {
@@ -18,4 +18,4 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-export default userReducer;
+export default reducer;
