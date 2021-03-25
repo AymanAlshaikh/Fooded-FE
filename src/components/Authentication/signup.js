@@ -24,8 +24,11 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Fooded
+      <Link
+        color="inherit"
+        href="https://www.youtube.com/watch?v=6rgqcPTm4UY&ab_channel=MemeMarket"
+      >
+        FoodED
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -89,7 +92,8 @@ const Signup = () => {
                 variant="outlined"
                 fullWidth
                 id="username"
-                label="User name"
+                label="Username"
+                required
                 inputRef={register({ required: true })}
                 autoFocus
               />
@@ -154,7 +158,7 @@ const Signup = () => {
                 required
                 fullWidth
                 id="road"
-                label="road"
+                label="Road"
                 name="road"
                 autoComplete="email"
                 inputRef={register({ required: true })}
@@ -167,7 +171,7 @@ const Signup = () => {
                 required
                 fullWidth
                 id="block"
-                label="block"
+                label="Block"
                 name="block"
                 autoComplete="email"
                 inputRef={register({ required: true })}
@@ -180,7 +184,7 @@ const Signup = () => {
                 required
                 fullWidth
                 id="city"
-                label="city"
+                label="City"
                 name="city"
                 autoComplete="email"
                 inputRef={register({ required: true })}
