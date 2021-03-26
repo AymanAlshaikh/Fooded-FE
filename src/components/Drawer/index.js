@@ -1,6 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
@@ -14,16 +13,8 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import VoiceChatIcon from "@material-ui/icons/VoiceChat";
 import HomeIcon from "@material-ui/icons/Home";
 import MenuIcon from "@material-ui/icons/Menu";
-
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 250,
-  },
-});
-
+import { useStyles } from "./Styles";
+import { Link } from "react-router-dom";
 export default function SwipeableTemporaryDrawer() {
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -65,9 +56,11 @@ export default function SwipeableTemporaryDrawer() {
           <ListItemText primary={"Sessions"} />
         </ListItem>
         <ListItem button>
-          <ListItemIcon>
-            <ReceiptIcon />
-          </ListItemIcon>
+          <Link to="/recipes">
+            <ListItemIcon>
+              <ReceiptIcon />
+            </ListItemIcon>
+          </Link>
           <ListItemText primary={"Recipes"} />
         </ListItem>
       </List>
