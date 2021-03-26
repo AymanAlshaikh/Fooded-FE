@@ -15,21 +15,11 @@ import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { signin } from "../../store/actions/authActions";
+import { signin } from "../../../store/actions/authActions";
 import { Link } from "react-router-dom";
+import Copyright from "../Copyright";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link1 color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link1>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+<Copyright />;
 
 export default function SignIn() {
   const classes = useStyles();

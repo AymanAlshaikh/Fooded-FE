@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router";
-import Signup from "./Authentication/signup";
-import SignIn from "./Signin";
+import Signup from "./Authentication/Signup";
+import SignIn from "./Authentication/Signin";
 
 const Routes = () => {
   return (
