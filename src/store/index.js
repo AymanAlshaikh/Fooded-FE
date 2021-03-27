@@ -4,6 +4,7 @@ import thunk from "redux-thunk";
 import rootReducer from "./reducers";
 
 import { checkForToken, fetchProfile } from "./actions/authActions";
+import { fetchRecipes } from "./actions/recipeActions";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -14,5 +15,6 @@ const store = createStore(
 
 store.dispatch(checkForToken());
 store.dispatch(fetchProfile());
+store.dispatch(fetchRecipes());
 
 export default store;

@@ -1,40 +1,32 @@
+import {
+  GridListTile,
+  GridListTileBar,
+  IconButton,
+  makeStyles,
+} from "@material-ui/core";
+import InfoIcon from "@material-ui/icons/Info";
 import React from "react";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
+
 import { useStyles } from "./Styles";
 
 export default function RecipeItem({ recipe }) {
   const classes = useStyles();
 
   return (
-    <List className={classes.root}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary={recipe.name}
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Ali Connors
-              </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-    </List>
+    <GridListTile key={recipe.image}>
+      <img src={recipe.image} alt={recipe.name} style={{ width: 500 }} />
+      <GridListTileBar
+        title={recipe.name}
+        subtitle={<span> {recipe.description}</span>}
+        actionIcon={
+          <IconButton
+            aria-label={`info about ${recipe.name}`}
+            className={classes.icon}
+          >
+            <InfoIcon />
+          </IconButton>
+        }
+      />
+    </GridListTile>
   );
 }
