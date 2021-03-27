@@ -1,13 +1,8 @@
-import {
-  GridListTile,
-  GridListTileBar,
-  IconButton,
-  makeStyles,
-} from "@material-ui/core";
+import { GridListTile, GridListTileBar, IconButton } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import React from "react";
 
-import { useStyles } from "./Styles";
+import { useStyles } from "../Styles";
 
 export default function RecipeItem({ recipe }) {
   const classes = useStyles();

@@ -4,11 +4,10 @@ import { fetchRecipes } from "../../../store/actions/recipeActions";
 import RecipeItem from "../RecipeItem";
 
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import { useStyles } from "../RecipeItem/Styles";
+import { useStyles } from "../Styles";
 
 const RecipeList = () => {
   const classes = useStyles();
