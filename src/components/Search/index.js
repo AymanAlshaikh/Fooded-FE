@@ -25,8 +25,11 @@ const Search = () => {
 
   console.log(search);
   const handleSubmit = (event) => {
+    let searchObj = {
+      name: search,
+    };
     event.preventDefault();
-    dispatch(searchRecipe(search));
+    dispatch(searchRecipe(searchObj));
   };
 
   const handleChange = (event) => {

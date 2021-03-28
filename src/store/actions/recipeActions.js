@@ -16,6 +16,7 @@ export const searchRecipe = (searchRecipe) => {
   return async (dispatch) => {
     try {
       console.log("coming from the actions: ", searchRecipe);
+      console.log("actions type of Recipe", typeof searchRecipe);
       const res = await instance.post(`/recipes/search`, searchRecipe);
       console.log("search Action response: ", res.data);
       dispatch({ type: types.SEARCH_RECIPE, payload: res.data });
