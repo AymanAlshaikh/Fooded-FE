@@ -10,6 +10,13 @@ const recipeReducer = (state = initialState, action) => {
     case types.FETCH_RECIPE:
       return { ...state, recipe: action.payload, loading: false };
 
+    case types.SEARCH_RECIPE:
+      return {
+        ...state,
+        recipe: action.payload,
+        loading: false,
+      };
+
     default:
       return state;
   }
