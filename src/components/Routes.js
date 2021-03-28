@@ -2,11 +2,18 @@ import { Route, Switch } from "react-router";
 import Signup from "./Authentication/Signup";
 import SignIn from "./Authentication/Signin";
 import RecipeList from "./Recipe/RecipeList";
+
 import UserProfile from "./UserProfile";
+
+import RecipeDetail from "./Recipe/RecipeDetail";
+
 
 const Routes = () => {
   return (
     <Switch>
+      <Route path="/recipes/:recipeSlug">
+        <RecipeDetail />
+      </Route>
       <Route path="/recipes">
         <RecipeList />
       </Route>
