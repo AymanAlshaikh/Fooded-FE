@@ -11,3 +11,16 @@ export const fetchRecipes = () => {
     }
   };
 };
+
+export const searchRecipe = (searchRecipe) => {
+  return async (dispatch) => {
+    try {
+      console.log("coming from the actions: ", searchRecipe);
+      const res = await instance.post(`/recipes/search`, searchRecipe);
+      console.log("search Action response: ", res.data);
+      dispatch({ type: types.SEARCH_RECIPE, payload: res.data });
+    } catch (error) {
+      console.log("searchRecipe flightActions Error:", error);
+    }
+  };
+};
