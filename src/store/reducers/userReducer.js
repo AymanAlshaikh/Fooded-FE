@@ -1,0 +1,18 @@
+import * as types from "../actions/types";
+
+const initialState = {
+  users: [], // recipe Data,
+  loading: true,
+};
+
+const userReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case types.FETCH_USERS:
+      return { ...state, recipe: action.payload, loading: false };
+
+    default:
+      return state;
+  }
+};
+
+export default userReducer;
