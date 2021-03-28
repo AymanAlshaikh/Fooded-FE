@@ -8,6 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import SettingsIcon from "@material-ui/icons/Settings";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import BookIcon from "@material-ui/icons/Book";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import VoiceChatIcon from "@material-ui/icons/VoiceChat";
@@ -15,6 +16,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useStyles } from "./Styles";
 import { Link } from "react-router-dom";
+
 export default function SwipeableTemporaryDrawer() {
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -73,9 +75,18 @@ export default function SwipeableTemporaryDrawer() {
           <ListItemText primary={"Log"} />
         </ListItem>
         <ListItem button>
+          <Link to="/profile">
+            <ListItemIcon>
+              <AssignmentIndIcon />
+            </ListItemIcon>
+          </Link>
+          <ListItemText primary={"Profile"} />
+        </ListItem>
+        <ListItem button>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
+          {/* this should be changed to reset password */}
           <ListItemText primary={"Settings"} />
         </ListItem>
       </List>
