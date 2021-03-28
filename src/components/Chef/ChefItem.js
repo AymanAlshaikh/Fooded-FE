@@ -8,7 +8,9 @@ import { useStyles } from "./Styles";
 export default function ChefItem({ chef }) {
   const classes = useStyles();
   const users = useSelector((state) => state.userReducer.users);
-  const _chef = users.map((user) => user.id === chef.userId);
+  const _chef = users.find((user) => user.id === chef.userId);
+  console.log(_chef);
+
   return (
     <GridListTile key={_chef.image}>
       <img

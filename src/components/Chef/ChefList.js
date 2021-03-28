@@ -1,6 +1,4 @@
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { fetchChefs } from "../../store/actions/chefActions";
 import ChefItem from "./ChefItem";
 
 import React from "react";
@@ -12,8 +10,6 @@ import Search from "../Search";
 
 const ChefList = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  dispatch(fetchChefs);
   const chefs = useSelector((state) => state.chefReducer.chef);
   const chefList = chefs.map((chef) => <ChefItem key={chef.id} chef={chef} />);
 

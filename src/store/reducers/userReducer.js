@@ -8,7 +8,7 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.FETCH_USERS:
-      return { ...state, recipe: action.payload, loading: false };
+      return { ...state, users: action.payload, loading: false };
 
     default:
       return state;
