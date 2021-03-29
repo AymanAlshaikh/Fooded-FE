@@ -31,7 +31,7 @@ const Signup = () => {
 
   const onSubmit = (data) => {
     dispatch(signup(data, history));
-    console.log(data.firstName);
+    console.log(data);
   };
 
   const classes = useStyles();

@@ -70,13 +70,14 @@ export const fetchProfile = () => async (dispatch) => {
   }
 };
 
-export const updateUser = (updatedProfile) => async (dispatch) => {
+export const updateUser = (updatedProfile, history) => async (dispatch) => {
   try {
     const res = await instance.put("/userUpdate", updatedProfile);
     dispatch(setUser(res.data[1]), {
       type: types.SET_USER,
       payload: res.data[0],
     });
+    history.replace("/");
   } catch (err) {
     console.error(err);
   }

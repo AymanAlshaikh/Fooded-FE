@@ -8,6 +8,7 @@ import RecipeDetail from "./Recipe/RecipeDetail";
 import ChefDetail from "./Chef/ChefDetail";
 
 import ChefList from "./Chef/ChefList";
+import SessionList from "./Session/SessionList";
 
 const Routes = () => {
   return (
@@ -17,6 +18,9 @@ const Routes = () => {
       </Route>
       <Route path="/recipes/:recipeSlug">
         <RecipeDetail />
+      </Route>
+      <Route path="/sessions">
+        <SessionList />
       </Route>
       <Route path="/chefs">
         <ChefList />
