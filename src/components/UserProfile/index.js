@@ -51,6 +51,7 @@ const UserProfile = () => {
 
   const onSubmit = (data) => {
     dispatch(updateUser(data, history));
+    history.replace("/");
   };
 
   const classes = useStyles();
