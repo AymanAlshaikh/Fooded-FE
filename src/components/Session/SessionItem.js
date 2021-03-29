@@ -10,7 +10,7 @@ export default function SessionItem({ session }) {
   const classes = useStyles();
   // const recipeSlug = recipe.slug;
   const recipes = useSelector((state) => state.recipeReducer.recipe);
-  const recipe = recipes.find((recipe) => session.recipeId === recipe.id);
+  const recipe = recipes.find((recipe) => recipe.id === session.recipeId);
   return (
     // <Link to={`/recipes/${recipeSlug}`}>
     <GridListTile key={recipe.image}>
