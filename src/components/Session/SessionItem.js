@@ -1,4 +1,9 @@
-import { GridListTile, GridListTileBar, IconButton } from "@material-ui/core";
+import {
+  CircularProgress,
+  GridListTile,
+  GridListTileBar,
+  IconButton,
+} from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -11,6 +16,9 @@ export default function SessionItem({ session }) {
   // const recipeSlug = recipe.slug;
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipe = recipes.find((recipe) => recipe.id === session.recipeId);
+  const loading = useSelector((state) => state.recipeReducer.loading);
+
+  if (loading) return <CircularProgress />;
   return (
     // <Link to={`/recipes/${recipeSlug}`}>
     <GridListTile key={recipe.image}>
@@ -24,7 +32,7 @@ export default function SessionItem({ session }) {
         subtitle={
           <span>
             {" "}
-            {session.date} {session.time}
+            {`Date: ${session.date}`} {`Time: ${session.time}`}
           </span>
         }
         actionIcon={
