@@ -5,12 +5,16 @@ import RecipeList from "./Recipe/RecipeList";
 
 import UserProfile from "./UserProfile";
 import RecipeDetail from "./Recipe/RecipeDetail";
+import ChefDetail from "./Chef/ChefDetail";
 
 import ChefList from "./Chef/ChefList";
 
 const Routes = () => {
   return (
     <Switch>
+      <Route path="/chefs/:chefSlug">
+        <ChefDetail />
+      </Route>
       <Route path="/recipes/:recipeSlug">
         <RecipeDetail />
       </Route>
