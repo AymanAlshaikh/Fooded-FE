@@ -16,7 +16,6 @@ const RecipeList = ({ chefRecipe }) => {
   dispatch(fetchRecipes);
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   let recipeList;
-  console.log("Coming from recipeList", chefRecipe);
   if (chefRecipe) {
     recipeList = chefRecipe.map((recipe) => (
       <RecipeItem key={recipe.id} recipe={recipe} />
