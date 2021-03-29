@@ -7,7 +7,7 @@ import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { useStyles } from "./Styles";
 import { CircularProgress } from "@material-ui/core";
-// import ChefSearch from "./ChefSearch";
+import SessionSearch from "../SearchUnused";
 
 const SessionList = () => {
   const [search, setSearch] = useState("");
@@ -24,7 +24,7 @@ const SessionList = () => {
   if (!sessions || sessionLoading) return <CircularProgress />;
   return (
     <div>
-      {/* <ChefSearch setSearch={setSearch} /> */}
+      <SessionSearch setSearch={setSearch} />
       <div className={classes.root}>
         <GridList cellHeight={180} className={classes.gridList}>
           <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
