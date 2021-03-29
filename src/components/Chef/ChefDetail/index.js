@@ -25,16 +25,6 @@ export default function ChefDetail() {
     (_recipe) => _recipe.chefId === _chef.id
   );
 
-  // const _chefRecipe = chef.recipe.map((recipe) =>
-  //   allRecipes.find((_recipe) => _recipe.id === recipe.id)
-  // );
-  //   const products = shop.products.map((product) =>
-  //   allProducts.find((_product) => _product.id === product.id)
-  // );
-
-  // console.log("Coming from recipeList",chefSlug);
-  console.log("Coming from Detail", _chefRecipe);
-
   if (!userChef) return <Redirect to="/chefs" />;
   return (
     <Card className={classes.root}>
