@@ -1,24 +1,30 @@
 import { useSelector } from "react-redux";
 import ChefItem from "./ChefItem";
 
-import React from "react";
+import React, { useState } from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { useStyles } from "./Styles";
-import Search from "../Search";
-import { CircularProgress, Icon } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
+import ChefSearch from "./ChefSearch";
 
 const ChefList = () => {
+  const [search, setSearch] = useState("");
   const classes = useStyles();
   const chefs = useSelector((state) => state.chefReducer.chef);
-  const loading = useSelector((state) => state.chefReducer.loading);
-  const chefList = chefs.map((chef) => <ChefItem key={chef.id} chef={chef} />);
+  const chefLoading = useSelector((state) => state.chefReducer.loading);
+  const userLoading = useSelector((state) => state.userReducer.loading);
+  const chefList = chefs
+    .filter((chef) =>
+      chef.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+    )
+    .map((chef) => <ChefItem key={chef.id} chef={chef} />);
 
-  if (loading) return <CircularProgress />;
+  if (chefLoading || userLoading) return <CircularProgress />;
   return (
     <div>
-      <Search />
+      <ChefSearch setSearch={setSearch} />
       <div className={classes.root}>
         <GridList cellHeight={180} className={classes.gridList}>
           <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>

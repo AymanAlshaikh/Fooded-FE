@@ -17,6 +17,7 @@ import Copyright from "../Authentication/Copyright";
 // Actions
 import { updateUser } from "../../store/actions/authActions";
 import { useStyles } from "./Styles";
+import { CircularProgress } from "@material-ui/core";
 
 // eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -27,7 +28,7 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.authReducer.user);
-
+  const loading = useSelector((state) => state.authReducer.loading);
   let preloadedValues = {};
   console.log(user);
   if (user) {
@@ -53,6 +54,8 @@ const UserProfile = () => {
   };
 
   const classes = useStyles();
+
+  if (loading) return <CircularProgress />;
 
   return (
     <Container component="main" maxWidth="xs">

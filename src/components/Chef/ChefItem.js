@@ -16,7 +16,7 @@ export default function ChefItem({ chef }) {
   const _chef = users.find((user) => user.id === chef.userId);
   const loading = useSelector((state) => state.userReducer.loading);
   console.log(_chef);
-  if (loading) return <CircularProgress />;
+  if (!_chef || loading) return <CircularProgress />;
   return (
     <GridListTile key={_chef.image}>
       <img
