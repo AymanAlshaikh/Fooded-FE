@@ -7,12 +7,16 @@ import UserProfile from "./UserProfile";
 import RecipeDetail from "./Recipe/RecipeDetail";
 
 import ChefList from "./Chef/ChefList";
+import SessionList from "./Session/SessionList";
 
 const Routes = () => {
   return (
     <Switch>
       <Route path="/recipes/:recipeSlug">
         <RecipeDetail />
+      </Route>
+      <Route path="/sessions">
+        <SessionList />
       </Route>
       <Route path="/chefs">
         <ChefList />

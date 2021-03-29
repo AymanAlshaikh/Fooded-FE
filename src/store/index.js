@@ -7,6 +7,7 @@ import { checkForToken, fetchProfile } from "./actions/authActions";
 import { fetchRecipes } from "./actions/recipeActions";
 import { fetchChefs } from "./actions/chefActions";
 import { fetchUsers } from "./actions/userActions";
+import { fetchSessions } from "./actions/sessionActions";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -20,5 +21,6 @@ store.dispatch(fetchProfile());
 store.dispatch(fetchRecipes());
 store.dispatch(fetchChefs());
 store.dispatch(fetchUsers());
+store.dispatch(fetchSessions());
 
 export default store;
