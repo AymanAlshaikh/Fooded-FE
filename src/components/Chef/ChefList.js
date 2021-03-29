@@ -7,7 +7,7 @@ import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { useStyles } from "./Styles";
 import { CircularProgress } from "@material-ui/core";
-import ChefSearch from "./ChefSearch";
+import ChefSearch from "../Search";
 
 const ChefList = () => {
   const [search, setSearch] = useState("");
