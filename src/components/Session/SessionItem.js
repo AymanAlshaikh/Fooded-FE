@@ -20,31 +20,31 @@ export default function SessionItem({ session }) {
 
   if (loading) return <CircularProgress />;
   return (
-    // <Link to={`/recipes/${recipeSlug}`}>
-    <GridListTile key={recipe.image}>
-      <img
-        src={recipe.image}
-        alt={recipe.name}
-        style={{ height: 500, width: 500 }}
-      />
-      <GridListTileBar
-        title={recipe.name}
-        subtitle={
-          <span>
-            {" "}
-            {`Date: ${session.date}`} {`Time: ${session.time}`}
-          </span>
-        }
-        actionIcon={
-          <IconButton
-            aria-label={`info about ${recipe.name}`}
-            className={classes.icon}
-          >
-            <InfoIcon />
-          </IconButton>
-        }
-      />
-    </GridListTile>
-    // </Link>
+    <Link to={`/sessions/${session.id}`}>
+      <GridListTile key={recipe.image}>
+        <img
+          src={recipe.image}
+          alt={recipe.name}
+          style={{ height: 500, width: 500 }}
+        />
+        <GridListTileBar
+          title={recipe.name}
+          subtitle={
+            <span>
+              {" "}
+              {`Date: ${session.date}`} {`Time: ${session.time}`}
+            </span>
+          }
+          actionIcon={
+            <IconButton
+              aria-label={`info about ${recipe.name}`}
+              className={classes.icon}
+            >
+              <InfoIcon />
+            </IconButton>
+          }
+        />
+      </GridListTile>
+    </Link>
   );
 }
