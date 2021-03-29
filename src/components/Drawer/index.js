@@ -16,6 +16,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useStyles } from "./Styles";
 import { Link } from "react-router-dom";
+import { AccountBoxOutlined, Fastfood } from "@material-ui/icons";
 
 export default function SwipeableTemporaryDrawer() {
   const classes = useStyles();
@@ -60,10 +61,18 @@ export default function SwipeableTemporaryDrawer() {
         <ListItem button>
           <Link to="/recipes">
             <ListItemIcon>
-              <ReceiptIcon />
+              <Fastfood />
             </ListItemIcon>
           </Link>
           <ListItemText primary={"Recipes"} />
+        </ListItem>
+        <ListItem button>
+          <Link to="/chefs">
+            <ListItemIcon>
+              <AccountBoxOutlined />
+            </ListItemIcon>
+          </Link>
+          <ListItemText primary={"Chefs"} />
         </ListItem>
       </List>
       <Divider />
