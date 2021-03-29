@@ -10,15 +10,21 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import { useStyles } from "../Styles";
 import Search from "../../Search";
 
-const RecipeList = () => {
+const RecipeList = ({ chefRecipe }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   dispatch(fetchRecipes);
   const recipes = useSelector((state) => state.recipeReducer.recipe);
-
-  const recipeList = recipes.map((recipe) => (
-    <RecipeItem key={recipe.id} recipe={recipe} />
-  ));
+  let recipeList;
+  console.log("Coming from recipeList", chefRecipe);
+  if (chefRecipe) {
+    recipeList = chefRecipe.map((recipe) => (
+      <RecipeItem key={recipe.id} recipe={recipe} />
+    ));
+  } else
+    recipeList = recipes.map((recipe) => (
+      <RecipeItem key={recipe.id} recipe={recipe} />
+    ));
   return (
     <div>
       <Search />
