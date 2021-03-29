@@ -8,6 +8,7 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { useStyles } from "../Styles";
+import Search from "../../Search";
 
 const RecipeList = () => {
   const classes = useStyles();
@@ -19,13 +20,16 @@ const RecipeList = () => {
     <RecipeItem key={recipe.id} recipe={recipe} />
   ));
   return (
-    <div className={classes.root}>
-      <GridList cellHeight={180} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-          <ListSubheader component="div">Recipes</ListSubheader>
-        </GridListTile>
-        {recipeList}
-      </GridList>
+    <div>
+      <Search />
+      <div className={classes.root}>
+        <GridList cellHeight={180} className={classes.gridList}>
+          <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
+            <ListSubheader component="div">Recipes</ListSubheader>
+          </GridListTile>
+          {recipeList}
+        </GridList>
+      </div>
     </div>
   );
 };
