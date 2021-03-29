@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useSelector } from "react-redux";
-import { Button, makeStyles } from "@material-ui/core";
-import { searchRecipe } from "../../store/actions/recipeActions";
+import { makeStyles } from "@material-ui/core";
+import { searchSession } from "../store/actions/sessionActions";
 import { useDispatch } from "react-redux";
+import moment from "moment";
+//Date Picker imports
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 
 const style = makeStyles({
   center: {
@@ -23,44 +30,50 @@ const Search = () => {
 
   const classes = style();
 
-  console.log(search);
-  const handleSubmit = (event) => {
-    let searchObj = {
-      name: search,
-    };
-    event.preventDefault();
-    dispatch(searchRecipe(searchObj));
-  };
+  // console.log(search);
+  // const handleSubmit = (event, date) => {
+  //   let searchObj = {
+  //     date: date,
+  //   };
+  // console.log(searchObj);
+  // event.preventDefault();
+  // dispatch(searchRecipe(searchObj)); // change the searchRecipe to searchSession
+  // };
 
   const handleChange = (event) => {
     setSearch(event.target.value);
   };
 
+  const [selectedDate, setSelectedDate] = useState(moment().format("LLLL"));
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    date = moment(date).format("YYYY-MM-DD");
+    let searchObj = {
+      date: date,
+    };
+    dispatch(searchSession(searchObj));
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div className={classes.center}>
-        <Autocomplete
-          container
-          style={{ width: 300 }}
-          freeSolo
-          id="free-solo-2-demo"
-          disableClearable
-          options={recipes}
-          renderInput={(params) => (
-            <TextField
-              onChange={handleChange}
-              {...params}
-              label="Search Recipes"
-              margin="normal"
-              variant="outlined"
-              InputProps={{ ...params.InputProps, type: "search" }}
-              value={search}
-            />
-          )}
+    <div className={classes.center}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="Search by date"
+          value={selectedDate}
+          onChange={handleDateChange}
+          defaultValue={selectedDate}
+          KeyboardButtonProps={{
+            "aria-label": "change date",
+          }}
         />
-      </div>
-      <Button type="submit">SEARCH</Button>
-    </form>
+      </MuiPickersUtilsProvider>
+    </div>
   );
 };
 export default Search;

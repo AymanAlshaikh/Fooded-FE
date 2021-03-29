@@ -10,7 +10,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import BookIcon from "@material-ui/icons/Book";
-import ReceiptIcon from "@material-ui/icons/Receipt";
 import VoiceChatIcon from "@material-ui/icons/VoiceChat";
 import HomeIcon from "@material-ui/icons/Home";
 import MenuIcon from "@material-ui/icons/Menu";

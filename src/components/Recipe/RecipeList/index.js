@@ -1,6 +1,4 @@
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { fetchRecipes } from "../../../store/actions/recipeActions";
 import RecipeItem from "../RecipeItem";
 
 import React, { useState } from "react";

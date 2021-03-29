@@ -10,6 +10,9 @@ const sessionReducer = (state = initialState, action) => {
     case types.FETCH_SESSION:
       return { ...state, session: action.payload, loading: false };
 
+    case types.SEARCH_SESSION:
+      return { ...state, session: action.payload, loading: false };
+
     default:
       return state;
   }
