@@ -7,12 +7,15 @@ import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { useStyles } from "./Styles";
 import Search from "../Search";
+import { CircularProgress, Icon } from "@material-ui/core";
 
 const ChefList = () => {
   const classes = useStyles();
   const chefs = useSelector((state) => state.chefReducer.chef);
+  const loading = useSelector((state) => state.chefReducer.loading);
   const chefList = chefs.map((chef) => <ChefItem key={chef.id} chef={chef} />);
 
+  if (loading) return <CircularProgress />;
   return (
     <div>
       <Search />

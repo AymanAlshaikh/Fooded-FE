@@ -1,7 +1,7 @@
 import * as types from "../actions/types";
 
 const initialState = {
-  users: [], // recipe Data,
+  users: [], // users Data,
   loading: true,
 };
 

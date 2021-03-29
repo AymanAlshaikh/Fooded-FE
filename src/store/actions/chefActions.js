@@ -7,7 +7,7 @@ export const fetchChefs = () => {
       const res = await instance.get("/chefs");
       dispatch({ type: types.FETCH_CHEF, payload: res.data });
     } catch (error) {
-      console.log("fetchRecipes recipeActions Error:", error);
+      console.log("fetchChef chefActions Error:", error);
     }
   };
 };
