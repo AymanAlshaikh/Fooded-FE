@@ -49,83 +49,71 @@ export default function SwipeableTemporaryDrawer() {
     >
       <List>
         {user ? <Typography>Welcome {user.username}</Typography> : ""}
-        <Link to="/">
-          <ListItem button>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Home"} />
-          </ListItem>
-        </Link>
-        <Link to="/sessions">
-          <ListItem button>
-            <ListItemIcon>
-              <VoiceChatIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Sessions"} />
-          </ListItem>
-        </Link>
-        <Link to="/recipes">
-          <ListItem button>
-            <ListItemIcon>
-              <Fastfood />
-            </ListItemIcon>
-            <ListItemText primary={"Recipes"} />
-          </ListItem>
-        </Link>
-        <Link to="/chefs">
-          <ListItem button>
-            <ListItemIcon>
-              <AccountBoxOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Chefs"} />
-          </ListItem>
-        </Link>
+        <ListItem button component={Link} to={"/"}>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Home"} />
+        </ListItem>
+        <ListItem button component={Link} to={"/chefs"}>
+          <ListItemIcon>
+            <AccountBoxOutlined />
+          </ListItemIcon>
+          <ListItemText primary={"Chefs"} />
+        </ListItem>
+        <ListItem button component={Link} to={"/recipes"}>
+          <ListItemIcon>
+            <Fastfood />
+          </ListItemIcon>
+          <ListItemText primary={"Recipes"} />
+        </ListItem>
+        <ListItem button component={Link} to={"/sessions"}>
+          <ListItemIcon>
+            <VoiceChatIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Sessions"} />
+        </ListItem>
       </List>
       <Divider />
       <List>
-        <ListItem button>
-          <ListItemIcon>
-            <BookIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Log"} />
-        </ListItem>
         {user ? (
-          <Link to="/profile">
-            <ListItem button>
+          <div>
+            <ListItem button component={Link} to={"/log"}>
+              <ListItemIcon>
+                <BookIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Log"} />
+            </ListItem>
+            <ListItem button component={Link} to={"/profile"}>
               <ListItemIcon>
                 <AssignmentIndIcon />
               </ListItemIcon>
               <ListItemText primary={"Profile"} />
             </ListItem>
-          </Link>
+            <ListItem button component={Link} to={"/setting"}>
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              {/* this should be changed to reset password */}
+              <ListItemText primary={"Settings"} />
+            </ListItem>
+          </div>
         ) : (
           <div>
-            <Link to="/signin">
-              <ListItem button>
-                <ListItemIcon>
-                  <LockOpen />
-                </ListItemIcon>
-                <ListItemText primary={"Signin"} />
-              </ListItem>
-            </Link>
-            <Link to="/signup">
-              <ListItem button>
-                <ListItemIcon>
-                  <LockOpen />
-                </ListItemIcon>
-                <ListItemText primary={"Signup"} />
-              </ListItem>
-            </Link>
+            <ListItem button component={Link} to={"/signin"}>
+              <ListItemIcon>
+                <LockOpen />
+              </ListItemIcon>
+              <ListItemText primary={"Sign in"} />
+            </ListItem>
+            <ListItem button component={Link} to={"/signup"}>
+              <ListItemIcon>
+                <LockOpen />
+              </ListItemIcon>
+              <ListItemText primary={"Sign up"} />
+            </ListItem>
           </div>
         )}
-        <ListItem button>
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          {/* this should be changed to reset password */}
-          <ListItemText primary={"Settings"} />
-        </ListItem>
       </List>
     </div>
   );
