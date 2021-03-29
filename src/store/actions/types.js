@@ -14,3 +14,4 @@ export const FETCH_USERS = "FETCH_USERS";
 
 //Session Types
 export const FETCH_SESSION = "FETCH_SESSION";
+export const SEARCH_SESSION = "SEARCH_SESSION";

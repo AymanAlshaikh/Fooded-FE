@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core";
-// import { searchRecipe } from "../../store/actions/recipeActions";
+import { searchSession } from "../store/actions/sessionActions";
 import { useDispatch } from "react-redux";
-
+import moment from "moment";
 //Date Picker imports
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
@@ -44,16 +44,15 @@ const Search = () => {
     setSearch(event.target.value);
   };
 
-  const [selectedDate, setSelectedDate] = useState(
-    new Date("2014-08-18T21:11:54")
-  );
+  const [selectedDate, setSelectedDate] = useState(moment().format("LLLL"));
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    date = moment(date).format("YYYY-MM-DD");
     let searchObj = {
       date: date,
     };
-    console.log(date);
+    dispatch(searchSession(searchObj));
   };
 
   return (
@@ -68,6 +67,7 @@ const Search = () => {
           label="Search by date"
           value={selectedDate}
           onChange={handleDateChange}
+          defaultValue={selectedDate}
           KeyboardButtonProps={{
             "aria-label": "change date",
           }}
