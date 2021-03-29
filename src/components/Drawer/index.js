@@ -16,9 +16,12 @@ import HomeIcon from "@material-ui/icons/Home";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useStyles } from "./Styles";
 import { Link } from "react-router-dom";
-import { AccountBoxOutlined, Fastfood } from "@material-ui/icons";
+import { AccountBoxOutlined, Fastfood, LockOpen } from "@material-ui/icons";
+import { Typography } from "@material-ui/core";
+import { useSelector } from "react-redux";
 
 export default function SwipeableTemporaryDrawer() {
+  const user = useSelector((state) => state.authReducer.user);
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
@@ -46,34 +49,39 @@ export default function SwipeableTemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem button>
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Home"} />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <VoiceChatIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Sessions"} />
-        </ListItem>
-        <ListItem button>
-          <Link to="/recipes">
+        <Typography>Welcome {user.username}</Typography>
+        <Link to="/">
+          <ListItem button>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Home"} />
+          </ListItem>
+        </Link>
+        <Link to="/sessions">
+          <ListItem button>
+            <ListItemIcon>
+              <VoiceChatIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Sessions"} />
+          </ListItem>
+        </Link>
+        <Link to="/recipes">
+          <ListItem button>
             <ListItemIcon>
               <Fastfood />
             </ListItemIcon>
-          </Link>
-          <ListItemText primary={"Recipes"} />
-        </ListItem>
-        <ListItem button>
-          <Link to="/chefs">
+            <ListItemText primary={"Recipes"} />
+          </ListItem>
+        </Link>
+        <Link to="/chefs">
+          <ListItem button>
             <ListItemIcon>
               <AccountBoxOutlined />
             </ListItemIcon>
-          </Link>
-          <ListItemText primary={"Chefs"} />
-        </ListItem>
+            <ListItemText primary={"Chefs"} />
+          </ListItem>
+        </Link>
       </List>
       <Divider />
       <List>
@@ -83,14 +91,35 @@ export default function SwipeableTemporaryDrawer() {
           </ListItemIcon>
           <ListItemText primary={"Log"} />
         </ListItem>
-        <ListItem button>
+        {user ? (
           <Link to="/profile">
-            <ListItemIcon>
-              <AssignmentIndIcon />
-            </ListItemIcon>
+            <ListItem button>
+              <ListItemIcon>
+                <AssignmentIndIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Profile"} />
+            </ListItem>
           </Link>
-          <ListItemText primary={"Profile"} />
-        </ListItem>
+        ) : (
+          <div>
+            <Link to="/signin">
+              <ListItem button>
+                <ListItemIcon>
+                  <LockOpen />
+                </ListItemIcon>
+                <ListItemText primary={"Signin"} />
+              </ListItem>
+            </Link>
+            <Link to="/signup">
+              <ListItem button>
+                <ListItemIcon>
+                  <LockOpen />
+                </ListItemIcon>
+                <ListItemText primary={"Signup"} />
+              </ListItem>
+            </Link>
+          </div>
+        )}
         <ListItem button>
           <ListItemIcon>
             <SettingsIcon />
