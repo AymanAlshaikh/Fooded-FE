@@ -14,10 +14,12 @@ import VoiceChatIcon from "@material-ui/icons/VoiceChat";
 import HomeIcon from "@material-ui/icons/Home";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useStyles } from "./Styles";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AccountBoxOutlined, Fastfood, LockOpen } from "@material-ui/icons";
 import { Typography } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { signout } from "../../store/actions/authActions";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 export default function SwipeableTemporaryDrawer() {
   const user = useSelector((state) => state.authReducer.user);
@@ -25,6 +27,8 @@ export default function SwipeableTemporaryDrawer() {
   const [state, setState] = React.useState({
     left: false,
   });
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -96,6 +100,16 @@ export default function SwipeableTemporaryDrawer() {
               </ListItemIcon>
               {/* this should be changed to reset password */}
               <ListItemText primary={"Settings"} />
+            </ListItem>
+            <Divider />
+            <ListItem
+              button
+              onClick={() => dispatch(signout(history.replace("/")))}
+            >
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Sign out"} />
             </ListItem>
           </div>
         ) : (
