@@ -18,7 +18,10 @@
     "image-to-base64": "^2.1.1",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
+<<<<<<< HEAD
     "prop-types": "^15.7.2",
+=======
+>>>>>>> 78f309fedecbf238d92764652544141507b1f6ca
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^6.15.5",
