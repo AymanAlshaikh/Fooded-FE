@@ -17,9 +17,6 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signin } from "../../../store/actions/authActions";
 import { Link } from "react-router-dom";
-import Copyright from "../Copyright";
-
-<Copyright />;
 
 export default function SignIn() {
   const classes = useStyles();
@@ -101,9 +98,7 @@ export default function SignIn() {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
+      <Box mt={8}></Box>
     </Container>
   );
 }
