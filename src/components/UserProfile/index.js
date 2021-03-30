@@ -13,7 +13,6 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import Copyright from "../Authentication/Copyright";
 // Actions
 import { updateUser } from "../../store/actions/authActions";
 import { useStyles } from "./Styles";
@@ -21,8 +20,6 @@ import { CircularProgress } from "@material-ui/core";
 
 // eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-<Copyright />;
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -215,9 +212,7 @@ const UserProfile = () => {
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+      <Box mt={5}></Box>
     </Container>
   );
 };

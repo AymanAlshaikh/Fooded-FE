@@ -52,7 +52,7 @@ export default function SwipeableTemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {user ? <Typography>Welcome {user.username}</Typography> : ""}
+        {user ? <Typography> Hello, {user.username}.</Typography> : ""}
         <ListItem button component={Link} to={"/"}>
           <ListItemIcon>
             <HomeIcon />

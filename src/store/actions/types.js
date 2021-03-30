@@ -4,6 +4,9 @@ export const SET_USER = "SET_USER";
 //Recipe Types
 export const FETCH_RECIPE = "FETCH_RECIPE";
 export const SEARCH_RECIPE = "SEARCH_RECIPE";
+export const ADD_RECIPE = "ADD_RECIPE";
+export const UPDATE_RECIPE = "UPDATE_RECIPE";
+export const REMOVE_RECIPE = "REMOVE_RECIPE";
 
 //Chef Types
 export const FETCH_CHEF = "FETCH_CHEF";

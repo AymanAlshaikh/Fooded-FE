@@ -16,12 +16,9 @@ import { Link } from "react-router-dom";
 // Actions
 import { signup } from "../../../store/actions/authActions";
 import { useStyles } from "../Signin/Styles";
-import Copyright from "../Copyright";
 
 // eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-<Copyright />;
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -221,9 +218,7 @@ const Signup = () => {
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+      <Box mt={5}></Box>
     </Container>
   );
 };
