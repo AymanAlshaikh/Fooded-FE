@@ -14,7 +14,7 @@ import { useStyles } from "./Styles";
 import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { signin } from "../../../store/actions/authActions";
 import { Link } from "react-router-dom";
 import Copyright from "../Copyright";
