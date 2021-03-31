@@ -15,7 +15,7 @@ import SessionList from "./Session/SessionList";
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/recipes/new">
+      <Route path={["/recipes/new", "/recipes/:recipeId/edit"]}>
         <AddRecipe />
       </Route>
       <Route path="/sessions/:sessionId">
