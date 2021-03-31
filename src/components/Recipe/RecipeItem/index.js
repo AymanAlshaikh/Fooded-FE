@@ -1,6 +1,5 @@
 import { GridListTile, GridListTileBar, IconButton } from "@material-ui/core";
-import { Update } from "@material-ui/icons";
-import InfoIcon from "@material-ui/icons/Info";
+import { Edit } from "@material-ui/icons";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -24,7 +23,7 @@ export default function RecipeItem({ recipe }) {
             actionIcon={
               <Link to={`/recipes/${recipeSlug}/edit`}>
                 <IconButton>
-                  <Update />
+                  <Edit />
                 </IconButton>
               </Link>
             }
