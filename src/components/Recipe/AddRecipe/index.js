@@ -17,6 +17,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { useStyles } from "./Styles";
 import { CircularProgress } from "@material-ui/core";
 import { addRecipe, updateRecipe } from "../../../store/actions/recipeActions";
+import { ChevronLeft } from "@material-ui/icons";
 // eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -25,9 +26,14 @@ const AddRecipe = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
-  const loading = useSelector((state) => state.recipeReducer.loading);
   const recipe = recipes.find((recipe) => recipe.slug === recipeSlug);
-  console.log(recipe);
+  const chefs = useSelector((state) => state.chefReducer.chef);
+  const user = useSelector((state) => state.authReducer.user);
+  const chef = chefs.find((chef) => chef.userId === user.id);
+  const userLoading = useSelector((state) => state.authReducer.loading);
+  const chefLoading = useSelector((state) => state.chefReducer.loading);
+  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
+
   let preloadedValues = {};
 
   if (recipe) {
@@ -47,17 +53,17 @@ const AddRecipe = () => {
 
   const onSubmit = (data) => {
     if (recipe) {
-      dispatch(updateRecipe(data, history));
-      history.replace("/");
+      dispatch(updateRecipe(data, history, chef));
+      history.replace("/recipes");
     } else {
-      dispatch(addRecipe(data, history, image));
-      history.replace("/");
+      dispatch(addRecipe(data, history, image, chef));
+      history.replace("/recipes");
     }
   };
 
   const classes = useStyles();
 
-  if (loading) return <CircularProgress />;
+  if (chefLoading || userLoading || recipeLoading) return <CircularProgress />;
 
   return (
     <Container component="main" maxWidth="xs">
@@ -67,7 +73,7 @@ const AddRecipe = () => {
           <AccountCircleIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          New Recipe
+          {recipe ? "Update Recipe" : "New Recipe"}
         </Typography>
         <form
           className={classes.form}
@@ -136,7 +142,7 @@ const AddRecipe = () => {
             color="primary"
             className={classes.submit}
           >
-            Add
+            {recipe ? "Update" : "ADD"}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>

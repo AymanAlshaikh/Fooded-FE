@@ -23,12 +23,14 @@ export const searchRecipe = (searchRecipe) => {
   };
 };
 
-export const addRecipe = (newRecipe, history, image) => async (dispatch) => {
+export const addRecipe = (newRecipe, history, image, chef) => async (
+  dispatch
+) => {
   try {
     const formData = new FormData();
     for (const key in newRecipe) formData.append(key, newRecipe[key]);
     formData.append("image", image);
-    const res = await instance.post("/recipes", formData);
+    const res = await instance.post(`/chefs/${chef.id}/recipes`, formData);
     dispatch({
       type: types.ADD_RECIPE,
       payload: { newRecipe: res.data },
