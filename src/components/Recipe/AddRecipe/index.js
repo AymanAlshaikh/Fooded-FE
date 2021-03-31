@@ -22,17 +22,23 @@ import { Fastfood } from "@material-ui/icons";
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const AddRecipe = () => {
+  const classes = useStyles();
+  const [image, setImage] = useState("");
   const { recipeSlug } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipe = recipes.find((recipe) => recipe.slug === recipeSlug);
+  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
+
+  //chef & user
   const chefs = useSelector((state) => state.chefReducer.chef);
   const user = useSelector((state) => state.authReducer.user);
   const chef = chefs.find((chef) => chef.userId === user.id);
   const userLoading = useSelector((state) => state.authReducer.loading);
   const chefLoading = useSelector((state) => state.chefReducer.loading);
-  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
+
+  console.log(user);
 
   let preloadedValues = {};
 
@@ -44,27 +50,23 @@ const AddRecipe = () => {
       image: "",
     };
   }
-
-  const [image, setImage] = useState("");
-
   const { handleSubmit, errors, register } = useForm({
     defaultValues: preloadedValues,
   });
+  if (!user || !user.isChef) return <Redirect to="/" />;
+  if (chefLoading || userLoading || recipeLoading) return <CircularProgress />;
+
   const handleImage = (event) => setImage(event.target.files[0]);
   const chefId = chef.id;
   const onSubmit = (data) => {
     if (recipe) {
-      dispatch(updateRecipe(data, image, chef));
+      dispatch(updateRecipe(data, image, chefId, recipe));
       history.replace("/recipes");
     } else {
       dispatch(addRecipe(data, image, chefId));
       history.replace("/recipes");
     }
   };
-
-  const classes = useStyles();
-  // if (!chef) return <Redirect to="/" />;
-  // if (chefLoading || userLoading || recipeLoading) return <CircularProgress />;
 
   return (
     <Container component="main" maxWidth="xs">
