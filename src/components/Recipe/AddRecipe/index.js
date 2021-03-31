@@ -53,7 +53,8 @@ const AddRecipe = () => {
   const { handleSubmit, errors, register } = useForm({
     defaultValues: preloadedValues,
   });
-  if (!user || !user.isChef) return <Redirect to="/" />;
+  if (!user || !user.isChef || recipe.chefId !== chef.id)
+    return <Redirect to="/recipes" />;
   if (chefLoading || userLoading || recipeLoading) return <CircularProgress />;
 
   const handleImage = (event) => setImage(event.target.files[0]);
