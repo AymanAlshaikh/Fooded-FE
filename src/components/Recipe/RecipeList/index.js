@@ -7,11 +7,13 @@ import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { useStyles } from "../Styles";
 import ChefSearch from "../../Search";
-
+import { Add } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 const RecipeList = ({ chefRecipe }) => {
   const [search, setSearch] = useState("");
   const classes = useStyles();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
+  const user = useSelector((state) => state.authReducer.user);
   let recipeList;
   if (chefRecipe) {
     recipeList = chefRecipe
@@ -35,6 +37,13 @@ const RecipeList = ({ chefRecipe }) => {
           </GridListTile>
           {recipeList}
         </GridList>
+        {user && user.isChef ? (
+          <Link to="/recipes/new">
+            <Add />
+          </Link>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

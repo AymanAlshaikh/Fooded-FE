@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -17,17 +17,29 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { useStyles } from "./Styles";
 import { CircularProgress } from "@material-ui/core";
 import { addRecipe, updateRecipe } from "../../../store/actions/recipeActions";
+import { Fastfood } from "@material-ui/icons";
 // eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const AddRecipe = () => {
+  const classes = useStyles();
+  const [image, setImage] = useState("");
   const { recipeSlug } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
-  const loading = useSelector((state) => state.recipeReducer.loading);
   const recipe = recipes.find((recipe) => recipe.slug === recipeSlug);
-  console.log(recipe);
+  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
+
+  //chef & user
+  const chefs = useSelector((state) => state.chefReducer.chef);
+  const user = useSelector((state) => state.authReducer.user);
+  const chef = chefs.find((chef) => chef.userId === user.id);
+  const userLoading = useSelector((state) => state.authReducer.loading);
+  const chefLoading = useSelector((state) => state.chefReducer.loading);
+
+  console.log(user);
+
   let preloadedValues = {};
 
   if (recipe) {
@@ -35,39 +47,43 @@ const AddRecipe = () => {
       name: recipe.name,
       description: recipe.description,
       ingredientDescription: recipe.ingredientDescription,
+      image: "",
     };
   }
-
-  const [image, setImage] = useState("");
-
   const { handleSubmit, errors, register } = useForm({
     defaultValues: preloadedValues,
   });
-  const handleImage = (event) => setImage(event.target.files[0]);
+  if (!user || !user.isChef) {
+    return <Redirect to="/recipes" />;
+  }
+  if (recipe) {
+    if (recipe.chefId !== chef.id) {
+      return <Redirect to="/recipes" />;
+    }
+  }
+  if (chefLoading || userLoading || recipeLoading) return <CircularProgress />;
 
+  const handleImage = (event) => setImage(event.target.files[0]);
+  const chefId = chef.id;
   const onSubmit = (data) => {
     if (recipe) {
-      dispatch(updateRecipe(data, history));
-      history.replace("/");
+      dispatch(updateRecipe(data, image, chefId, recipe));
+      history.replace("/recipes");
     } else {
-      dispatch(addRecipe(data, history, image));
-      history.replace("/");
+      dispatch(addRecipe(data, image, chefId));
+      history.replace("/recipes");
     }
   };
-
-  const classes = useStyles();
-
-  if (loading) return <CircularProgress />;
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <AccountCircleIcon />
+          <Fastfood />
         </Avatar>
         <Typography component="h1" variant="h5">
-          New Recipe
+          {recipe ? "Update Recipe" : "New Recipe"}
         </Typography>
         <form
           className={classes.form}
@@ -116,6 +132,7 @@ const AddRecipe = () => {
               />
               {errors.ingredientDescription && <p>Ingredients are required</p>}
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 type="file"
@@ -136,7 +153,7 @@ const AddRecipe = () => {
             color="primary"
             className={classes.submit}
           >
-            Add
+            {recipe ? "Update" : "ADD"}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
