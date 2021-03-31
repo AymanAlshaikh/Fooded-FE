@@ -12,7 +12,10 @@ export default function RecipeItem({ recipe }) {
   const dispatch = useDispatch();
   const chefs = useSelector((state) => state.chefReducer.chef);
   const user = useSelector((state) => state.authReducer.user);
-  const chef = chefs.find((chef) => chef.userId === user.id);
+  let chef = null;
+  if (user) {
+    chef = chefs.find((chef) => chef.userId === user.id);
+  }
 
   const classes = useStyles();
   const recipeSlug = recipe.slug;
