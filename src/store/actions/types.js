@@ -18,3 +18,6 @@ export const FETCH_USERS = "FETCH_USERS";
 //Session Types
 export const FETCH_SESSION = "FETCH_SESSION";
 export const SEARCH_SESSION = "SEARCH_SESSION";
+export const ADD_SESSION = "ADD_SESSION";
+export const UPDATE_SESSION = "UPDATE_SESSION";
+export const REMOVE_SESSION = "REMOVE_SESSION";

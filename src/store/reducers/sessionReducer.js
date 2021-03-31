@@ -13,6 +13,29 @@ const sessionReducer = (state = initialState, action) => {
     case types.SEARCH_SESSION:
       return { ...state, session: action.payload, loading: false };
 
+    case types.ADD_SESSION:
+      return {
+        ...state,
+        session: [...state.session, action.payload.newSession],
+      };
+
+    case types.REMOVE_SESSION:
+      return {
+        ...state,
+        session: state.session.filter(
+          (session) => session.id !== action.payload.sessionId
+        ),
+      };
+
+    case types.UPDATE_SESSION:
+      const { updatedSession } = action.payload;
+      return {
+        ...state,
+        session: state.session.map((session) =>
+          session.id === updatedSession.id ? updatedSession : session
+        ),
+      };
+
     default:
       return state;
   }

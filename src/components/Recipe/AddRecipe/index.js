@@ -23,13 +23,13 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 
 const AddRecipe = () => {
   const classes = useStyles();
-  const [image, setImage] = useState("");
   const { recipeSlug } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipe = recipes.find((recipe) => recipe.slug === recipeSlug);
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
+  const [image, setImage] = useState(recipe ? recipe.image : "");
 
   //chef & user
   const chefs = useSelector((state) => state.chefReducer.chef);
@@ -47,7 +47,6 @@ const AddRecipe = () => {
       name: recipe.name,
       description: recipe.description,
       ingredientDescription: recipe.ingredientDescription,
-      image: "",
     };
   }
   const { handleSubmit, errors, register } = useForm({
@@ -141,7 +140,7 @@ const AddRecipe = () => {
                 label="Recipe Image"
                 name="image"
                 onChange={handleImage}
-                inputRef={register({ required: true })}
+                // inputRef={register({ required: true })}
               />
               {errors.image && <p>Recipe Image is required</p>}
             </Grid>
