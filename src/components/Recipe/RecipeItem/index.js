@@ -22,18 +22,14 @@ export default function RecipeItem({ recipe }) {
             title={recipe.name}
             subtitle={<span> {recipe.description}</span>}
             actionIcon={
-              <IconButton
-                aria-label={`info about ${recipe.name}`}
-                className={classes.icon}
-              >
-                <InfoIcon />
-              </IconButton>
+              <Link to={`/recipes/${recipeSlug}/edit`}>
+                <IconButton>
+                  <Update />
+                </IconButton>
+              </Link>
             }
           />
         </GridListTile>
-      </Link>
-      <Link to={`/recipes/${recipeSlug}/edit`}>
-        <Update />
       </Link>
     </div>
   );
