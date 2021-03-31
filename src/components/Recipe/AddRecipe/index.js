@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -62,7 +62,7 @@ const AddRecipe = () => {
   };
 
   const classes = useStyles();
-
+  if (!chef) return <Redirect to="/" />;
   if (chefLoading || userLoading || recipeLoading) return <CircularProgress />;
 
   return (
