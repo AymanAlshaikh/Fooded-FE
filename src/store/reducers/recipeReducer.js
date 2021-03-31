@@ -35,7 +35,7 @@ const recipeReducer = (state = initialState, action) => {
       const { updatedRecipe } = action.payload;
       return {
         ...state,
-        recipe: state.recipes.map((recipe) =>
+        recipe: state.recipe.map((recipe) =>
           recipe.id === updatedRecipe.id ? updatedRecipe : recipe
         ),
       };
