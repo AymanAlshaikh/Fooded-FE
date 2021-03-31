@@ -1,11 +1,14 @@
 import { GridListTile, GridListTileBar, IconButton } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
+import { DeleteForever, DeleteForeverOutlined, Edit } from "@material-ui/icons";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { deleteRecipe } from "../../../store/actions/recipeActions";
 
 import { useStyles } from "../Styles";
 
 export default function RecipeItem({ recipe }) {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const recipeSlug = recipe.slug;
   return (
@@ -21,11 +24,17 @@ export default function RecipeItem({ recipe }) {
             title={recipe.name}
             subtitle={<span> {recipe.description}</span>}
             actionIcon={
-              <Link to={`/recipes/${recipeSlug}/edit`}>
-                <IconButton>
-                  <Edit />
+              <div>
+                <Link to={`/recipes/${recipeSlug}/edit`}>
+                  <IconButton>
+                    <Edit />
+                  </IconButton>
+                </Link>
+
+                <IconButton onClick={() => dispatch(deleteRecipe(recipe.id))}>
+                  <DeleteForeverOutlined />
                 </IconButton>
-              </Link>
+              </div>
             }
           />
         </GridListTile>
