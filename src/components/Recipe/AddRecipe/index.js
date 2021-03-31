@@ -17,7 +17,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { useStyles } from "./Styles";
 import { CircularProgress } from "@material-ui/core";
 import { addRecipe, updateRecipe } from "../../../store/actions/recipeActions";
-import { ChevronLeft } from "@material-ui/icons";
+import { Fastfood } from "@material-ui/icons";
 // eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -41,6 +41,7 @@ const AddRecipe = () => {
       name: recipe.name,
       description: recipe.description,
       ingredientDescription: recipe.ingredientDescription,
+      image: "",
     };
   }
 
@@ -50,27 +51,27 @@ const AddRecipe = () => {
     defaultValues: preloadedValues,
   });
   const handleImage = (event) => setImage(event.target.files[0]);
-
+  const chefId = chef.id;
   const onSubmit = (data) => {
     if (recipe) {
-      dispatch(updateRecipe(data, history, chef));
+      dispatch(updateRecipe(data, image, chef));
       history.replace("/recipes");
     } else {
-      dispatch(addRecipe(data, history, image, chef));
+      dispatch(addRecipe(data, image, chefId));
       history.replace("/recipes");
     }
   };
 
   const classes = useStyles();
-  if (!chef) return <Redirect to="/" />;
-  if (chefLoading || userLoading || recipeLoading) return <CircularProgress />;
+  // if (!chef) return <Redirect to="/" />;
+  // if (chefLoading || userLoading || recipeLoading) return <CircularProgress />;
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <AccountCircleIcon />
+          <Fastfood />
         </Avatar>
         <Typography component="h1" variant="h5">
           {recipe ? "Update Recipe" : "New Recipe"}
@@ -122,6 +123,7 @@ const AddRecipe = () => {
               />
               {errors.ingredientDescription && <p>Ingredients are required</p>}
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 type="file"

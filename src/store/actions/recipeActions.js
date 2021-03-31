@@ -23,29 +23,35 @@ export const searchRecipe = (searchRecipe) => {
   };
 };
 
-export const addRecipe = (newRecipe, history, image, chef) => async (
+export const addRecipe = (newRecipe, image, chef, chefId) => async (
   dispatch
 ) => {
   try {
+    console.log("action", chefId);
     const formData = new FormData();
     for (const key in newRecipe) formData.append(key, newRecipe[key]);
     formData.append("image", image);
-    const res = await instance.post(`/chefs/${chef.id}/recipes`, formData);
+    const res = await instance.post(`/chefs/${chefId}/recipes`, formData);
+    console.log("res", res.data);
     dispatch({
       type: types.ADD_RECIPE,
       payload: { newRecipe: res.data },
     });
-    history.replace("/recipes");
   } catch (error) {
     console.log("addRecipe recipeActions Error:", error);
   }
 };
 
-export const updateRecipe = (updatedRecipe) => async (dispatch) => {
+export const updateRecipe = (updatedRecipe, image, chef) => async (
+  dispatch
+) => {
   try {
+    const formData = new FormData();
+    for (const key in updatedRecipe) formData.append(key, updatedRecipe[key]);
+    formData.append("image", image);
     const res = await instance.put(
-      `/recipes/${updatedRecipe.recipeId}`,
-      updatedRecipe
+      `chefs/${chef.id}/recipes/${updatedRecipe.id}`,
+      formData
     );
     dispatch({
       type: types.UPDATE_RECIPE,
