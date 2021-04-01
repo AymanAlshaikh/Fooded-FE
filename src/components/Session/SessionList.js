@@ -8,12 +8,14 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import { useStyles } from "./Styles";
 import { CircularProgress } from "@material-ui/core";
 import SessionSearch from "../SearchUnused";
-
+import { Link } from "react-router-dom";
+import { Add } from "@material-ui/icons";
 const SessionList = () => {
   const [search, setSearch] = useState("");
   const classes = useStyles();
   const sessions = useSelector((state) => state.sessionReducer.session);
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);
+  const user = useSelector((state) => state.authReducer.user);
 
   const SessionList = sessions
     // .filter((chef) =>
@@ -33,6 +35,13 @@ const SessionList = () => {
           {SessionList}
         </GridList>
       </div>
+      {user && user.isChef ? (
+        <Link to="/sessions/new">
+          <Add />
+        </Link>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

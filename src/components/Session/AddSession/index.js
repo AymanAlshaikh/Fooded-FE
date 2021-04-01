@@ -15,62 +15,88 @@ import { Link } from "react-router-dom";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 // Actions
 import { useStyles } from "./Styles";
-import { CircularProgress } from "@material-ui/core";
+import {
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  NativeSelect,
+  Select,
+} from "@material-ui/core";
 import { addRecipe, updateRecipe } from "../../../store/actions/recipeActions";
 import { Fastfood } from "@material-ui/icons";
+import {
+  addSession,
+  updateSession,
+} from "../../../store/actions/sessionActions";
+import SelectInput from "@material-ui/core/Select/SelectInput";
 // eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const AddRecipe = () => {
+const AddSession = () => {
   const classes = useStyles();
-  const { recipeSlug } = useParams();
+  const [image, setImage] = useState("");
+  const { sessionId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const sessions = useSelector((state) => state.sessionReducer.session);
+
+  const sessionLoading = useSelector((state) => state.sessionReducer.loading);
+
+  //recipe
   const recipes = useSelector((state) => state.recipeReducer.recipe);
-  const recipe = recipes.find((recipe) => recipe.slug === recipeSlug);
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
-  const [image, setImage] = useState(recipe ? recipe.image : "");
-
-  //chef & user
+  console.log(recipes);
   const chefs = useSelector((state) => state.chefReducer.chef);
-  const user = useSelector((state) => state.authReducer.user);
-  const chef = chefs.find((chef) => chef.userId === user.id);
-  const userLoading = useSelector((state) => state.authReducer.loading);
   const chefLoading = useSelector((state) => state.chefReducer.loading);
+  const user = useSelector((state) => state.authReducer.user);
+  const currentChef = chefs.find((chef) => chef.userId === user.id);
+  const chefRecipes = recipes.filter(
+    (recipe) => recipe.chefId === currentChef.id
+  );
+  console.log(chefRecipes);
 
-  console.log(user);
+  const recipeOptions = chefRecipes.map((recipe) => (
+    <option value={recipe.id}>{recipe.name}</option>
+  ));
 
   let preloadedValues = {};
 
-  if (recipe) {
+  const session = sessions.find((session) => session.id === sessionId);
+  let recipe = null;
+  let chef = null;
+  let chefId = null;
+  let recipeId = null;
+  if (session) {
+    recipe = recipes.find((recipe) => recipe.id === session.recipeId);
+    chef = chefs.find((chef) => chef.id === recipe.chefId);
+    recipeId = recipe.id;
+    chefId = chef.id;
     preloadedValues = {
-      name: recipe.name,
-      description: recipe.description,
-      ingredientDescription: recipe.ingredientDescription,
+      date: session.name,
+      time: session.time,
     };
   }
   const { handleSubmit, errors, register } = useForm({
     defaultValues: preloadedValues,
   });
-  if (!user || !user.isChef) {
-    return <Redirect to="/recipes" />;
-  }
-  if (recipe) {
-    if (recipe.chefId !== chef.id) {
-      return <Redirect to="/recipes" />;
-    }
-  }
-  if (chefLoading || userLoading || recipeLoading) return <CircularProgress />;
+  //   if (!user || !user.isChef) {
+  //     return <Redirect to="/recipes" />;
+  //   }
+  //   if (recipe) {
+  //     if (recipe.chefId !== chef.id) {
+  //       return <Redirect to="/recipes" />;
+  //     }
+  // }
+  if (recipeLoading || sessionLoading || chefLoading)
+    return <CircularProgress />;
 
-  const handleImage = (event) => setImage(event.target.files[0]);
-  const chefId = chef.id;
   const onSubmit = (data) => {
-    if (recipe) {
-      dispatch(updateRecipe(data, image, chefId, recipe));
-      history.replace("/recipes");
+    if (session) {
+      dispatch(updateSession(data, recipeId, session, chefId));
+      history.replace("/sessions");
     } else {
-      dispatch(addRecipe(data, image, chefId));
-      history.replace("/recipes");
+      dispatch(addSession(data, currentChef));
+      history.replace("/sessions");
     }
   };
 
@@ -82,7 +108,7 @@ const AddRecipe = () => {
           <Fastfood />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {recipe ? "Update Recipe" : "New Recipe"}
+          {session ? "Update Session" : "New Session"}
         </Typography>
         <form
           className={classes.form}
@@ -92,57 +118,47 @@ const AddRecipe = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
+                type="time"
                 autoComplete="fname"
-                name="name"
+                name="time"
                 // variant="normal"
                 fullWidth
-                id="name"
-                label="Recipe Name"
+                id="time"
+                label="Session Time"
                 required
                 inputRef={register({ required: true })}
                 autoFocus
               />
-              {errors.name && <p>name is required</p>}
+              {errors.time && <p>time is required</p>}
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
+                type="date"
                 autoComplete="fname"
-                name="description"
+                name="date"
                 // variant="normal"
                 required
                 fullWidth
-                id="description"
-                label="Recipe Description"
+                id="date"
+                label="Session Date"
                 inputRef={register({ required: true })}
                 autoFocus
               />
-              {errors.description && <p>Description is required</p>}
+              {errors.date && <p>Date is required</p>}
             </Grid>
             <Grid item xs={12} sm={12}>
-              <TextField
-                // variant="normal"
-                required
-                fullWidth
-                id="ingredientDescription"
-                label="Ingredients"
-                name="ingredientDescription"
-                autoComplete="lname"
-                inputRef={register({ required: true })}
-              />
-              {errors.ingredientDescription && <p>Ingredients are required</p>}
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                type="file"
-                fullWidth
-                id="image"
-                label="Recipe Image"
-                name="image"
-                onChange={handleImage}
-                // inputRef={register({ required: true })}
-              />
-              {errors.image && <p>Recipe Image is required</p>}
+              <FormControl className={classes.margin}>
+                <InputLabel htmlFor="demo-customized-select-native">
+                  Recipes
+                </InputLabel>
+                <NativeSelect
+                  id="recipeId"
+                  name="recipeId"
+                  inputRef={register({ required: true })}
+                >
+                  {recipeOptions}
+                </NativeSelect>
+              </FormControl>
             </Grid>
           </Grid>
           <Button
@@ -152,7 +168,7 @@ const AddRecipe = () => {
             color="primary"
             className={classes.submit}
           >
-            {recipe ? "Update" : "ADD"}
+            {session ? "Update" : "ADD"}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
@@ -168,4 +184,4 @@ const AddRecipe = () => {
   );
 };
 
-export default AddRecipe;
+export default AddSession;

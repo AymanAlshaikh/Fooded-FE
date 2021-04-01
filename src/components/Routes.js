@@ -11,10 +11,14 @@ import AddRecipe from "./Recipe/AddRecipe";
 
 import ChefList from "./Chef/ChefList";
 import SessionList from "./Session/SessionList";
+import AddSession from "./Session/AddSession";
 
 const Routes = () => {
   return (
     <Switch>
+      <Route path={["/sessions/new", "/sessions/:sessionId/edit"]}>
+        <AddSession />
+      </Route>
       <Route path={["/recipes/new", "/recipes/:recipeSlug/edit"]}>
         <AddRecipe />
       </Route>
