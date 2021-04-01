@@ -25,58 +25,26 @@ import {
   addSession,
   updateSession,
 } from "../../../store/actions/sessionActions";
+import { booking } from "../../../store/actions/bookingActions";
 
 // eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const AddSession = () => {
+const Booking = () => {
   const classes = useStyles();
   const { sessionId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const sessions = useSelector((state) => state.sessionReducer.session);
-
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);
-
-  //recipe
-  const recipes = useSelector((state) => state.recipeReducer.recipe);
-  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
-  console.log(recipes);
-  const chefs = useSelector((state) => state.chefReducer.chef);
-  const chefLoading = useSelector((state) => state.chefReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
   const userLoading = useSelector((state) => state.authReducer.loading);
-  const currentChef = chefs.find((chef) => chef.userId === user.id);
-  const chefRecipes = recipes.filter(
-    (recipe) => recipe.chefId === currentChef.id
-  );
-  console.log(chefRecipes);
-
-  const recipeOptions = chefRecipes.map((recipe) => (
-    <option value={recipe.id}>{recipe.name}</option>
-  ));
-
   let preloadedValues = {};
 
-  const session = sessions.find((session) => session.id === sessionId);
-  let recipe = null;
-  let chef = null;
-  let chefId = null;
-  let recipeId = null;
-  if (session) {
-    recipe = recipes.find((recipe) => recipe.id === session.recipeId);
-    chef = chefs.find((chef) => chef.id === recipe.chefId);
-    recipeId = recipe.id;
-    chefId = chef.id;
-    preloadedValues = {
-      date: session.name,
-      time: session.time,
-    };
-  }
   const { handleSubmit, errors, register } = useForm({
     defaultValues: preloadedValues,
   });
-  if (!user || !user.isChef) {
+  if (!user) {
     return <Redirect to="/sessions" />;
   }
   // if (session) {
@@ -84,17 +52,11 @@ const AddSession = () => {
   //     return <Redirect to="/sessions" />;
   //   }
   // }
-  if (recipeLoading || sessionLoading || chefLoading || userLoading)
-    return <CircularProgress />;
+  if (sessionLoading || userLoading) return <CircularProgress />;
 
   const onSubmit = (data) => {
-    if (session) {
-      dispatch(updateSession(data, recipeId, session, chefId));
-      history.replace("/sessions");
-    } else {
-      dispatch(addSession(data, currentChef));
-      history.replace("/sessions");
-    }
+    dispatch(booking(data, sessionId));
+    history.replace("/");
   };
 
   return (
@@ -105,7 +67,7 @@ const AddSession = () => {
           <Fastfood />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {session ? "Update Session" : "New Session"}
+          Book a Session
         </Typography>
         <form
           className={classes.form}
@@ -115,47 +77,18 @@ const AddSession = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
-                type="time"
+                type="number"
                 autoComplete="fname"
-                name="time"
+                name="qty"
                 // variant="normal"
                 fullWidth
-                id="time"
-                label="Session Time"
+                id="qty"
+                label="Quantity"
                 required
                 inputRef={register({ required: true })}
                 autoFocus
               />
-              {errors.time && <p>time is required</p>}
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <TextField
-                type="date"
-                autoComplete="fname"
-                name="date"
-                // variant="normal"
-                required
-                fullWidth
-                id="date"
-                label="Session Date"
-                inputRef={register({ required: true })}
-                autoFocus
-              />
-              {errors.date && <p>Date is required</p>}
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <FormControl className={classes.margin}>
-                <InputLabel htmlFor="demo-customized-select-native">
-                  Recipes
-                </InputLabel>
-                <NativeSelect
-                  id="recipeId"
-                  name="recipeId"
-                  inputRef={register({ required: true })}
-                >
-                  {recipeOptions}
-                </NativeSelect>
-              </FormControl>
+              {errors.qty && <p>Quantity is required</p>}
             </Grid>
           </Grid>
           <Button
@@ -165,15 +98,8 @@ const AddSession = () => {
             color="primary"
             className={classes.submit}
           >
-            {session ? "Update" : "ADD"}
+            Book
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to="/signin">
-                <Link1 variant="body2"></Link1>
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={5}></Box>
@@ -181,4 +107,4 @@ const AddSession = () => {
   );
 };
 
-export default AddSession;
+export default Booking;
