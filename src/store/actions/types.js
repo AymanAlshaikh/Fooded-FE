@@ -21,3 +21,6 @@ export const SEARCH_SESSION = "SEARCH_SESSION";
 export const ADD_SESSION = "ADD_SESSION";
 export const UPDATE_SESSION = "UPDATE_SESSION";
 export const REMOVE_SESSION = "REMOVE_SESSION";
+
+//booking types
+export const BOOK_SESSION = "BOOK_SESSION";

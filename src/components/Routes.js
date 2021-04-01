@@ -12,7 +12,7 @@ import AddRecipe from "./Recipe/AddRecipe";
 import ChefList from "./Chef/ChefList";
 import SessionList from "./Session/SessionList";
 import AddSession from "./Session/AddSession";
-
+import Booking from "./Session/Booking";
 const Routes = () => {
   return (
     <Switch>
@@ -21,6 +21,9 @@ const Routes = () => {
       </Route>
       <Route path={["/recipes/new", "/recipes/:recipeSlug/edit"]}>
         <AddRecipe />
+      </Route>
+      <Route path="/sessions/:sessionId/booking">
+        <Booking />
       </Route>
       <Route path="/sessions/:sessionId">
         <SessionDetail />
