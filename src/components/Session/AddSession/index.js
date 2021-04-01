@@ -49,6 +49,7 @@ const AddSession = () => {
   const chefs = useSelector((state) => state.chefReducer.chef);
   const chefLoading = useSelector((state) => state.chefReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
+  const userLoading = useSelector((state) => state.authReducer.loading);
   const currentChef = chefs.find((chef) => chef.userId === user.id);
   const chefRecipes = recipes.filter(
     (recipe) => recipe.chefId === currentChef.id
@@ -79,15 +80,15 @@ const AddSession = () => {
   const { handleSubmit, errors, register } = useForm({
     defaultValues: preloadedValues,
   });
-  //   if (!user || !user.isChef) {
-  //     return <Redirect to="/recipes" />;
+  if (!user || !user.isChef) {
+    return <Redirect to="/sessions" />;
+  }
+  // if (session) {
+  //   if (recipe.chefId !== chef.id) {
+  //     return <Redirect to="/sessions" />;
   //   }
-  //   if (recipe) {
-  //     if (recipe.chefId !== chef.id) {
-  //       return <Redirect to="/recipes" />;
-  //     }
   // }
-  if (recipeLoading || sessionLoading || chefLoading)
+  if (recipeLoading || sessionLoading || chefLoading || userLoading)
     return <CircularProgress />;
 
   const onSubmit = (data) => {
