@@ -25,16 +25,11 @@ export const searchSession = (searchedSession) => {
   };
 };
 
-export const addSession = (newSession, image, recipeId, chefId) => async (
-  dispatch
-) => {
+export const addSession = (newSession, currentChef) => async (dispatch) => {
   try {
-    const formData = new FormData();
-    for (const key in newSession) formData.append(key, newSession[key]);
-    formData.append("image", image);
     const res = await instance.post(
-      `/chefs/${chefId}/recipes/${recipeId}/sessions`,
-      formData
+      `/chefs/${currentChef.id}/sessions`,
+      newSession
     );
 
     dispatch({
@@ -48,17 +43,14 @@ export const addSession = (newSession, image, recipeId, chefId) => async (
 
 export const updateSession = (
   updatedSession,
-  image,
+
   recipeId,
   session
 ) => async (dispatch) => {
   try {
-    const formData = new FormData();
-    for (const key in updatedSession) formData.append(key, updatedSession[key]);
-    formData.append("image", image);
     const res = await instance.put(
       `recipes/${recipeId}/sessions/${session.id}`,
-      formData
+      updatedSession
     );
     dispatch({
       type: types.UPDATE_SESSION,

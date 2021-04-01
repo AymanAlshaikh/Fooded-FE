@@ -15,13 +15,20 @@ import { Link } from "react-router-dom";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 // Actions
 import { useStyles } from "./Styles";
-import { CircularProgress } from "@material-ui/core";
+import {
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  NativeSelect,
+  Select,
+} from "@material-ui/core";
 import { addRecipe, updateRecipe } from "../../../store/actions/recipeActions";
 import { Fastfood } from "@material-ui/icons";
 import {
   addSession,
   updateSession,
 } from "../../../store/actions/sessionActions";
+import SelectInput from "@material-ui/core/Select/SelectInput";
 // eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -40,15 +47,30 @@ const AddSession = () => {
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   console.log(recipes);
   const chefs = useSelector((state) => state.chefReducer.chef);
-
   const chefLoading = useSelector((state) => state.chefReducer.loading);
-  // const user = useSelector((state) => state.authReducer.user);
+  const user = useSelector((state) => state.authReducer.user);
+  const currentChef = chefs.find((chef) => chef.userId === user.id);
+  const chefRecipes = recipes.filter(
+    (recipe) => recipe.chefId === currentChef.id
+  );
+  console.log(chefRecipes);
+
+  const recipeOptions = chefRecipes.map((recipe) => (
+    <option value={recipe.id}>{recipe.name}</option>
+  ));
 
   let preloadedValues = {};
 
   const session = sessions.find((session) => session.id === sessionId);
-  const recipe = recipes.find((recipe) => recipe.id === session.recipeId);
+  let recipe = null;
+  let chef = null;
+  let chefId = null;
+  let recipeId = null;
   if (session) {
+    recipe = recipes.find((recipe) => recipe.id === session.recipeId);
+    chef = chefs.find((chef) => chef.id === recipe.chefId);
+    recipeId = recipe.id;
+    chefId = chef.id;
     preloadedValues = {
       date: session.name,
       time: session.time,
@@ -67,15 +89,13 @@ const AddSession = () => {
   // }
   if (recipeLoading || sessionLoading || chefLoading)
     return <CircularProgress />;
-  const chef = chefs.find((chef) => chef.id === recipe.chefId);
-  const recipeId = recipe.id;
-  const chefId = chef.id;
+
   const onSubmit = (data) => {
     if (session) {
-      dispatch(updateSession(data, image, recipeId, session, chefId));
+      dispatch(updateSession(data, recipeId, session, chefId));
       history.replace("/sessions");
     } else {
-      dispatch(addSession(data, image, recipeId, chefId));
+      dispatch(addSession(data, currentChef));
       history.replace("/sessions");
     }
   };
@@ -125,6 +145,20 @@ const AddSession = () => {
                 autoFocus
               />
               {errors.date && <p>Date is required</p>}
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <FormControl className={classes.margin}>
+                <InputLabel htmlFor="demo-customized-select-native">
+                  Recipes
+                </InputLabel>
+                <NativeSelect
+                  id="recipeId"
+                  name="recipeId"
+                  inputRef={register({ required: true })}
+                >
+                  {recipeOptions}
+                </NativeSelect>
+              </FormControl>
             </Grid>
           </Grid>
           <Button
