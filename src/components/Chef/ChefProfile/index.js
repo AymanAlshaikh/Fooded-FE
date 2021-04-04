@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+
 const ChefProfile = () => {
   const user = useSelector((state) => state.authReducer.user);
   const loading = useSelector((state) => state.authReducer.loading);
