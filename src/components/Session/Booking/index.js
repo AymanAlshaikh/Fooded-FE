@@ -20,7 +20,7 @@ import {
   InputLabel,
   NativeSelect,
 } from "@material-ui/core";
-import { Fastfood } from "@material-ui/icons";
+import { Book, Fastfood } from "@material-ui/icons";
 import {
   addSession,
   updateSession,
@@ -64,7 +64,7 @@ const Booking = () => {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <Fastfood />
+          <Book />
         </Avatar>
         <Typography component="h1" variant="h5">
           Book a Session
