@@ -20,7 +20,7 @@ import {
   InputLabel,
   NativeSelect,
 } from "@material-ui/core";
-import { Fastfood } from "@material-ui/icons";
+import { Fastfood, ScheduleRounded } from "@material-ui/icons";
 import {
   addSession,
   updateSession,
@@ -76,14 +76,14 @@ const AddSession = () => {
   const { handleSubmit, errors, register } = useForm({
     defaultValues: preloadedValues,
   });
-  if (!user || !user.isChef) {
+  if (!user) {
     return <Redirect to="/sessions" />;
   }
-  // if (session) {
-  //   if (recipe.chefId !== chef.id) {
-  //     return <Redirect to="/sessions" />;
-  //   }
-  // }
+  if (user) {
+    if (user.isChef === false) {
+      return <Redirect to="/sessions" />;
+    }
+  }
   if (recipeLoading || sessionLoading || chefLoading || userLoading)
     return <CircularProgress />;
 
@@ -102,7 +102,7 @@ const AddSession = () => {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <Fastfood />
+          <ScheduleRounded />
         </Avatar>
         <Typography component="h1" variant="h5">
           {session ? "Update Session" : "New Session"}

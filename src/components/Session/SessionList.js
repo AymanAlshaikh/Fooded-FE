@@ -34,14 +34,14 @@ const SessionList = () => {
           </GridListTile>
           {SessionList}
         </GridList>
+        {user && user.isChef ? (
+          <Link to="/sessions/new">
+            <Add />
+          </Link>
+        ) : (
+          ""
+        )}
       </div>
-      {user && user.isChef ? (
-        <Link to="/sessions/new">
-          <Add />
-        </Link>
-      ) : (
-        ""
-      )}
     </div>
   );
 };
