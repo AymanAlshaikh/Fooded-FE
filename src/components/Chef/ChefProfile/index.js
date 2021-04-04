@@ -12,12 +12,11 @@ const ChefProfile = () => {
   const chefRecipe = recipes.filter((recipe) => recipe.chefId === ChefID);
 
   const sessions = useSelector((state) => state.sessionReducer.session);
-  //finding all sessions related to the signed in chef
-  const sessionList = chefRecipe.map((recipe) =>
-    sessions.find((session) => session.recipeId === recipe.id)
+
+  const sessionList = sessions.map((session) =>
+    chefRecipe.find((recipe) => session.recipeId === recipe.id)
   );
   if (!loading) {
-    //sessions list will have an undifined value at the moment coz we have a recipe that is not assigned to a session
     console.log("session list: ", sessionList);
     console.log("sessions: ", sessions);
     console.log(chefRecipe);
