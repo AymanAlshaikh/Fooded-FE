@@ -13,8 +13,8 @@ const ChefProfile = () => {
 
   const sessions = useSelector((state) => state.sessionReducer.session);
 
-  const sessionList = sessions.map((session) =>
-    chefRecipe.find((recipe) => session.recipeId === recipe.id)
+  const sessionList = chefRecipe.map((recipe) =>
+    sessions.find((session) => session.recipeId === recipe.id)
   );
   if (!loading) {
     console.log("session list: ", sessionList);
