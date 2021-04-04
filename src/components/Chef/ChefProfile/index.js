@@ -17,6 +17,7 @@ const ChefProfile = () => {
     sessions.find((session) => session.recipeId === recipe.id)
   );
   if (!loading) {
+    //sessions list will have an undifined value at the moment coz we have a recipe that is not assigned to a session
     console.log("session list: ", sessionList);
     console.log("sessions: ", sessions);
     console.log(chefRecipe);
