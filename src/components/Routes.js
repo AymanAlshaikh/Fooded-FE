@@ -13,6 +13,7 @@ import ChefList from "./Chef/ChefList";
 import SessionList from "./Session/SessionList";
 import AddSession from "./Session/AddSession";
 import Booking from "./Session/Booking";
+import Home from "./Home";
 const Routes = () => {
   return (
     <Switch>
@@ -51,6 +52,9 @@ const Routes = () => {
       </Route>
       <Route path="/signin">
         <SignIn />
+      </Route>
+      <Route path="/">
+        <Home />
       </Route>
     </Switch>
   );
