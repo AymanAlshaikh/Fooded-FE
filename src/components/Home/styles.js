@@ -2,27 +2,24 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles({
   root: {
-    // maxWidth: 345,
-    // display: "flex",
-    // flexWrap: "wrap",
-    // justifyContent: "space-around",
-    // overflow: "hidden",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    // height: "100%",
-    // width: "100%",
-    // top: "64px",
-    // borderRadius: "0px",
-    // overflow: "hidden",
+    background: "black",
   },
-  media: {
-    height: 500,
-    width: 500,
+  video: {
     justifyContent: "center",
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
+  },
+  content: {
+    textAlign: "center",
+    padding: "10px",
+    color: "white",
+    fontSize: "1.3rem",
+    display: "flex",
+    position: "absolute",
   },
 });
