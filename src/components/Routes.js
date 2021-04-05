@@ -13,12 +13,16 @@ import ChefList from "./Chef/ChefList";
 import SessionList from "./Session/SessionList";
 import AddSession from "./Session/AddSession";
 import Booking from "./Session/Booking";
+import ChefProfile from "./Chef/ChefProfile";
 import Home from "./Home";
 const Routes = () => {
   return (
     <Switch>
       <Route path={["/sessions/new", "/sessions/:sessionId/edit"]}>
         <AddSession />
+      </Route>
+      <Route path={"/log"}>
+        <ChefProfile />
       </Route>
       <Route path={["/recipes/new", "/recipes/:recipeSlug/edit"]}>
         <AddRecipe />
