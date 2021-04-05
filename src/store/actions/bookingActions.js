@@ -41,10 +41,7 @@ export const deleteBooking = (bookingId, recipe) => async (dispatch) => {
 
 export const booking = (bookSession, sessionId) => async (dispatch) => {
   try {
-    const res = await instance.post(
-      `/sessions/${sessionId}/booking`,
-      bookSession
-    );
+    await instance.post(`/sessions/${sessionId}/booking`, bookSession);
     dispatch({
       type: types.BOOK_SESSION,
     });

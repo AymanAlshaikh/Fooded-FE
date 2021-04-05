@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 //Dev express imports
@@ -6,14 +6,13 @@ import moment from "moment";
 import Paper from "@material-ui/core/Paper";
 import {
   Scheduler,
-  // WeekView, (Currently unimplemented)
+  WeekView,
   MonthView,
   Appointments,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 const ChefProfile = () => {
   const user = useSelector((state) => state.authReducer.user);
-  const loading = useSelector((state) => state.authReducer.loading);
 
   const chefs = useSelector((state) => state.chefReducer.chef);
   const thisChef = chefs.find((chef) => chef.userId === user.id);
@@ -28,33 +27,37 @@ const ChefProfile = () => {
     sessions.find((session) => session.recipeId === recipe.id)
   );
 
-  // let appointments = [];
+  const [view, setView] = useState("month");
 
-  // sessionList.map((session) =>
-  //   appointments.push({
-  //     title: `session ${session.id}`,
-  //     startDate: new Date(moment(session.date)),
-  //     endDate: new Date(moment(session.date).add(1, "hour")),
-  //   })
-  // );
+  const handleView = () => {
+    if (view === "month") {
+      setView("week");
+    } else {
+      setView("month");
+    }
+  };
 
-  if (!loading) {
-    // console.log("appointments: ", appointments);
-    console.log("session list: ", sessionList);
-    console.log("sessions: ", sessions);
-    console.log(chefRecipe);
-    console.log(ChefID);
-    console.log(thisChef);
-  }
+  let appointments = [];
+
+  sessionList.forEach(
+    (session) =>
+      session !== undefined &&
+      appointments.push({
+        title: `session ${session.id}`,
+        startDate: new Date(moment(session.date)),
+        endDate: new Date(moment(session.date).add(1, "hour")),
+      })
+  );
+
   return (
     <div>
-      {/* <Paper>
+      <Paper>
         <Scheduler data={appointments}>
-          <MonthView />
+          <button onClick={handleView}>Change View</button>
+          {view === "month" ? <MonthView /> : <WeekView />}
           <Appointments />
         </Scheduler>
-      </Paper> */}
-      <h1>AY SHAY</h1>
+      </Paper>
     </div>
   );
 };
