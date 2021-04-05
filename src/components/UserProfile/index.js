@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -11,14 +11,11 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-// Actions
 import { updateUser } from "../../store/actions/authActions";
-import { useStyles } from "./Styles";
+import { useStyles } from "./styles";
 import { CircularProgress } from "@material-ui/core";
 
-// eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const UserProfile = () => {
@@ -27,7 +24,6 @@ const UserProfile = () => {
   const user = useSelector((state) => state.authReducer.user);
   const loading = useSelector((state) => state.authReducer.loading);
   let preloadedValues = {};
-  console.log(user);
   if (user) {
     preloadedValues = {
       username: user.username,
@@ -75,7 +71,6 @@ const UserProfile = () => {
               <TextField
                 autoComplete="fname"
                 name="username"
-                // variant="normal"
                 fullWidth
                 id="username"
                 label="Username"
@@ -89,7 +84,6 @@ const UserProfile = () => {
               <TextField
                 autoComplete="fname"
                 name="firstName"
-                // variant="normal"
                 required
                 fullWidth
                 id="firstName"
@@ -101,7 +95,6 @@ const UserProfile = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                // variant="normal"
                 required
                 fullWidth
                 id="lastName"
@@ -114,7 +107,6 @@ const UserProfile = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="phoneNumber"
@@ -127,7 +119,6 @@ const UserProfile = () => {
             </Grid>
             <Grid item xs={4}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="house"
@@ -139,7 +130,6 @@ const UserProfile = () => {
             </Grid>
             <Grid item xs={4}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="road"
@@ -152,7 +142,6 @@ const UserProfile = () => {
             </Grid>
             <Grid item xs={4}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 name="block"
@@ -165,7 +154,6 @@ const UserProfile = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="city"
@@ -177,7 +165,6 @@ const UserProfile = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="email"

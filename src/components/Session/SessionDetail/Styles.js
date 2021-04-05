@@ -6,7 +6,6 @@ export const useStyles = makeStyles({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    // overflow: "hidden",
   },
   media: {
     height: 140,

@@ -1,7 +1,7 @@
 import * as types from "../actions/types";
 
 const initialState = {
-  session: [], // session Data,
+  session: [],
   loading: true,
 };
 
@@ -19,7 +19,7 @@ const sessionReducer = (state = initialState, action) => {
         session: [...state.session, action.payload.newSession],
       };
 
-    case types.REMOVE_SESSION:
+    case types.REMOVE_SESSION: //ICEd
       return {
         ...state,
         session: state.session.filter(
@@ -27,7 +27,7 @@ const sessionReducer = (state = initialState, action) => {
         ),
       };
 
-    case types.UPDATE_SESSION:
+    case types.UPDATE_SESSION: //ICEd
       const { updatedSession } = action.payload;
       return {
         ...state,

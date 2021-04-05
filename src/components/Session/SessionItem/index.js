@@ -1,3 +1,4 @@
+import React from "react";
 import {
   CircularProgress,
   GridListTile,
@@ -5,15 +6,13 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { PostAdd } from "@material-ui/icons";
-import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { useStyles } from "./Styles";
+import { useStyles } from "./styles";
 
 export default function SessionItem({ session }) {
   const classes = useStyles();
-  // const recipeSlug = recipe.slug;
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipe = recipes.find((recipe) => recipe.id === session.recipeId);
   const loading = useSelector((state) => state.recipeReducer.loading);

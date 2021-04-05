@@ -12,41 +12,10 @@ export const fetchBookings = () => {
   };
 };
 
-export const searchBooking = (searchedBooking) => {
-  return async (dispatch) => {
-    try {
-      console.log("booking search coming from actions: ", searchedBooking);
-      const res = await instance.post("/booking/search", searchedBooking);
-      console.log("booking actions res: ", res.data);
-      dispatch({ type: types.SEARCH_SESSION, payload: res.data });
-    } catch (error) {
-      console.log("searchBooking bookingActions Error:", error);
-    }
-  };
-};
-
-export const addBooking = (newBooking, currentChef) => async (dispatch) => {
-  try {
-    const res = await instance.post(
-      `/sessions/${currentChef.id}/booking`,
-      newBooking
-    );
-
-    dispatch({
-      type: types.ADD_SESSION,
-      payload: { newBooking: res.data },
-    });
-  } catch (error) {
-    console.log("addBooking bookingActions Error:", error);
-  }
-};
-
-export const updateBooking = (
-  updatedBooking,
-
-  recipeId,
-  booking
-) => async (dispatch) => {
+// ICEd
+export const updateBooking = (updatedBooking, recipeId, booking) => async (
+  dispatch
+) => {
   try {
     const res = await instance.put(
       `recipes/${recipeId}/booking/${booking.id}`,
@@ -60,7 +29,7 @@ export const updateBooking = (
     console.log("updateBooking bookingActions Error:", error);
   }
 };
-
+// ICEd
 export const deleteBooking = (bookingId, recipe) => async (dispatch) => {
   try {
     await instance.delete(`/recipes/${recipe.id}/booking/${bookingId}`);
@@ -78,7 +47,6 @@ export const booking = (bookSession, sessionId) => async (dispatch) => {
     );
     dispatch({
       type: types.BOOK_SESSION,
-      // payload: bookSession,
     });
   } catch (error) {
     console.log(error);

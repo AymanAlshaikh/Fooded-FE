@@ -5,7 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { useSelector } from "react-redux";
-import { useStyles } from "./Styles";
+import { useStyles } from "./styles";
 import { Redirect, useParams } from "react-router";
 
 export default function SessionDetail() {

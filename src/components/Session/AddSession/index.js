@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -11,16 +11,14 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
-// Actions
-import { useStyles } from "./Styles";
+import { useStyles } from "./styles";
 import {
   CircularProgress,
   FormControl,
   InputLabel,
   NativeSelect,
 } from "@material-ui/core";
-import { Fastfood, ScheduleRounded } from "@material-ui/icons";
+import { ScheduleRounded } from "@material-ui/icons";
 import {
   addSession,
   updateSession,
@@ -35,13 +33,9 @@ const AddSession = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessions = useSelector((state) => state.sessionReducer.session);
-
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);
-
-  //recipe
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
-  console.log(recipes);
   const chefs = useSelector((state) => state.chefReducer.chef);
   const chefLoading = useSelector((state) => state.chefReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
@@ -50,7 +44,6 @@ const AddSession = () => {
   const chefRecipes = recipes.filter(
     (recipe) => recipe.chefId === currentChef.id
   );
-  console.log(chefRecipes);
 
   const recipeOptions = chefRecipes.map((recipe) => (
     <option value={recipe.id}>{recipe.name}</option>
@@ -118,7 +111,6 @@ const AddSession = () => {
                 type="time"
                 autoComplete="fname"
                 name="time"
-                // variant="normal"
                 fullWidth
                 id="time"
                 label="Session Time"
@@ -133,7 +125,6 @@ const AddSession = () => {
                 type="date"
                 autoComplete="fname"
                 name="date"
-                // variant="normal"
                 required
                 fullWidth
                 id="date"
@@ -162,7 +153,6 @@ const AddSession = () => {
                 type="text"
                 autoComplete="fname"
                 name="zoom"
-                // variant="normal"
                 required
                 fullWidth
                 id="zoom"

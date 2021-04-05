@@ -10,7 +10,7 @@ const setUser = (token) => {
     payload: decode(token),
   };
 };
-// if changing backend for redundency, change newUser prop
+
 export const signup = (newUser, history) => {
   return async (dispatch) => {
     try {

@@ -6,7 +6,7 @@ import moment from "moment";
 import Paper from "@material-ui/core/Paper";
 import {
   Scheduler,
-  WeekView,
+  // WeekView, (Currently unimplemented)
   MonthView,
   Appointments,
 } from "@devexpress/dx-react-scheduler-material-ui";
@@ -28,18 +28,18 @@ const ChefProfile = () => {
     sessions.find((session) => session.recipeId === recipe.id)
   );
 
-  let appointments = [];
+  // let appointments = [];
 
-  sessionList.map((session) =>
-    appointments.push({
-      title: `session ${session.id}`,
-      startDate: new Date(moment(session.date)),
-      endDate: new Date(moment(session.date).add(1, "hour")),
-    })
-  );
+  // sessionList.map((session) =>
+  //   appointments.push({
+  //     title: `session ${session.id}`,
+  //     startDate: new Date(moment(session.date)),
+  //     endDate: new Date(moment(session.date).add(1, "hour")),
+  //   })
+  // );
 
   if (!loading) {
-    console.log("appointments: ", appointments);
+    // console.log("appointments: ", appointments);
     console.log("session list: ", sessionList);
     console.log("sessions: ", sessions);
     console.log(chefRecipe);
@@ -48,12 +48,13 @@ const ChefProfile = () => {
   }
   return (
     <div>
-      <Paper>
+      {/* <Paper>
         <Scheduler data={appointments}>
           <MonthView />
           <Appointments />
         </Scheduler>
-      </Paper>
+      </Paper> */}
+      <h1>AY SHAY</h1>
     </div>
   );
 };

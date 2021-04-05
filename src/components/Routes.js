@@ -21,9 +21,6 @@ const Routes = () => {
       <Route path={["/sessions/new", "/sessions/:sessionId/edit"]}>
         <AddSession />
       </Route>
-      <Route path={"/log"}>
-        <ChefProfile />
-      </Route>
       <Route path={["/recipes/new", "/recipes/:recipeSlug/edit"]}>
         <AddRecipe />
       </Route>
@@ -56,6 +53,9 @@ const Routes = () => {
       </Route>
       <Route path="/signin">
         <SignIn />
+      </Route>
+      <Route path={"/log"}>
+        <ChefProfile />
       </Route>
       <Route path="/">
         <Home />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -6,36 +6,20 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link1 from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
-// Actions
-import { useStyles } from "./Styles";
-import {
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  NativeSelect,
-} from "@material-ui/core";
-import { Book, Fastfood } from "@material-ui/icons";
-import {
-  addSession,
-  updateSession,
-} from "../../../store/actions/sessionActions";
+import { useStyles } from "./styles";
+import { CircularProgress } from "@material-ui/core";
+import { Book } from "@material-ui/icons";
 import { booking } from "../../../store/actions/bookingActions";
-
-// eslint-disable-next-line
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const Booking = () => {
   const classes = useStyles();
   const { sessionId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const sessions = useSelector((state) => state.sessionReducer.session);
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
   const userLoading = useSelector((state) => state.authReducer.loading);
@@ -47,11 +31,7 @@ const Booking = () => {
   if (!user) {
     return <Redirect to="/sessions" />;
   }
-  // if (session) {
-  //   if (recipe.chefId !== chef.id) {
-  //     return <Redirect to="/sessions" />;
-  //   }
-  // }
+
   if (sessionLoading || userLoading) return <CircularProgress />;
 
   const onSubmit = (data) => {
@@ -80,7 +60,6 @@ const Booking = () => {
                 type="number"
                 autoComplete="fname"
                 name="qty"
-                // variant="normal"
                 fullWidth
                 id="qty"
                 label="Quantity"
