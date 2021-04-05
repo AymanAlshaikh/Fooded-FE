@@ -2,8 +2,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { signup } from "../../../store/actions/authActions";
+import { useStyles } from "./styles";
+
 import Link1 from "@material-ui/core/Link";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import {
   CssBaseline,
   Avatar,
@@ -14,11 +16,8 @@ import {
   Typography,
   Container,
 } from "@material-ui/core/";
-// Actions
-import { signup } from "../../../store/actions/authActions";
-import { useStyles } from "./styles";
+import { LockOutlined } from "@material-ui/icons/";
 
-// eslint-disable-next-line
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const Signup = () => {
@@ -38,7 +37,7 @@ const Signup = () => {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
@@ -144,7 +143,6 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="email"

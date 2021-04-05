@@ -1,10 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useHistory, Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { signin } from "../../../store/actions/authActions";
 import { useStyles } from "./styles";
-import { useForm } from "react-hook-form";
-import { useHistory, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+
 import Link1 from "@material-ui/core/Link";
 import {
   CssBaseline,
@@ -18,6 +18,7 @@ import {
   Typography,
   Container,
 } from "@material-ui/core/";
+import { LockOutlined } from "@material-ui/icons/";
 
 export default function SignIn() {
   const classes = useStyles();
@@ -35,7 +36,7 @@ export default function SignIn() {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
@@ -63,7 +64,6 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
               inputRef={register({ required: true })}
             />
             {errors.password && <p>password is required</p>}

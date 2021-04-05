@@ -1,14 +1,18 @@
-import { useSelector } from "react-redux";
-import SessionItem from "../SessionItem";
 import React, { useState } from "react";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import { useStyles } from "./styles";
-import { CircularProgress } from "@material-ui/core";
-import SessionSearch from "../Search";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import SessionSearch from "../Search";
+import SessionItem from "../SessionItem";
+import { useStyles } from "./styles";
+
+import {
+  CircularProgress,
+  GridList,
+  GridListTile,
+  ListSubheader,
+} from "@material-ui/core";
 import { Add } from "@material-ui/icons";
+
 const SessionList = () => {
   const [search, setSearch] = useState("");
   const classes = useStyles();

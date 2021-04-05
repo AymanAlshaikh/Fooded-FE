@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import ChefItem from "./ChefItem";
-import ChefSearch from "../Search";
+import ChefSearch from "../../Search";
+import ChefItem from "../ChefItem";
 import { useStyles } from "./styles";
+
 import {
   CircularProgress,
   ListSubheader,

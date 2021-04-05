@@ -1,14 +1,12 @@
-import { useSelector } from "react-redux";
-import RecipeItem from "../RecipeItem";
-
 import React, { useState } from "react";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import { useStyles } from "./styles";
-import ChefSearch from "../../Search";
-import { Add } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import ChefSearch from "../../Search";
+import RecipeItem from "../RecipeItem";
+import { useStyles } from "./styles";
+
+import { GridList, GridListTile, ListSubheader } from "@material-ui/core/";
+import { Add } from "@material-ui/icons";
 
 const RecipeList = ({ chefRecipe }) => {
   const [search, setSearch] = useState("");
