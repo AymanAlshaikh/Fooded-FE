@@ -5,10 +5,11 @@ import React, { useState } from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import { useStyles } from "../Styles";
+import { useStyles } from "./styles";
 import ChefSearch from "../../Search";
 import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+
 const RecipeList = ({ chefRecipe }) => {
   const [search, setSearch] = useState("");
   const classes = useStyles();

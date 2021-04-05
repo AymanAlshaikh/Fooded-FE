@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 //Dev express imports
@@ -13,7 +13,6 @@ import {
 
 const ChefProfile = () => {
   const user = useSelector((state) => state.authReducer.user);
-  const loading = useSelector((state) => state.authReducer.loading);
 
   const chefs = useSelector((state) => state.chefReducer.chef);
   const thisChef = chefs.find((chef) => chef.userId === user.id);
@@ -28,29 +27,34 @@ const ChefProfile = () => {
     sessions.find((session) => session.recipeId === recipe.id)
   );
 
+  const [view, setView] = useState("month");
+
+  const handleView = () => {
+    if (view === "month") {
+      setView("week");
+    } else {
+      setView("month");
+    }
+  };
+
   let appointments = [];
 
-  sessionList.map((session) =>
-    appointments.push({
-      title: `session ${session.id}`,
-      startDate: new Date(moment(session.date)),
-      endDate: new Date(moment(session.date).add(1, "hour")),
-    })
+  sessionList.forEach(
+    (session) =>
+      session !== undefined &&
+      appointments.push({
+        title: `session ${session.id}`,
+        startDate: new Date(moment(session.date)),
+        endDate: new Date(moment(session.date).add(1, "hour")),
+      })
   );
 
-  if (!loading) {
-    console.log("appointments: ", appointments);
-    console.log("session list: ", sessionList);
-    console.log("sessions: ", sessions);
-    console.log(chefRecipe);
-    console.log(ChefID);
-    console.log(thisChef);
-  }
   return (
     <div>
       <Paper>
         <Scheduler data={appointments}>
-          <MonthView />
+          <button onClick={handleView}>Change View</button>
+          {view === "month" ? <MonthView /> : <WeekView />}
           <Appointments />
         </Scheduler>
       </Paper>

@@ -1,8 +1,6 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 import { useStyles } from "./styles";
+import { Typography, Container, Link } from "@material-ui/core/";
 
 const CopyrightContent = () => {
   return (

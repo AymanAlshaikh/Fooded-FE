@@ -1,22 +1,23 @@
 import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link1 from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { useStyles } from "./Styles";
-import Container from "@material-ui/core/Container";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { signin } from "../../../store/actions/authActions";
-import { Link } from "react-router-dom";
+import { useStyles } from "./styles";
+import { useForm } from "react-hook-form";
+import { useHistory, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Link1 from "@material-ui/core/Link";
+import {
+  CssBaseline,
+  Avatar,
+  Button,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from "@material-ui/core/";
 
 export default function SignIn() {
   const classes = useStyles();
@@ -25,7 +26,6 @@ export default function SignIn() {
   const history = useHistory();
 
   const onSubmit = (data, event) => {
-    console.log(data);
     event.preventDefault();
     dispatch(signin(data, history));
   };
@@ -43,14 +43,12 @@ export default function SignIn() {
         <form className={classes.form} noValidate>
           <Grid item xs={12} sm={12}>
             <TextField
-              // variant="outlined"
               margin="normal"
               required
               fullWidth
               id="username"
               label="username"
               name="username"
-              // autoComplete="email"
               autoFocus
               inputRef={register({ required: true })}
             />
@@ -58,7 +56,6 @@ export default function SignIn() {
           </Grid>
           <Grid item xs={12} sm={12}>
             <TextField
-              // variant="outlined"
               margin="normal"
               required
               fullWidth
@@ -85,11 +82,6 @@ export default function SignIn() {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              {/* <Link1 href="#" variant="body2">
-                Forgot password?
-              </Link1> */}
-            </Grid>
             <Grid item>
               <Link to="/signup">
                 <Link1>Don't have an account? Sign Up</Link1>

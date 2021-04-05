@@ -1,13 +1,12 @@
 import { useSelector } from "react-redux";
-import SessionItem from "./SessionItem";
-
+import SessionItem from "../SessionItem";
 import React, { useState } from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import { useStyles } from "./Styles";
+import { useStyles } from "./styles";
 import { CircularProgress } from "@material-ui/core";
-import SessionSearch from "../SearchUnused";
+import SessionSearch from "../Search";
 import { Link } from "react-router-dom";
 import { Add } from "@material-ui/icons";
 const SessionList = () => {
@@ -17,11 +16,9 @@ const SessionList = () => {
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
 
-  const SessionList = sessions
-    // .filter((chef) =>
-    //   chef.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-    // )
-    .map((session) => <SessionItem key={session.id} session={session} />);
+  const SessionList = sessions.map((session) => (
+    <SessionItem key={session.id} session={session} />
+  ));
 
   if (!sessions || sessionLoading) return <CircularProgress />;
   return (

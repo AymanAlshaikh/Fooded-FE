@@ -40,7 +40,7 @@ export const addSession = (newSession, currentChef) => async (dispatch) => {
     console.log("addSession sessionActions Error:", error);
   }
 };
-
+// ICEd
 export const updateSession = (
   updatedSession,
 
@@ -60,7 +60,7 @@ export const updateSession = (
     console.log("updateSession sessionActions Error:", error);
   }
 };
-
+// ICEd
 export const deleteSession = (sessionId, recipe) => async (dispatch) => {
   try {
     await instance.delete(`/recipes/${recipe.id}/sessions/${sessionId}`);

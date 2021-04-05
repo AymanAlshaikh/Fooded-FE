@@ -5,7 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { useSelector } from "react-redux";
-import { useStyles } from "./Styles";
+import { useStyles } from "./styles";
 import { Redirect, useParams } from "react-router";
 
 export default function RecipeDetail() {
@@ -15,8 +15,6 @@ export default function RecipeDetail() {
   const recipe = useSelector((state) =>
     state.recipeReducer.recipe.find((recipe) => recipe.slug === recipeSlug)
   );
-
-  console.log(recipeSlug);
 
   if (!recipe) return <Redirect to="/recipes" />;
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -11,11 +11,8 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-// Actions
-import { useStyles } from "./Styles";
 import { CircularProgress } from "@material-ui/core";
+import { useStyles } from "./styles";
 import { addRecipe, updateRecipe } from "../../../store/actions/recipeActions";
 import { Fastfood } from "@material-ui/icons";
 // eslint-disable-next-line
@@ -94,7 +91,6 @@ const AddRecipe = () => {
               <TextField
                 autoComplete="fname"
                 name="name"
-                // variant="normal"
                 fullWidth
                 id="name"
                 label="Recipe Name"
@@ -108,7 +104,6 @@ const AddRecipe = () => {
               <TextField
                 autoComplete="fname"
                 name="description"
-                // variant="normal"
                 required
                 fullWidth
                 id="description"
@@ -120,7 +115,6 @@ const AddRecipe = () => {
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
-                // variant="normal"
                 required
                 fullWidth
                 id="ingredientDescription"
@@ -140,7 +134,6 @@ const AddRecipe = () => {
                 label="Recipe Image"
                 name="image"
                 onChange={handleImage}
-                // inputRef={register({ required: true })}
               />
               {errors.image && <p>Recipe Image is required</p>}
             </Grid>
