@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 //Dev express imports
 import moment from "moment";
-import Paper from "@material-ui/core/Paper";
+import { Paper } from "@material-ui/core/";
 import {
   Scheduler,
   WeekView,

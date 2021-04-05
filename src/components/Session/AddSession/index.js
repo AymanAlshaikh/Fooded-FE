@@ -2,30 +2,28 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link1 from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import { useStyles } from "./styles";
-import {
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  NativeSelect,
-} from "@material-ui/core";
-import { ScheduleRounded } from "@material-ui/icons";
 import {
   addSession,
   updateSession,
 } from "../../../store/actions/sessionActions";
+import { useStyles } from "./styles";
 
-// eslint-disable-next-line
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+import Link1 from "@material-ui/core/Link";
+import {
+  CssBaseline,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  NativeSelect,
+  Container,
+  Typography,
+  Box,
+  Grid,
+  TextField,
+  Button,
+  Avatar,
+} from "@material-ui/core";
+import { ScheduleRounded } from "@material-ui/icons";
 
 const AddSession = () => {
   const classes = useStyles();
@@ -109,7 +107,6 @@ const AddSession = () => {
             <Grid item xs={12} sm={12}>
               <TextField
                 type="time"
-                autoComplete="fname"
                 name="time"
                 fullWidth
                 id="time"
@@ -123,7 +120,6 @@ const AddSession = () => {
             <Grid item xs={12} sm={12}>
               <TextField
                 type="date"
-                autoComplete="fname"
                 name="date"
                 required
                 fullWidth
@@ -151,7 +147,6 @@ const AddSession = () => {
             <Grid item xs={12} sm={12}>
               <TextField
                 type="text"
-                autoComplete="fname"
                 name="zoom"
                 required
                 fullWidth

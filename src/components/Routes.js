@@ -1,20 +1,22 @@
 import { Route, Switch } from "react-router";
+import Home from "./Home";
 import Signup from "./Authentication/Signup";
 import SignIn from "./Authentication/Signin";
-import RecipeList from "./Recipe/RecipeList";
-
 import UserProfile from "./UserProfile";
-import RecipeDetail from "./Recipe/RecipeDetail";
-import ChefDetail from "./Chef/ChefDetail";
-import SessionDetail from "./Session/SessionDetail";
-import AddRecipe from "./Recipe/AddRecipe";
 
-import ChefList from "./Chef/ChefList";
-import SessionList from "./Session/SessionList";
-import AddSession from "./Session/AddSession";
-import Booking from "./Session/Booking";
 import ChefProfile from "./Chef/ChefProfile";
-import Home from "./Home";
+import ChefList from "./Chef/ChefList";
+import ChefDetail from "./Chef/ChefDetail";
+
+import AddRecipe from "./Recipe/AddRecipe";
+import RecipeList from "./Recipe/RecipeList";
+import RecipeDetail from "./Recipe/RecipeDetail";
+
+import AddSession from "./Session/AddSession";
+import SessionList from "./Session/SessionList";
+import SessionDetail from "./Session/SessionDetail";
+import Booking from "./Session/Booking";
+
 const Routes = () => {
   return (
     <Switch>

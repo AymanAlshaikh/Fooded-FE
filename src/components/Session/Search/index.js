@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core";
-import { searchSession } from "../../../store/actions/sessionActions";
 import { useDispatch } from "react-redux";
+import { searchSession } from "../../../store/actions/sessionActions";
+import { useStyles } from "./styles";
+
 import moment from "moment";
-//Date Picker imports
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -11,17 +11,9 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-const style = makeStyles({
-  center: {
-    justifyContent: "center",
-    alighItem: "center",
-    alignContent: "center",
-    textAlign: "center",
-  },
-});
 const Search = () => {
   const dispatch = useDispatch();
-  const classes = style();
+  const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState(moment().format("LLLL"));
 
   const handleDateChange = (date) => {

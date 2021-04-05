@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useStyles } from "./styles";
+import { Link, useHistory } from "react-router-dom";
 import { signout } from "../../store/actions/authActions";
+import { useStyles } from "./styles";
+
 import clsx from "clsx";
 import {
   Typography,

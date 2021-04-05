@@ -2,13 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useStyles } from "./styles";
-import InfoIcon from "@material-ui/icons/Info";
+
 import {
   CircularProgress,
   GridListTile,
   GridListTileBar,
   IconButton,
 } from "@material-ui/core";
+import { Info } from "@material-ui/icons/";
 
 export default function ChefItem({ chef }) {
   const classes = useStyles();
@@ -31,7 +32,7 @@ export default function ChefItem({ chef }) {
               aria-label={`info about ${_chef.username}`}
               className={classes.icon}
             >
-              <InfoIcon />
+              <Info />
             </IconButton>
           }
         />
