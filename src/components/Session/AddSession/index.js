@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -24,6 +24,7 @@ import {
   Avatar,
 } from "@material-ui/core";
 import { ScheduleRounded } from "@material-ui/icons";
+import moment from "moment";
 
 const AddSession = () => {
   const classes = useStyles();
@@ -47,6 +48,8 @@ const AddSession = () => {
     <option value={recipe.id}>{recipe.name}</option>
   ));
 
+  const [date, setDate] = useState(moment(moment().format("YYYY-MM-DD")));
+  console.log(date);
   let preloadedValues = {};
 
   const session = sessions.find((session) => session.id === sessionId);
@@ -60,7 +63,7 @@ const AddSession = () => {
     recipeId = recipe.id;
     chefId = chef.id;
     preloadedValues = {
-      date: session.name,
+      date: session.date,
       time: session.time,
     };
   }
@@ -83,6 +86,7 @@ const AddSession = () => {
       dispatch(updateSession(data, recipeId, session, chefId));
       history.replace("/sessions");
     } else {
+      console.log(data);
       dispatch(addSession(data, currentChef));
       history.replace("/sessions");
     }
@@ -124,6 +128,12 @@ const AddSession = () => {
                 required
                 fullWidth
                 id="date"
+                value={date}
+                onChange={(event) =>
+                  event.target.value < moment()
+                    ? alert("Invalid Date")
+                    : setDate(event.target.value)
+                }
                 label="Session Date"
                 inputRef={register({ required: true })}
                 autoFocus

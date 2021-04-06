@@ -16,6 +16,7 @@ import AddSession from "./Session/AddSession";
 import SessionList from "./Session/SessionList";
 import SessionDetail from "./Session/SessionDetail";
 import Booking from "./Session/Booking";
+import Page404 from "./404";
 
 const Routes = () => {
   return (
@@ -55,6 +56,9 @@ const Routes = () => {
       </Route>
       <Route path="/signin">
         <SignIn />
+      </Route>
+      <Route path={"/404"}>
+        <Page404 />
       </Route>
       <Route path={"/log"}>
         <ChefProfile />
