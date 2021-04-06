@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -24,6 +24,7 @@ import {
   Avatar,
 } from "@material-ui/core";
 import { ScheduleRounded } from "@material-ui/icons";
+import moment from "moment";
 
 const AddSession = () => {
   const classes = useStyles();
@@ -47,6 +48,7 @@ const AddSession = () => {
     <option value={recipe.id}>{recipe.name}</option>
   ));
 
+  const [date, setDate] = useState(moment().format("L"));
   let preloadedValues = {};
 
   const session = sessions.find((session) => session.id === sessionId);
@@ -60,7 +62,7 @@ const AddSession = () => {
     recipeId = recipe.id;
     chefId = chef.id;
     preloadedValues = {
-      date: session.name,
+      date: session.date,
       time: session.time,
     };
   }
@@ -83,10 +85,21 @@ const AddSession = () => {
       dispatch(updateSession(data, recipeId, session, chefId));
       history.replace("/sessions");
     } else {
+      console.log(data);
       dispatch(addSession(data, currentChef));
       history.replace("/sessions");
     }
   };
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const checkDate = async (value) => {
+    value = date;
+    await sleep(1000);
+    if (value <= moment().format()) {
+      return false;
+    } else return true;
+  };
+
+  console.log(checkDate("2020/04/10"));
 
   return (
     <Container component="main" maxWidth="xs">
@@ -124,11 +137,20 @@ const AddSession = () => {
                 required
                 fullWidth
                 id="date"
+                value={date}
+                onChange={(event) =>
+                  event.target.value < new Date(moment().format("yyyy-MM-dd"))
+                    ? alert("Invalid Date")
+                    : setDate(event.target.value)
+                }
                 label="Session Date"
-                inputRef={register({ required: true })}
+                inputRef={register({ required: true, validate: checkDate })}
                 autoFocus
               />
               {errors.date && <p>Date is required</p>}
+              {errors.date && errors.date.type === "validate" && (
+                <p>Invalid Date</p>
+              )}
             </Grid>
             <Grid item xs={12} sm={12}>
               <FormControl className={classes.margin}>
