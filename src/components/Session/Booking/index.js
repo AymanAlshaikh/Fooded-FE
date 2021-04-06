@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { booking } from "../../../store/actions/bookingActions";
-import { useStyles } from "./styles";
+import { useStyles } from "./Styles";
 import {
   CssBaseline,
   Avatar,

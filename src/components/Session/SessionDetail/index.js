@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router";
-import { useStyles } from "./styles";
+import { useStyles } from "./Styles";
 
 import {
   Card,

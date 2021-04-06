@@ -51,11 +51,9 @@ const ChefProfile = () => {
 
   return (
     <div>
-      <button onClick={handleView}>change view</button>
       <Paper>
         <Scheduler data={appointments}>
           <button onClick={handleView}>Change View</button>
-
           {view === "month" ? <MonthView /> : <WeekView />}
           <Appointments />
         </Scheduler>

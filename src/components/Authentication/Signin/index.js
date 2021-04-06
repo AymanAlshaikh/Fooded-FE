@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { signin } from "../../../store/actions/authActions";
-import { useStyles } from "./styles";
+import { useStyles } from "./Styles";
 
 import Link1 from "@material-ui/core/Link";
 import {

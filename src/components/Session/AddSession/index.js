@@ -6,7 +6,7 @@ import {
   addSession,
   updateSession,
 } from "../../../store/actions/sessionActions";
-import { useStyles } from "./styles";
+import { useStyles } from "./Styles";
 
 import Link1 from "@material-ui/core/Link";
 import {
