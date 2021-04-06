@@ -1,14 +1,14 @@
-import { GridListTile, GridListTileBar, IconButton } from "@material-ui/core";
-import { DeleteForever, DeleteForeverOutlined, Edit } from "@material-ui/icons";
 import React from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteRecipe } from "../../../store/actions/recipeActions";
+import { useStyles } from "./styles";
 
-import { useStyles } from "../Styles";
+import { GridListTile, GridListTileBar, IconButton } from "@material-ui/core";
+import { DeleteForeverOutlined, Edit } from "@material-ui/icons";
 
 export default function RecipeItem({ recipe }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const chefs = useSelector((state) => state.chefReducer.chef);
   const user = useSelector((state) => state.authReducer.user);
@@ -17,7 +17,6 @@ export default function RecipeItem({ recipe }) {
     chef = chefs.find((chef) => chef.userId === user.id);
   }
 
-  const classes = useStyles();
   const recipeSlug = recipe.slug;
   return (
     <div>

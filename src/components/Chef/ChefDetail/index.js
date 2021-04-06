@@ -1,13 +1,16 @@
 import React from "react";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
 import { useSelector } from "react-redux";
-import { useStyles } from "./Styles";
 import { Redirect, useParams } from "react-router";
 import RecipeList from "../../Recipe/RecipeList";
+import { useStyles } from "./styles";
+
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@material-ui/core/";
 
 export default function ChefDetail() {
   const classes = useStyles();

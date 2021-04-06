@@ -1,13 +1,15 @@
-import { useSelector } from "react-redux";
-import ChefItem from "./ChefItem";
-
 import React, { useState } from "react";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import { useStyles } from "./Styles";
-import { CircularProgress } from "@material-ui/core";
-import ChefSearch from "../Search";
+import { useSelector } from "react-redux";
+import ChefSearch from "../../Search";
+import ChefItem from "../ChefItem";
+import { useStyles } from "./styles";
+
+import {
+  CircularProgress,
+  ListSubheader,
+  GridListTile,
+  GridList,
+} from "@material-ui/core";
 
 const ChefList = () => {
   const [search, setSearch] = useState("");

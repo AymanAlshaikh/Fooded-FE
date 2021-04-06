@@ -1,25 +1,32 @@
 import React from "react";
-import clsx from "clsx";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import SettingsIcon from "@material-ui/icons/Settings";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
-import BookIcon from "@material-ui/icons/Book";
-import VoiceChatIcon from "@material-ui/icons/VoiceChat";
-import HomeIcon from "@material-ui/icons/Home";
-import MenuIcon from "@material-ui/icons/Menu";
-import { useStyles } from "./Styles";
-import { Link, useHistory } from "react-router-dom";
-import { AccountBoxOutlined, Fastfood, LockOpen } from "@material-ui/icons";
-import { Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { signout } from "../../store/actions/authActions";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useStyles } from "./styles";
+
+import clsx from "clsx";
+import {
+  Typography,
+  SwipeableDrawer,
+  Button,
+  List,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
+import {
+  AccountBoxOutlined,
+  Fastfood,
+  LockOpen,
+  Home,
+  Menu,
+  AssignmentInd,
+  Settings,
+  ExitToApp,
+  VoiceChat,
+  Book,
+} from "@material-ui/icons";
 
 export default function SwipeableTemporaryDrawer() {
   const user = useSelector((state) => state.authReducer.user);
@@ -55,7 +62,7 @@ export default function SwipeableTemporaryDrawer() {
         {user ? <Typography> Hello, {user.username}.</Typography> : ""}
         <ListItem button component={Link} to={"/"}>
           <ListItemIcon>
-            <HomeIcon />
+            <Home />
           </ListItemIcon>
           <ListItemText primary={"Home"} />
         </ListItem>
@@ -73,7 +80,7 @@ export default function SwipeableTemporaryDrawer() {
         </ListItem>
         <ListItem button component={Link} to={"/sessions"}>
           <ListItemIcon>
-            <VoiceChatIcon />
+            <VoiceChat />
           </ListItemIcon>
           <ListItemText primary={"Sessions"} />
         </ListItem>
@@ -84,21 +91,20 @@ export default function SwipeableTemporaryDrawer() {
           <div>
             <ListItem button component={Link} to={"/log"}>
               <ListItemIcon>
-                <BookIcon />
+                <Book />
               </ListItemIcon>
               <ListItemText primary={"Log"} />
             </ListItem>
             <ListItem button component={Link} to={"/profile"}>
               <ListItemIcon>
-                <AssignmentIndIcon />
+                <AssignmentInd />
               </ListItemIcon>
               <ListItemText primary={"Profile"} />
             </ListItem>
             <ListItem button component={Link} to={"/setting"}>
               <ListItemIcon>
-                <SettingsIcon />
+                <Settings />
               </ListItemIcon>
-              {/* this should be changed to reset password */}
               <ListItemText primary={"Settings"} />
             </ListItem>
             <Divider />
@@ -107,7 +113,7 @@ export default function SwipeableTemporaryDrawer() {
               onClick={() => dispatch(signout(history.replace("/")))}
             >
               <ListItemIcon>
-                <ExitToAppIcon />
+                <ExitToApp />
               </ListItemIcon>
               <ListItemText primary={"Sign out"} />
             </ListItem>
@@ -137,7 +143,7 @@ export default function SwipeableTemporaryDrawer() {
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>
-            <MenuIcon />
+            <Menu />
           </Button>
           <SwipeableDrawer
             anchor={anchor}

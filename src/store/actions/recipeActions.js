@@ -12,17 +12,6 @@ export const fetchRecipes = () => {
   };
 };
 
-export const searchRecipe = (searchRecipe) => {
-  return async (dispatch) => {
-    try {
-      const res = await instance.post(`/recipes/search`, searchRecipe);
-      dispatch({ type: types.SEARCH_RECIPE, payload: res.data });
-    } catch (error) {
-      console.log("searchRecipe recipeActions Error:", error);
-    }
-  };
-};
-
 export const addRecipe = (newRecipe, image, chefId) => async (dispatch) => {
   try {
     const formData = new FormData();

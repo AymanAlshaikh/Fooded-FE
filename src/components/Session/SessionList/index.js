@@ -1,15 +1,18 @@
-import { useSelector } from "react-redux";
-import SessionItem from "./SessionItem";
-
 import React, { useState } from "react";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import { useStyles } from "./Styles";
-import { CircularProgress } from "@material-ui/core";
-import SessionSearch from "../SearchUnused";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import SessionSearch from "../Search";
+import SessionItem from "../SessionItem";
+import { useStyles } from "./styles";
+
+import {
+  CircularProgress,
+  GridList,
+  GridListTile,
+  ListSubheader,
+} from "@material-ui/core";
 import { Add } from "@material-ui/icons";
+
 const SessionList = () => {
   const [search, setSearch] = useState("");
   const classes = useStyles();
@@ -17,11 +20,9 @@ const SessionList = () => {
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
 
-  const SessionList = sessions
-    // .filter((chef) =>
-    //   chef.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-    // )
-    .map((session) => <SessionItem key={session.id} session={session} />);
+  const SessionList = sessions.map((session) => (
+    <SessionItem key={session.id} session={session} />
+  ));
 
   if (!sessions || sessionLoading) return <CircularProgress />;
   return (

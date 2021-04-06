@@ -6,7 +6,6 @@ export const useStyles = makeStyles({
     paddingTop: 10,
     paddingBottom: 8,
     backgroundColor: "silver",
-    // position: "static",
     bottom: 0,
     width: "100%",
   },

@@ -1,12 +1,15 @@
 import React from "react";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
 import { useSelector } from "react-redux";
-import { useStyles } from "./Styles";
 import { Redirect, useParams } from "react-router";
+import { useStyles } from "./styles";
+
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@material-ui/core/";
 
 export default function RecipeDetail() {
   const classes = useStyles();
@@ -15,8 +18,6 @@ export default function RecipeDetail() {
   const recipe = useSelector((state) =>
     state.recipeReducer.recipe.find((recipe) => recipe.slug === recipeSlug)
   );
-
-  console.log(recipeSlug);
 
   if (!recipe) return <Redirect to="/recipes" />;
   return (

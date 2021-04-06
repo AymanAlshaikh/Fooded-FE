@@ -1,25 +1,23 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link1 from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-// Actions
-import { useStyles } from "./Styles";
-import { CircularProgress } from "@material-ui/core";
 import { addRecipe, updateRecipe } from "../../../store/actions/recipeActions";
+import { useStyles } from "./styles";
+
+import Link1 from "@material-ui/core/Link";
+import {
+  CssBaseline,
+  CircularProgress,
+  Avatar,
+  Button,
+  TextField,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from "@material-ui/core";
 import { Fastfood } from "@material-ui/icons";
-// eslint-disable-next-line
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const AddRecipe = () => {
   const classes = useStyles();
@@ -92,9 +90,7 @@ const AddRecipe = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
-                autoComplete="fname"
                 name="name"
-                // variant="normal"
                 fullWidth
                 id="name"
                 label="Recipe Name"
@@ -106,9 +102,7 @@ const AddRecipe = () => {
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
-                autoComplete="fname"
                 name="description"
-                // variant="normal"
                 required
                 fullWidth
                 id="description"
@@ -120,13 +114,11 @@ const AddRecipe = () => {
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
-                // variant="normal"
                 required
                 fullWidth
                 id="ingredientDescription"
                 label="Ingredients"
                 name="ingredientDescription"
-                autoComplete="lname"
                 inputRef={register({ required: true })}
               />
               {errors.ingredientDescription && <p>Ingredients are required</p>}
@@ -140,7 +132,6 @@ const AddRecipe = () => {
                 label="Recipe Image"
                 name="image"
                 onChange={handleImage}
-                // inputRef={register({ required: true })}
               />
               {errors.image && <p>Recipe Image is required</p>}
             </Grid>

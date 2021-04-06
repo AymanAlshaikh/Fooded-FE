@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 //Dev express imports
 import moment from "moment";
-import Paper from "@material-ui/core/Paper";
+import { Paper } from "@material-ui/core/";
 import {
   Scheduler,
   WeekView,
@@ -13,7 +13,6 @@ import {
 
 const ChefProfile = () => {
   const user = useSelector((state) => state.authReducer.user);
-  const loading = useSelector((state) => state.authReducer.loading);
 
   const chefs = useSelector((state) => state.chefReducer.chef);
   const thisChef = chefs.find((chef) => chef.userId === user.id);
@@ -50,19 +49,13 @@ const ChefProfile = () => {
       })
   );
 
-  if (!loading) {
-    console.log("appointments: ", appointments);
-    console.log("session list: ", sessionList);
-    console.log("sessions: ", sessions);
-    console.log(chefRecipe);
-    console.log(ChefID);
-    console.log(thisChef);
-  }
   return (
     <div>
       <button onClick={handleView}>change view</button>
       <Paper>
         <Scheduler data={appointments}>
+          <button onClick={handleView}>Change View</button>
+
           {view === "month" ? <MonthView /> : <WeekView />}
           <Appointments />
         </Scheduler>

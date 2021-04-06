@@ -1,23 +1,23 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link1 from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
-// Actions
 import { signup } from "../../../store/actions/authActions";
-import { useStyles } from "../Signin/Styles";
+import { useStyles } from "./styles";
 
-// eslint-disable-next-line
+import Link1 from "@material-ui/core/Link";
+import {
+  CssBaseline,
+  Avatar,
+  Button,
+  TextField,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from "@material-ui/core/";
+import { LockOutlined } from "@material-ui/icons/";
+
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const Signup = () => {
@@ -28,7 +28,6 @@ const Signup = () => {
 
   const onSubmit = (data) => {
     dispatch(signup(data, history));
-    console.log(data);
   };
 
   const classes = useStyles();
@@ -38,7 +37,7 @@ const Signup = () => {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
@@ -51,9 +50,7 @@ const Signup = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
-                autoComplete="fname"
                 name="username"
-                // variant="normal"
                 fullWidth
                 id="username"
                 label="Username"
@@ -67,7 +64,6 @@ const Signup = () => {
               <TextField
                 autoComplete="fname"
                 name="firstName"
-                // variant="normal"
                 required
                 fullWidth
                 id="firstName"
@@ -79,7 +75,6 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                // variant="normal"
                 required
                 fullWidth
                 id="lastName"
@@ -92,7 +87,6 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="phoneNumber"
@@ -105,59 +99,50 @@ const Signup = () => {
             </Grid>
             <Grid item xs={4}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="house"
                 label="House"
                 name="house"
-                autoComplete="email"
                 inputRef={register({ required: true })}
               />
               {errors.house && <p>house number is required</p>}
             </Grid>
             <Grid item xs={4}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="road"
                 label="Road"
                 name="road"
-                autoComplete="email"
                 inputRef={register({ required: true })}
               />
               {errors.road && <p>road number is required</p>}
             </Grid>
             <Grid item xs={4}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="block"
                 label="Block"
                 name="block"
-                autoComplete="email"
                 inputRef={register({ required: true })}
               />
               {errors.block && <p>block number is required</p>}
             </Grid>
             <Grid item xs={12}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="city"
                 label="City"
                 name="city"
-                autoComplete="email"
                 inputRef={register({ required: true })}
               />
               {errors.city && <p>city is required</p>}
             </Grid>
             <Grid item xs={12}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 id="email"
@@ -175,14 +160,12 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                // variant="outlined"
                 required
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
                 inputRef={register({
                   required: true,
                   minLength: 6,
