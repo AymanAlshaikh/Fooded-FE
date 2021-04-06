@@ -144,19 +144,6 @@ const AddSession = () => {
                 </NativeSelect>
               </FormControl>
             </Grid>
-            {/* <Grid item xs={12} sm={12}>
-              <TextField
-                type="text"
-                name="zoom"
-                required
-                fullWidth
-                id="zoom"
-                label="Session Zoom Link"
-                inputRef={register({ required: true })}
-                autoFocus
-              />
-              {errors.zoom && <p>Zoom Link is required</p>}
-            </Grid> */}
           </Grid>
           <Button
             type="submit"
