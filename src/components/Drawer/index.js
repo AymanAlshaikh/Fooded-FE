@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { signout } from "../../store/actions/authActions";
-import { useStyles } from "./Styles";
+import { useStyles } from "./styles";
 
 import clsx from "clsx";
 import {

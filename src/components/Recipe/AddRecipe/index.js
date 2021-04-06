@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { addRecipe, updateRecipe } from "../../../store/actions/recipeActions";
-import { useStyles } from "./Styles";
+import { useStyles } from "./styles";
 
 import Link1 from "@material-ui/core/Link";
 import {

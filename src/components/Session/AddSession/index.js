@@ -6,7 +6,7 @@ import {
   addSession,
   updateSession,
 } from "../../../store/actions/sessionActions";
-import { useStyles } from "./Styles";
+import { useStyles } from "./styles";
 
 import Link1 from "@material-ui/core/Link";
 import {
@@ -48,8 +48,7 @@ const AddSession = () => {
     <option value={recipe.id}>{recipe.name}</option>
   ));
 
-  const [date, setDate] = useState(moment(moment().format("YYYY-MM-DD")));
-  console.log(date);
+  const [date, setDate] = useState(moment().format("L"));
   let preloadedValues = {};
 
   const session = sessions.find((session) => session.id === sessionId);
@@ -91,6 +90,16 @@ const AddSession = () => {
       history.replace("/sessions");
     }
   };
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const checkDate = async (value) => {
+    value = date;
+    await sleep(1000);
+    if (value <= moment().format()) {
+      return false;
+    } else return true;
+  };
+
+  console.log(checkDate("2020/04/10"));
 
   return (
     <Container component="main" maxWidth="xs">
@@ -130,15 +139,18 @@ const AddSession = () => {
                 id="date"
                 value={date}
                 onChange={(event) =>
-                  event.target.value < moment()
+                  event.target.value < new Date(moment().format("yyyy-MM-dd"))
                     ? alert("Invalid Date")
                     : setDate(event.target.value)
                 }
                 label="Session Date"
-                inputRef={register({ required: true })}
+                inputRef={register({ required: true, validate: checkDate })}
                 autoFocus
               />
               {errors.date && <p>Date is required</p>}
+              {errors.date && errors.date.type === "validate" && (
+                <p>Invalid Date</p>
+              )}
             </Grid>
             <Grid item xs={12} sm={12}>
               <FormControl className={classes.margin}>

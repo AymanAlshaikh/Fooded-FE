@@ -1,5 +1,5 @@
 import React from "react";
-import { style } from "./Styles";
+import { style } from "./styles";
 import { TextField } from "@material-ui/core/";
 
 const Search = ({ setSearch }) => {
