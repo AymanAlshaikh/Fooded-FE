@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useParams, Link } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   addSession,
@@ -8,7 +8,6 @@ import {
 } from "../../../store/actions/sessionActions";
 import { useStyles } from "./styles";
 
-import Link1 from "@material-ui/core/Link";
 import {
   CssBaseline,
   CircularProgress,
@@ -24,6 +23,7 @@ import {
   Avatar,
 } from "@material-ui/core";
 import { ScheduleRounded } from "@material-ui/icons";
+import moment from "moment";
 
 const AddSession = () => {
   const classes = useStyles();
@@ -49,21 +49,25 @@ const AddSession = () => {
 
   let preloadedValues = {};
 
-  const session = sessions.find((session) => session.id === sessionId);
+  const session = sessions.find((sesion) => sesion.id === +sessionId);
   let recipe = null;
   let chef = null;
   let chefId = null;
   let recipeId = null;
+
+  const [date, setDate] = useState(session ? session.date : "");
   if (session) {
     recipe = recipes.find((recipe) => recipe.id === session.recipeId);
     chef = chefs.find((chef) => chef.id === recipe.chefId);
     recipeId = recipe.id;
     chefId = chef.id;
     preloadedValues = {
-      date: session.name,
+      date: date,
       time: session.time,
+      recipeId: session.recipeId,
     };
   }
+
   const { handleSubmit, errors, register } = useForm({
     defaultValues: preloadedValues,
   });
@@ -71,7 +75,10 @@ const AddSession = () => {
     return <Redirect to="/sessions" />;
   }
   if (user) {
-    if (user.isChef === false) {
+    if (
+      user.isChef === false ||
+      (session && recipe.chefId !== currentChef.id)
+    ) {
       return <Redirect to="/sessions" />;
     }
   }
@@ -80,12 +87,21 @@ const AddSession = () => {
 
   const onSubmit = (data) => {
     if (session) {
-      dispatch(updateSession(data, recipeId, session, chefId));
+      dispatch(updateSession(data, currentChef, recipeId, session));
       history.replace("/sessions");
     } else {
+      console.log(data);
       dispatch(addSession(data, currentChef));
       history.replace("/sessions");
     }
+  };
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const checkDate = async (value) => {
+    value = date;
+    await sleep(1000);
+    if (value <= moment().format()) {
+      return false;
+    } else return true;
   };
 
   return (
@@ -124,11 +140,19 @@ const AddSession = () => {
                 required
                 fullWidth
                 id="date"
+                onChange={(event) =>
+                  event.target.value < new Date(moment().format("yyyy-MM-dd"))
+                    ? alert("Invalid Date")
+                    : setDate(event.target.value)
+                }
                 label="Session Date"
-                inputRef={register({ required: true })}
+                inputRef={register({ required: true, validate: checkDate })}
                 autoFocus
               />
               {errors.date && <p>Date is required</p>}
+              {errors.date && errors.date.type === "validate" && (
+                <p>Invalid Date</p>
+              )}
             </Grid>
             <Grid item xs={12} sm={12}>
               <FormControl className={classes.margin}>
@@ -154,13 +178,6 @@ const AddSession = () => {
           >
             {session ? "Update" : "ADD"}
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to="/signin">
-                <Link1 variant="body2"></Link1>
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={5}></Box>
