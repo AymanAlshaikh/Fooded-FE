@@ -15,7 +15,12 @@ export const signup = (newUser, history) => {
   return async (dispatch) => {
     try {
       const res = await instance.post("/signup", newUser);
-      dispatch(setUser(res.data.token));
+      localStorage.setItem("myToken", res.data.token);
+      // dispatch(setUser(res.data.token));
+      dispatch({
+        type: types.SET_USER,
+        payload: decode(res.data.token),
+      });
       history.replace("/");
     } catch (error) {
       console.log(error);
@@ -25,10 +30,14 @@ export const signup = (newUser, history) => {
 
 export const signin = (userData, history) => {
   return async (dispatch) => {
-    console.log(userData);
     try {
       const res = await instance.post("/signin", userData);
-      dispatch(setUser(res.data.token));
+      localStorage.setItem("myToken", res.data.token);
+      // dispatch(setUser(res.data.token));
+      dispatch({
+        type: types.SET_USER,
+        payload: decode(res.data.token),
+      });
       history.replace("/");
     } catch (error) {
       console.log(error);
@@ -50,9 +59,13 @@ export const checkForToken = () => (dispatch) => {
   if (token) {
     const user = decode(token);
     const currentTime = Date.now();
-    if (currentTime < user.exp) {
+    console.log("current time", currentTime);
+    console.log("user exp", user.exp);
+    if (user.exp >= currentTime) {
+      console.log("not expired");
       dispatch(setUser(token));
     } else {
+      console.log("expired");
       dispatch(signout());
     }
   }

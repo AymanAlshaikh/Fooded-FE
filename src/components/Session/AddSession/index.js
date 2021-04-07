@@ -48,24 +48,27 @@ const AddSession = () => {
     <option value={recipe.id}>{recipe.name}</option>
   ));
 
-  const [date, setDate] = useState(moment().format("L"));
   let preloadedValues = {};
 
-  const session = sessions.find((session) => session.id === sessionId);
+  const session = sessions.find((sesion) => sesion.id === +sessionId);
   let recipe = null;
   let chef = null;
   let chefId = null;
   let recipeId = null;
+
+  const [date, setDate] = useState(session ? session.date : "");
   if (session) {
     recipe = recipes.find((recipe) => recipe.id === session.recipeId);
     chef = chefs.find((chef) => chef.id === recipe.chefId);
     recipeId = recipe.id;
     chefId = chef.id;
     preloadedValues = {
-      date: session.date,
+      date: date,
       time: session.time,
+      recipeId: session.recipeId,
     };
   }
+
   const { handleSubmit, errors, register } = useForm({
     defaultValues: preloadedValues,
   });
@@ -73,7 +76,10 @@ const AddSession = () => {
     return <Redirect to="/sessions" />;
   }
   if (user) {
-    if (user.isChef === false) {
+    if (
+      user.isChef === false ||
+      (session && recipe.chefId !== currentChef.id)
+    ) {
       return <Redirect to="/sessions" />;
     }
   }
@@ -82,10 +88,9 @@ const AddSession = () => {
 
   const onSubmit = (data) => {
     if (session) {
-      dispatch(updateSession(data, recipeId, session, chefId));
+      dispatch(updateSession(data, currentChef, recipeId, session));
       history.replace("/sessions");
     } else {
-      console.log(data);
       dispatch(addSession(data, currentChef));
       history.replace("/sessions");
     }
@@ -98,8 +103,6 @@ const AddSession = () => {
       return false;
     } else return true;
   };
-
-  console.log(checkDate("2020/04/10"));
 
   return (
     <Container component="main" maxWidth="xs">
@@ -137,7 +140,6 @@ const AddSession = () => {
                 required
                 fullWidth
                 id="date"
-                value={date}
                 onChange={(event) =>
                   event.target.value < new Date(moment().format("yyyy-MM-dd"))
                     ? alert("Invalid Date")
@@ -176,13 +178,6 @@ const AddSession = () => {
           >
             {session ? "Update" : "ADD"}
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to="/signin">
-                <Link1 variant="body2"></Link1>
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={5}></Box>

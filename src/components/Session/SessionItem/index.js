@@ -9,15 +9,25 @@ import {
   GridListTileBar,
   IconButton,
 } from "@material-ui/core";
-import { PostAdd } from "@material-ui/icons";
+import { Edit, PostAdd } from "@material-ui/icons";
 
 export default function SessionItem({ session }) {
-  const classes = useStyles();
+  const sessionId = session.id;
+
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipe = recipes.find((recipe) => recipe.id === session.recipeId);
-  const loading = useSelector((state) => state.recipeReducer.loading);
+  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
+  const userLoading = useSelector((state) => state.authReducer.loading);
+  const chefLoading = useSelector((state) => state.chefReducer.loading);
+  const user = useSelector((state) => state.authReducer.user);
+  const chefs = useSelector((state) => state.chefReducer.chef);
+  let chef;
+  if (user) {
+    chef = chefs.find((chef) => chef.userId === user.id);
+  }
 
-  if (loading) return <CircularProgress />;
+  if (!recipe || recipeLoading || userLoading || chefLoading)
+    return <CircularProgress />;
   return (
     <Link to={`/sessions/${session.id}`}>
       <GridListTile key={recipe.image}>
@@ -35,14 +45,26 @@ export default function SessionItem({ session }) {
             </span>
           }
           actionIcon={
-            <Link to={`sessions/${session.id}/booking`}>
-              <IconButton
-                aria-label={`info about ${recipe.name}`}
-                className={classes.icon}
-              >
-                <PostAdd />
-              </IconButton>
-            </Link>
+            <div>
+              {user ? (
+                <Link to={`sessions/${session.id}/booking`}>
+                  <IconButton>
+                    <PostAdd />
+                  </IconButton>
+                </Link>
+              ) : (
+                ""
+              )}
+              {user && user.isChef && recipe.chefId === chef.id ? (
+                <Link to={`/sessions/${sessionId}/edit`}>
+                  <IconButton>
+                    <Edit />
+                  </IconButton>
+                </Link>
+              ) : (
+                ""
+              )}
+            </div>
           }
         />
       </GridListTile>
