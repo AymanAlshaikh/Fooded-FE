@@ -56,11 +56,7 @@ const AddSession = () => {
   let chefId = null;
   let recipeId = null;
 
-  const [date, setDate] = useState(
-    session ? session.date : ""
-    // ? moment(session.date).format("yyyy-MM-dd")
-    // : moment().format("yyyy-MM-dd")
-  );
+  const [date, setDate] = useState(session ? session.date : "");
   if (session) {
     recipe = recipes.find((recipe) => recipe.id === session.recipeId);
     chef = chefs.find((chef) => chef.id === recipe.chefId);
@@ -70,7 +66,6 @@ const AddSession = () => {
       date: date,
       time: session.time,
       recipeId: session.recipeId,
-      // zoom: session.zoom,
     };
   }
 
@@ -94,7 +89,6 @@ const AddSession = () => {
   const onSubmit = (data) => {
     if (session) {
       dispatch(updateSession(data, currentChef, recipeId, session));
-      // window.location.reload();
       history.replace("/sessions");
     } else {
       dispatch(addSession(data, currentChef));
@@ -143,11 +137,9 @@ const AddSession = () => {
               <TextField
                 type="date"
                 name="date"
-                // defaultValue={session ? session.date : ""}
                 required
                 fullWidth
                 id="date"
-                // value={date}
                 onChange={(event) =>
                   event.target.value < new Date(moment().format("yyyy-MM-dd"))
                     ? alert("Invalid Date")
