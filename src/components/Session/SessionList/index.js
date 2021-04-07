@@ -19,12 +19,12 @@ const SessionList = () => {
   const sessions = useSelector((state) => state.sessionReducer.session);
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
-
+  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const SessionList = sessions.map((session) => (
     <SessionItem key={session.id} session={session} />
   ));
 
-  if (!sessions || sessionLoading) return <CircularProgress />;
+  if (!sessions || sessionLoading || recipeLoading) return <CircularProgress />;
   return (
     <div>
       <SessionSearch setSearch={setSearch} />

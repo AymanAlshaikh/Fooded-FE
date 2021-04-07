@@ -43,13 +43,13 @@ export const addSession = (newSession, currentChef) => async (dispatch) => {
 // ICEd
 export const updateSession = (
   updatedSession,
-
+  currentChef,
   recipeId,
   session
 ) => async (dispatch) => {
   try {
     const res = await instance.put(
-      `recipes/${recipeId}/sessions/${session.id}`,
+      `chefs/${currentChef.id}/recipes/${recipeId}/sessions/${session.id}`,
       updatedSession
     );
     dispatch({

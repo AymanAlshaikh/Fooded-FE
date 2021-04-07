@@ -51,11 +51,12 @@ const AddSession = () => {
   const [date, setDate] = useState(moment().format("L"));
   let preloadedValues = {};
 
-  const session = sessions.find((session) => session.id === sessionId);
+  const session = sessions.find((sesion) => sesion.id === +sessionId);
   let recipe = null;
   let chef = null;
   let chefId = null;
   let recipeId = null;
+
   if (session) {
     recipe = recipes.find((recipe) => recipe.id === session.recipeId);
     chef = chefs.find((chef) => chef.id === recipe.chefId);
@@ -64,6 +65,8 @@ const AddSession = () => {
     preloadedValues = {
       date: session.date,
       time: session.time,
+      recipeId: session.recipeId,
+      zoom: session.zoom,
     };
   }
   const { handleSubmit, errors, register } = useForm({
@@ -73,19 +76,20 @@ const AddSession = () => {
     return <Redirect to="/sessions" />;
   }
   if (user) {
-    if (user.isChef === false) {
+    if (
+      user.isChef === false ||
+      (session && recipe.chefId !== currentChef.id)
+    ) {
       return <Redirect to="/sessions" />;
     }
   }
   if (recipeLoading || sessionLoading || chefLoading || userLoading)
     return <CircularProgress />;
-
   const onSubmit = (data) => {
     if (session) {
-      dispatch(updateSession(data, recipeId, session, chefId));
+      dispatch(updateSession(data, currentChef, recipeId, session));
       history.replace("/sessions");
     } else {
-      console.log(data);
       dispatch(addSession(data, currentChef));
       history.replace("/sessions");
     }
