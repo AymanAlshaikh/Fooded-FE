@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { useStyles } from "./styles";
+import { Link, useHistory } from "react-router-dom";
 
 import {
   CircularProgress,
@@ -9,11 +8,14 @@ import {
   GridListTileBar,
   IconButton,
 } from "@material-ui/core";
-import { Edit, PostAdd } from "@material-ui/icons";
+import { DeleteForeverOutlined, Edit, PostAdd } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
+import { deleteSession } from "../../../store/actions/sessionActions";
 
 export default function SessionItem({ session }) {
   const sessionId = session.id;
-
+  const history = useHistory();
+  const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipe = recipes.find((recipe) => recipe.id === session.recipeId);
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
@@ -56,11 +58,22 @@ export default function SessionItem({ session }) {
                 ""
               )}
               {user && user.isChef && recipe.chefId === chef.id ? (
-                <Link to={`/sessions/${sessionId}/edit`}>
-                  <IconButton>
-                    <Edit />
+                <div>
+                  <Link to={`/sessions/${sessionId}/edit`}>
+                    <IconButton>
+                      <Edit />
+                    </IconButton>
+                  </Link>
+                  <IconButton
+                    onClick={() =>
+                      dispatch(
+                        deleteSession(session.id, recipe.id, chef, history)
+                      )
+                    }
+                  >
+                    <DeleteForeverOutlined />
                   </IconButton>
-                </Link>
+                </div>
               ) : (
                 ""
               )}

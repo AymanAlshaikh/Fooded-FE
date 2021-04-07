@@ -18,14 +18,15 @@ export default function SessionDetail() {
   const allSessions = useSelector((state) => state.sessionReducer.session);
 
   const foundSession = allSessions.find((session) => session.id === +sessionId);
+  const allChefs = useSelector((state) => state.chefReducer.chef);
 
   const allRecipes = useSelector((state) => state.recipeReducer.recipe);
+
+  if (!foundSession) return <Redirect to="/sessions" />;
 
   const foundRecipe = allRecipes.find(
     (recipe) => recipe.id === foundSession.recipeId
   );
-
-  const allChefs = useSelector((state) => state.chefReducer.chef);
 
   const foundChef = allChefs.find((chef) => chef.id === foundRecipe.chefId);
 
