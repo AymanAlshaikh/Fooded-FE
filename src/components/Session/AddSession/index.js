@@ -48,7 +48,6 @@ const AddSession = () => {
     <option value={recipe.id}>{recipe.name}</option>
   ));
 
-  const [date, setDate] = useState(moment().format("L"));
   let preloadedValues = {};
 
   const session = sessions.find((sesion) => sesion.id === +sessionId);
@@ -57,18 +56,24 @@ const AddSession = () => {
   let chefId = null;
   let recipeId = null;
 
+  const [date, setDate] = useState(
+    session ? session.date : ""
+    // ? moment(session.date).format("yyyy-MM-dd")
+    // : moment().format("yyyy-MM-dd")
+  );
   if (session) {
     recipe = recipes.find((recipe) => recipe.id === session.recipeId);
     chef = chefs.find((chef) => chef.id === recipe.chefId);
     recipeId = recipe.id;
     chefId = chef.id;
     preloadedValues = {
-      date: session.date,
+      date: date,
       time: session.time,
       recipeId: session.recipeId,
-      zoom: session.zoom,
+      // zoom: session.zoom,
     };
   }
+
   const { handleSubmit, errors, register } = useForm({
     defaultValues: preloadedValues,
   });
@@ -85,9 +90,11 @@ const AddSession = () => {
   }
   if (recipeLoading || sessionLoading || chefLoading || userLoading)
     return <CircularProgress />;
+
   const onSubmit = (data) => {
     if (session) {
       dispatch(updateSession(data, currentChef, recipeId, session));
+      // window.location.reload();
       history.replace("/sessions");
     } else {
       dispatch(addSession(data, currentChef));
@@ -102,8 +109,6 @@ const AddSession = () => {
       return false;
     } else return true;
   };
-
-  console.log(checkDate("2020/04/10"));
 
   return (
     <Container component="main" maxWidth="xs">
@@ -138,10 +143,11 @@ const AddSession = () => {
               <TextField
                 type="date"
                 name="date"
+                // defaultValue={session ? session.date : ""}
                 required
                 fullWidth
                 id="date"
-                value={date}
+                // value={date}
                 onChange={(event) =>
                   event.target.value < new Date(moment().format("yyyy-MM-dd"))
                     ? alert("Invalid Date")
@@ -180,13 +186,6 @@ const AddSession = () => {
           >
             {session ? "Update" : "ADD"}
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to="/signin">
-                <Link1 variant="body2"></Link1>
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={5}></Box>
