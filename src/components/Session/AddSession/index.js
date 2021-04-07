@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useParams, Link } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   addSession,
@@ -8,7 +8,6 @@ import {
 } from "../../../store/actions/sessionActions";
 import { useStyles } from "./styles";
 
-import Link1 from "@material-ui/core/Link";
 import {
   CssBaseline,
   CircularProgress,
@@ -91,6 +90,7 @@ const AddSession = () => {
       dispatch(updateSession(data, currentChef, recipeId, session));
       history.replace("/sessions");
     } else {
+      console.log(data);
       dispatch(addSession(data, currentChef));
       history.replace("/sessions");
     }

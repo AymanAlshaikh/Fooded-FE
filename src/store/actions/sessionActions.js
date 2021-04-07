@@ -26,12 +26,12 @@ export const searchSession = (searchedSession) => {
 };
 
 export const addSession = (newSession, currentChef) => async (dispatch) => {
+  console.log(newSession);
   try {
     const res = await instance.post(
       `/chefs/${currentChef.id}/sessions`,
       newSession
     );
-
     dispatch({
       type: types.ADD_SESSION,
       payload: { newSession: res.data },
@@ -40,7 +40,8 @@ export const addSession = (newSession, currentChef) => async (dispatch) => {
     console.log("addSession sessionActions Error:", error);
   }
 };
-// ICEd
+
+// DONE
 export const updateSession = (
   updatedSession,
   currentChef,
@@ -60,11 +61,20 @@ export const updateSession = (
     console.log("updateSession sessionActions Error:", error);
   }
 };
+
 // ICEd
-export const deleteSession = (sessionId, recipe) => async (dispatch) => {
+export const deleteSession = (
+  sessionId,
+  recipeId,
+  currentChef,
+  history
+) => async (dispatch) => {
   try {
-    await instance.delete(`/recipes/${recipe.id}/sessions/${sessionId}`);
+    await instance.delete(
+      `chefs/${currentChef.id}/recipes/${recipeId}/sessions/${sessionId}`
+    );
     dispatch({ type: types.REMOVE_SESSION, payload: { sessionId: sessionId } });
+    history.replace("/sessions");
   } catch (error) {
     console.log("deleteSession sessionActions Error:", error);
   }
