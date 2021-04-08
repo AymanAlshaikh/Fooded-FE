@@ -12,8 +12,12 @@ import {
   ListSubheader,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
+import { fetchSessions } from "../../../store/actions/sessionActions";
 
 const SessionList = () => {
+  const dispatch = useDispatch();
+  dispatch(fetchSessions());
   const classes = useStyles();
   const sessions = useSelector((state) => state.sessionReducer.session);
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);

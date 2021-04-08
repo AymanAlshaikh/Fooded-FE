@@ -5,19 +5,32 @@ import ChefSearch from "../../Search";
 import CuisineItem from "../CuisineItem";
 import { useStyles } from "./styles";
 
-import { GridList, GridListTile, ListSubheader } from "@material-ui/core/";
+import {
+  CircularProgress,
+  GridList,
+  GridListTile,
+  ListSubheader,
+} from "@material-ui/core/";
 import { Add } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
+import { fetchCuisines } from "../../../store/actions/cuisineActions";
 
-const RecipeList = ({ chefRecipe }) => {
+const CuisineList = ({ chefRecipe }) => {
+  const dispatch = useDispatch();
+  dispatch(fetchCuisines());
   const [search, setSearch] = useState("");
   const classes = useStyles();
   const cuisines = useSelector((state) => state.cuisineReducer.cuisine);
+  const cuisineLoading = useSelector((state) => state.cuisineReducer.loading);
+
   const user = useSelector((state) => state.authReducer.user);
   let cuisineList = cuisines
     .filter((cuisine) =>
       cuisine.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
     )
     .map((cuisine) => <CuisineItem key={cuisine.id} cuisine={cuisine} />);
+
+  if (cuisineLoading) return <CircularProgress />;
   return (
     <div>
       <ChefSearch setSearch={setSearch} />
@@ -39,4 +52,4 @@ const RecipeList = ({ chefRecipe }) => {
     </div>
   );
 };
-export default RecipeList;
+export default CuisineList;

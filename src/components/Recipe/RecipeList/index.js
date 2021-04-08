@@ -8,7 +8,7 @@ import { useStyles } from "./styles";
 import { GridList, GridListTile, ListSubheader } from "@material-ui/core/";
 import { Add } from "@material-ui/icons";
 
-const RecipeList = ({ chefRecipe }) => {
+const RecipeList = ({ chefRecipe, foundRecipe }) => {
   const [search, setSearch] = useState("");
   const classes = useStyles();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
@@ -16,6 +16,12 @@ const RecipeList = ({ chefRecipe }) => {
   let recipeList;
   if (chefRecipe) {
     recipeList = chefRecipe
+      .filter((recipe) =>
+        recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      )
+      .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
+  } else if (foundRecipe) {
+    recipeList = foundRecipe
       .filter((recipe) =>
         recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
       )

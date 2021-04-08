@@ -22,7 +22,7 @@ store.dispatch(fetchProfile());
 store.dispatch(fetchRecipes());
 store.dispatch(fetchChefs());
 store.dispatch(fetchUsers());
-store.dispatch(fetchSessions());
-store.dispatch(fetchCuisines());
+// store.dispatch(fetchSessions());
+// store.dispatch(fetchCuisines());
 
 export default store;

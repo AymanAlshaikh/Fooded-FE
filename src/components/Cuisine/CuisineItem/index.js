@@ -8,6 +8,7 @@ import { DeleteForeverOutlined, Edit } from "@material-ui/icons";
 
 const CuisineItem = ({ cuisine }) => {
   const dispatch = useDispatch();
+
   const chefs = useSelector((state) => state.chefReducer.chef);
   const user = useSelector((state) => state.authReducer.user);
   let chef = null;
