@@ -1,7 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteRecipe } from "../../../store/actions/recipeActions";
+import {
+  deleteRecipe,
+  fetchRecipes,
+} from "../../../store/actions/recipeActions";
 import { useStyles } from "./styles";
 
 import { GridListTile, GridListTileBar, IconButton } from "@material-ui/core";
@@ -10,6 +13,7 @@ import { DeleteForeverOutlined, Edit } from "@material-ui/icons";
 export default function RecipeItem({ recipe }) {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const chefs = useSelector((state) => state.chefReducer.chef);
   const user = useSelector((state) => state.authReducer.user);
   let chef = null;

@@ -18,9 +18,6 @@ export default function SessionItem({ session }) {
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipe = recipes.find((recipe) => recipe.id === session.recipeId);
-  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
-  const sessionLoading = useSelector((state) => state.sessionReducer.loading);
-  const chefLoading = useSelector((state) => state.chefReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
   const chefs = useSelector((state) => state.chefReducer.chef);
   let chef;
@@ -28,7 +25,6 @@ export default function SessionItem({ session }) {
     chef = chefs.find((chef) => chef.userId === user.id);
   }
 
-  if (recipeLoading || sessionLoading) return <CircularProgress />;
   return (
     <Link to={`/sessions/${session.id}`}>
       <GridListTile key={recipe.image}>

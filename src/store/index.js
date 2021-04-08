@@ -4,9 +4,10 @@ import thunk from "redux-thunk";
 import rootReducer from "./reducers";
 
 import { checkForToken, fetchProfile } from "./actions/authActions";
+import { fetchUsers } from "./actions/userActions";
+
 import { fetchRecipes } from "./actions/recipeActions";
 import { fetchChefs } from "./actions/chefActions";
-import { fetchUsers } from "./actions/userActions";
 import { fetchSessions } from "./actions/sessionActions";
 import { fetchCuisines } from "./actions/cuisineActions";
 
@@ -18,10 +19,11 @@ const store = createStore(
 );
 
 store.dispatch(checkForToken());
-store.dispatch(fetchProfile());
-store.dispatch(fetchRecipes());
-store.dispatch(fetchChefs());
 store.dispatch(fetchUsers());
+
+// store.dispatch(fetchProfile());
+// store.dispatch(fetchRecipes());
+// store.dispatch(fetchChefs());
 // store.dispatch(fetchSessions());
 // store.dispatch(fetchCuisines());
 
