@@ -26,6 +26,7 @@ import {
   ExitToApp,
   VoiceChat,
   Book,
+  RestaurantSharp,
 } from "@material-ui/icons";
 
 export default function SwipeableTemporaryDrawer() {
@@ -83,6 +84,12 @@ export default function SwipeableTemporaryDrawer() {
             <VoiceChat />
           </ListItemIcon>
           <ListItemText primary={"Sessions"} />
+        </ListItem>
+        <ListItem button component={Link} to={"/cuisine"}>
+          <ListItemIcon>
+            <RestaurantSharp />
+          </ListItemIcon>
+          <ListItemText primary={"Cuisine"} />
         </ListItem>
       </List>
       <Divider />
