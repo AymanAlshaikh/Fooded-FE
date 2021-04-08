@@ -14,7 +14,7 @@ import {
 import { Add } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
-
+import { fetchChefs } from "../../../store/actions/chefActions";
 const RecipeList = ({ chefRecipe, foundRecipe }) => {
   const [search, setSearch] = useState("");
   const classes = useStyles();
@@ -23,8 +23,10 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (recipeLoading) dispatch(fetchRecipes());
+    dispatch(fetchChefs());
   });
   const user = useSelector((state) => state.authReducer.user);
+
   let recipeList;
   if (chefRecipe) {
     recipeList = chefRecipe

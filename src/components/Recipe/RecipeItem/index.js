@@ -35,19 +35,23 @@ export default function RecipeItem({ recipe }) {
             title={recipe.name}
             subtitle={<span> {recipe.description}</span>}
             actionIcon={
-              <div>
-                <Link to={`/recipes/${recipeSlug}/edit`}>
-                  <IconButton>
-                    <Edit />
-                  </IconButton>
-                </Link>
+              user && user.isChef && recipe.chefId === chef.id ? (
+                <div>
+                  <Link to={`/recipes/${recipeSlug}/edit`}>
+                    <IconButton>
+                      <Edit />
+                    </IconButton>
+                  </Link>
 
-                <IconButton
-                  onClick={() => dispatch(deleteRecipe(recipe.id, chef))}
-                >
-                  <DeleteForeverOutlined />
-                </IconButton>
-              </div>
+                  <IconButton
+                    onClick={() => dispatch(deleteRecipe(recipe.id, chef))}
+                  >
+                    <DeleteForeverOutlined />
+                  </IconButton>
+                </div>
+              ) : (
+                ""
+              )
             }
           />
         </GridListTile>
