@@ -22,3 +22,9 @@ export const REMOVE_SESSION = "REMOVE_SESSION"; //ICEd
 
 //booking types
 export const BOOK_SESSION = "BOOK_SESSION";
+
+//Cuisine Types
+export const FETCH_CUISINE = "FETCH_CUISINE";
+export const ADD_CUISINE = "ADD_CUISINE";
+export const UPDATE_CUISINE = "UPDATE_CUISINE";
+export const REMOVE_CUISINE = "REMOVE_CUISINE";
