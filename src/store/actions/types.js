@@ -19,9 +19,13 @@ export const SEARCH_SESSION = "SEARCH_SESSION";
 export const ADD_SESSION = "ADD_SESSION";
 export const UPDATE_SESSION = "UPDATE_SESSION"; //ICEd
 export const REMOVE_SESSION = "REMOVE_SESSION"; //ICEd
+export const BOOK_SESSION = "BOOK_SESSION"; //ICEd
 
 //booking types
-export const BOOK_SESSION = "BOOK_SESSION";
+export const ADD_BOOKINGS = "ADD_BOOKINGS";
+export const UPDATE_BOOKINGS = "UPDATE_BOOKINGS";
+export const REMOVE_BOOKINGS = "REMOVE_BOOKINGS";
+export const FETCH_BOOKINGS = "FETCH_BOOKINGS";
 
 //Cuisine Types
 export const FETCH_CUISINE = "FETCH_CUISINE";

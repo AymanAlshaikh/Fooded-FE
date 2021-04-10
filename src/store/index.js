@@ -10,6 +10,7 @@ import { fetchRecipes } from "./actions/recipeActions";
 import { fetchChefs } from "./actions/chefActions";
 import { fetchSessions } from "./actions/sessionActions";
 import { fetchCuisines } from "./actions/cuisineActions";
+import { fetchBookings } from "./actions/bookingActions";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -26,5 +27,5 @@ store.dispatch(fetchUsers());
 // store.dispatch(fetchChefs());
 // store.dispatch(fetchSessions());
 // store.dispatch(fetchCuisines());
-
+// store.dispatch(fetchBookings());
 export default store;

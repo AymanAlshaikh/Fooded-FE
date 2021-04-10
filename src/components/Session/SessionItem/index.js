@@ -18,15 +18,22 @@ export default function SessionItem({ session }) {
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipe = recipes.find((recipe) => recipe.id === session.recipeId);
+  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
   const chefs = useSelector((state) => state.chefReducer.chef);
+  console.log(session);
   let chef;
   if (user) {
     chef = chefs.find((chef) => chef.userId === user.id);
   }
-
+  if (recipeLoading)
+    return (
+      <div>
+        <CircularProgress />
+      </div>
+    );
   return (
-    <Link to={`/sessions/${session.id}`}>
+    <Link to={`/sessions/${sessionId}`}>
       <GridListTile key={recipe.image}>
         <img
           src={recipe.image}
@@ -43,14 +50,12 @@ export default function SessionItem({ session }) {
           }
           actionIcon={
             <div>
-              {user ? (
-                <Link to={`sessions/${session.id}/booking`}>
+              {user && (
+                <Link to={`sessions/${sessionId}/booking`}>
                   <IconButton>
                     <PostAdd />
                   </IconButton>
                 </Link>
-              ) : (
-                ""
               )}
               {user && user.isChef && recipe.chefId === chef.id ? (
                 <div>
@@ -62,7 +67,7 @@ export default function SessionItem({ session }) {
                   <IconButton
                     onClick={() =>
                       dispatch(
-                        deleteSession(session.id, recipe.id, chef, history)
+                        deleteSession(sessionId, recipe.id, chef, history)
                       )
                     }
                   >

@@ -15,6 +15,7 @@ import { Add } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { fetchSessions } from "../../../store/actions/sessionActions";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
+import { fetchChefs } from "../../../store/actions/chefActions";
 
 const SessionList = () => {
   const classes = useStyles();
@@ -24,8 +25,11 @@ const SessionList = () => {
   const user = useSelector((state) => state.authReducer.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (sessionLoading || recipeLoading) dispatch(fetchSessions());
-    dispatch(fetchRecipes());
+    if (sessionLoading || recipeLoading) {
+      dispatch(fetchSessions());
+      dispatch(fetchChefs());
+      dispatch(fetchRecipes());
+    }
   });
   const SessionList = sessions.map((session) => (
     <SessionItem key={session.id} session={session} />
