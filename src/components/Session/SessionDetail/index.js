@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect, useParams } from "react-router";
+import { Redirect, useHistory, useParams } from "react-router";
 import { useStyles } from "./styles";
-
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -10,15 +10,21 @@ import {
   CardMedia,
   Typography,
   CircularProgress,
+  IconButton,
 } from "@material-ui/core/";
 import BookingList from "../../Booking/BookingList";
-import { fetchSessions } from "../../../store/actions/sessionActions";
+import {
+  deleteSession,
+  fetchSessions,
+} from "../../../store/actions/sessionActions";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
 import { fetchChefs } from "../../../store/actions/chefActions";
+import { DeleteForeverOutlined, Edit, PostAdd } from "@material-ui/icons";
 
 export default function SessionDetail() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { sessionId } = useParams();
   const user = useSelector((state) => state.authReducer.user);
   const allSessions = useSelector((state) => state.sessionReducer.session);
@@ -68,11 +74,46 @@ export default function SessionDetail() {
           </Typography>
         </CardContent>
         {user && user.isChef && foundChef.userId === user.id ? (
-          <BookingList sessionId={sessionId} />
+          <div>
+            <BookingList sessionId={sessionId} />
+          </div>
         ) : (
           ""
         )}
       </CardActionArea>
+      <div>
+        {user && foundChef.userId !== user.id ? (
+          <Link to={`sessions/${sessionId}/booking`}>
+            <IconButton>
+              <PostAdd />
+            </IconButton>
+          </Link>
+        ) : (
+          ""
+        )}
+      </div>
+      <div>
+        {user && user.isChef && foundChef.userId === user.id ? (
+          <div>
+            <Link to={`/sessions/${sessionId}/edit`}>
+              <IconButton>
+                <Edit />
+              </IconButton>
+            </Link>
+            <IconButton
+              onClick={() =>
+                dispatch(
+                  deleteSession(sessionId, foundRecipe.id, foundChef, history)
+                )
+              }
+            >
+              <DeleteForeverOutlined />
+            </IconButton>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
     </Card>
   );
 }
