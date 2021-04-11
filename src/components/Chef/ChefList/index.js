@@ -4,12 +4,7 @@ import ChefSearch from "../../Search";
 import ChefItem from "../ChefItem";
 import { useStyles } from "./styles";
 
-import {
-  CircularProgress,
-  ListSubheader,
-  GridListTile,
-  GridList,
-} from "@material-ui/core";
+import { CircularProgress, Grid } from "@material-ui/core";
 
 const ChefList = () => {
   const [search, setSearch] = useState("");
@@ -25,17 +20,16 @@ const ChefList = () => {
 
   if (chefLoading || userLoading) return <CircularProgress />;
   return (
-    <div>
-      <ChefSearch setSearch={setSearch} />
-      <div className={classes.root}>
-        <GridList cellHeight={180} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-            <ListSubheader component="div">Chefs</ListSubheader>
-          </GridListTile>
-          {chefList}
-        </GridList>
-      </div>
-    </div>
+    <Grid container className={classes.root}>
+      <Grid container item justify="center">
+        <Grid item>
+          <ChefSearch setSearch={setSearch} />
+        </Grid>
+      </Grid>
+      <Grid container item className={classes.root}>
+        {chefList}
+      </Grid>
+    </Grid>
   );
 };
 export default ChefList;

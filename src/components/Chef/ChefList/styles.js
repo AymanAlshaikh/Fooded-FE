@@ -1,13 +1,12 @@
 import { makeStyles } from "@material-ui/core";
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "auto",
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
+    // overflow: "hidden",
+    // backgroundColor: theme.palette.background.paper,
+    padding: 1,
   },
-  media: {
-    height: 140,
-  },
-});
+}));
