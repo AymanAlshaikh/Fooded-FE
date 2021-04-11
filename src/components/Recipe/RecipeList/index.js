@@ -5,8 +5,8 @@ import ChefSearch from "../../Search";
 import RecipeItem from "../RecipeItem";
 import { useStyles } from "./styles";
 
-import { GridList, GridListTile, ListSubheader } from "@material-ui/core/";
-import { Add } from "@material-ui/icons";
+import { Grid, IconButton } from "@material-ui/core/";
+import { AddBox } from "@material-ui/icons";
 
 const RecipeList = ({ chefRecipe }) => {
   const [search, setSearch] = useState("");
@@ -27,24 +27,25 @@ const RecipeList = ({ chefRecipe }) => {
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
   return (
-    <div>
-      <ChefSearch setSearch={setSearch} />
-      <div className={classes.root}>
-        <GridList cellHeight={180} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-            <ListSubheader component="div">Recipes</ListSubheader>
-          </GridListTile>
-          {recipeList}
-        </GridList>
-        {user && user.isChef ? (
-          <Link to="/recipes/new">
-            <Add />
-          </Link>
-        ) : (
-          ""
-        )}
-      </div>
-    </div>
+    <Grid container className={classes.root}>
+      <Grid container item justify="center">
+        <Grid item xs={11}>
+          <ChefSearch setSearch={setSearch} />
+        </Grid>{" "}
+        <Grid item direction="row-reverse" justify="flex-start">
+          {user && user.isChef ? (
+            <IconButton component={Link} to="/recipes/new">
+              <AddBox />
+            </IconButton>
+          ) : (
+            ""
+          )}
+        </Grid>
+      </Grid>
+      <Grid container item className={classes.root}>
+        {recipeList}
+      </Grid>
+    </Grid>
   );
 };
 export default RecipeList;

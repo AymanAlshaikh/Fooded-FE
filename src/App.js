@@ -1,11 +1,11 @@
-import SwipeableTemporaryDrawer from "./components/Drawer";
+import NavBar from "./components/NavBar";
 import Routes from "./components/Routes";
 import Copyright from "./components/Copyright";
 
 function App() {
   return (
     <div>
-      <SwipeableTemporaryDrawer />
+      <NavBar />
       <Routes />
       <Copyright />
     </div>
