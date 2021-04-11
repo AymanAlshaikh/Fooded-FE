@@ -5,6 +5,7 @@ import ChefSearch from "../../Search";
 import RecipeItem from "../RecipeItem";
 import { useStyles } from "./styles";
 
+<<<<<<< HEAD
 import {
   CircularProgress,
   GridList,
@@ -16,6 +17,12 @@ import { useDispatch } from "react-redux";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
 import { fetchChefs } from "../../../store/actions/chefActions";
 const RecipeList = ({ chefRecipe, foundRecipe }) => {
+=======
+import { Grid, IconButton } from "@material-ui/core/";
+import { AddBox } from "@material-ui/icons";
+
+const RecipeList = ({ chefRecipe }) => {
+>>>>>>> 3f4372bb8b6f6fda53680d94c473082f29f4144c
   const [search, setSearch] = useState("");
   const classes = useStyles();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
@@ -49,24 +56,25 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
 
   if (recipeLoading) return <CircularProgress />;
   return (
-    <div>
-      <ChefSearch setSearch={setSearch} />
-      <div className={classes.root}>
-        <GridList cellHeight={180} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-            <ListSubheader component="div">Recipes</ListSubheader>
-          </GridListTile>
-          {recipeList}
-        </GridList>
-        {user && user.isChef ? (
-          <Link to="/recipes/new">
-            <Add />
-          </Link>
-        ) : (
-          ""
-        )}
-      </div>
-    </div>
+    <Grid container className={classes.root}>
+      <Grid container item justify="center">
+        <Grid item xs={11}>
+          <ChefSearch setSearch={setSearch} />
+        </Grid>{" "}
+        <Grid item direction="row-reverse" justify="flex-start">
+          {user && user.isChef ? (
+            <IconButton component={Link} to="/recipes/new">
+              <AddBox />
+            </IconButton>
+          ) : (
+            ""
+          )}
+        </Grid>
+      </Grid>
+      <Grid container item className={classes.root}>
+        {recipeList}
+      </Grid>
+    </Grid>
   );
 };
 export default RecipeList;

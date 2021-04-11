@@ -4,6 +4,7 @@ import ChefSearch from "../../Search";
 import ChefItem from "../ChefItem";
 import { useStyles } from "./styles";
 
+<<<<<<< HEAD
 import {
   CircularProgress,
   ListSubheader,
@@ -12,6 +13,9 @@ import {
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { fetchChefs } from "../../../store/actions/chefActions";
+=======
+import { CircularProgress, Grid } from "@material-ui/core";
+>>>>>>> 3f4372bb8b6f6fda53680d94c473082f29f4144c
 
 const ChefList = () => {
   const dispatch = useDispatch();
@@ -37,17 +41,16 @@ const ChefList = () => {
       </div>
     );
   return (
-    <div>
-      <ChefSearch setSearch={setSearch} />
-      <div className={classes.root}>
-        <GridList cellHeight={180} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-            <ListSubheader component="div">Chefs</ListSubheader>
-          </GridListTile>
-          {chefList}
-        </GridList>
-      </div>
-    </div>
+    <Grid container className={classes.root}>
+      <Grid container item justify="center">
+        <Grid item>
+          <ChefSearch setSearch={setSearch} />
+        </Grid>
+      </Grid>
+      <Grid container item className={classes.root}>
+        {chefList}
+      </Grid>
+    </Grid>
   );
 };
 export default ChefList;

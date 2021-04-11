@@ -13,12 +13,14 @@ export const fetchRecipes = () => {
 };
 
 export const addRecipe = (newRecipe, image, chefId) => async (dispatch) => {
+  console.log("-----------GGGG---------", newRecipe);
+
   try {
     const formData = new FormData();
     for (const key in newRecipe) formData.append(key, newRecipe[key]);
     formData.append("image", image);
     const res = await instance.post(`/chefs/${chefId}/recipes`, formData);
-
+    console.log("-----------GGGG---------", res.data);
     dispatch({
       type: types.ADD_RECIPE,
       payload: { newRecipe: res.data },
