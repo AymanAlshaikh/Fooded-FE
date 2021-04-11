@@ -1,16 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router";
+import ChefItem from "../ChefItem";
 import RecipeList from "../../Recipe/RecipeList";
 import { useStyles } from "./styles";
 
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@material-ui/core/";
+import { Grid } from "@material-ui/core/";
 
 export default function ChefDetail() {
   const classes = useStyles();
@@ -30,22 +25,13 @@ export default function ChefDetail() {
 
   if (!userChef) return <Redirect to="/chefs" />;
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          title={userChef.firstName}
-          image={userChef.image}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {userChef.firstName}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Recipes: <RecipeList chefRecipe={_chefRecipe} />
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <Grid container className={classes.root}>
+      <Grid item xs={3}>
+        <ChefItem key={_chef.id} chef={_chef} />
+      </Grid>
+      <Grid item xs={9}>
+        <RecipeList chefRecipe={_chefRecipe} />
+      </Grid>
+    </Grid>
   );
 }

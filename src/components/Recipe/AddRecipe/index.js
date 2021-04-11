@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -16,8 +16,12 @@ import {
   Box,
   Typography,
   Container,
+  InputLabel,
+  NativeSelect,
+  FormControl,
 } from "@material-ui/core";
 import { Fastfood } from "@material-ui/icons";
+import { fetchCuisines } from "../../../store/actions/cuisineActions";
 
 const AddRecipe = () => {
   const classes = useStyles();
@@ -33,10 +37,17 @@ const AddRecipe = () => {
   const chefs = useSelector((state) => state.chefReducer.chef);
   const user = useSelector((state) => state.authReducer.user);
   const chef = chefs.find((chef) => chef.userId === user.id);
+  const cuisines = useSelector((state) => state.cuisineReducer.cuisine);
   const userLoading = useSelector((state) => state.authReducer.loading);
+  const cuisineLoading = useSelector((state) => state.cuisineReducer.loading);
   const chefLoading = useSelector((state) => state.chefReducer.loading);
-
-  console.log(user);
+  useEffect(() => {
+    if (cuisineLoading) dispatch(fetchCuisines());
+  });
+  console.log(cuisines);
+  const cuisineOptions = cuisines.map((cuisine) => (
+    <option value={cuisine.id}>{cuisine.name}</option>
+  ));
 
   let preloadedValues = {};
 
@@ -135,6 +146,20 @@ const AddRecipe = () => {
               />
               {errors.image && <p>Recipe Image is required</p>}
             </Grid>
+            <Grid item xs={12} sm={12}>
+              <FormControl className={classes.margin}>
+                <InputLabel htmlFor="demo-customized-select-native">
+                  Cuisine
+                </InputLabel>
+                <NativeSelect
+                  id="cuisineId"
+                  name="cuisineId"
+                  inputRef={register({ required: true })}
+                >
+                  {cuisineOptions}
+                </NativeSelect>
+              </FormControl>
+            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -145,13 +170,6 @@ const AddRecipe = () => {
           >
             {recipe ? "Update" : "ADD"}
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to="/signin">
-                <Link1 variant="body2"></Link1>
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={5}></Box>

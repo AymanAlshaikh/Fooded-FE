@@ -1,5 +1,6 @@
 import React from "react";
 import { useStyles } from "./styles";
+//  <a href="https://www.freepik.com/photos/background">Background photo created by valeria_aksakova - www.freepik.com</a>
 
 const Home = () => {
   const classes = useStyles();

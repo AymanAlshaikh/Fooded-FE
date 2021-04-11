@@ -7,6 +7,8 @@ import sessionReducer from "./sessionReducer";
 import ingredientReducer from "./ingredientReducer";
 import ingredientRecipeReducer from "./ingredientRecipeReducer";
 //Reducers
+import cuisineReducer from "./cuisineReducer";
+import bookingReducer from "./bookingReducer";
 
 const rootReducer = combineReducers({
   authReducer,
@@ -16,6 +18,8 @@ const rootReducer = combineReducers({
   sessionReducer,
   ingredientReducer,
   ingredientRecipeReducer,
+  cuisineReducer,
+  bookingReducer,
 });
 
 export default rootReducer;

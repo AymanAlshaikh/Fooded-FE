@@ -7,4 +7,5 @@ export const style = makeStyles({
     alignContent: "center",
     textAlign: "center",
   },
+  field: { width: 600 },
 });
