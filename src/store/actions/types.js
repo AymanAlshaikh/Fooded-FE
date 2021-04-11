@@ -22,3 +22,9 @@ export const REMOVE_SESSION = "REMOVE_SESSION"; //ICEd
 
 //booking types
 export const BOOK_SESSION = "BOOK_SESSION";
+
+//ingredients Types
+export const FETCH_INGREDIENT = "FETCH_INGREDIENT";
+
+//ingredientRecipe Types
+export const FETCH_INGREDIENTRECIPE = "FETCH_INGREDIENTRECIPE";
