@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { updateUser } from "../../store/actions/authActions";
+import { fetchProfile, updateUser } from "../../store/actions/authActions";
 import { useStyles } from "./styles";
 
 import Link1 from "@material-ui/core/Link";
@@ -26,6 +26,9 @@ const UserProfile = () => {
   const history = useHistory();
   const user = useSelector((state) => state.authReducer.user);
   const loading = useSelector((state) => state.authReducer.loading);
+  useEffect(() => {
+    if (loading) dispatch(fetchProfile());
+  });
   let preloadedValues = {};
   if (user) {
     preloadedValues = {

@@ -1,7 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteRecipe } from "../../../store/actions/recipeActions";
+import {
+  deleteRecipe,
+  fetchRecipes,
+} from "../../../store/actions/recipeActions";
 import { useStyles } from "./styles";
 
 import {
@@ -19,6 +22,7 @@ import { MoreVert } from "@material-ui/icons";
 export default function RecipeItem({ recipe }) {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const chefs = useSelector((state) => state.chefReducer.chef);
   const user = useSelector((state) => state.authReducer.user);
   let chef = null;
@@ -36,6 +40,42 @@ export default function RecipeItem({ recipe }) {
   };
   const recipeSlug = recipe.slug;
   return (
+<<<<<<< HEAD
+    <div>
+      <Link to={`/recipes/${recipeSlug}`}>
+        <GridListTile key={recipe.image}>
+          <img
+            src={recipe.image}
+            alt={recipe.name}
+            style={{ height: 500, width: 500 }}
+          />
+          <GridListTileBar
+            title={recipe.name}
+            subtitle={<span> {recipe.description}</span>}
+            actionIcon={
+              user && user.isChef && recipe.chefId === chef.id ? (
+                <div>
+                  <Link to={`/recipes/${recipeSlug}/edit`}>
+                    <IconButton>
+                      <Edit />
+                    </IconButton>
+                  </Link>
+
+                  <IconButton
+                    onClick={() => dispatch(deleteRecipe(recipe.id, chef))}
+                  >
+                    <DeleteForeverOutlined />
+                  </IconButton>
+                </div>
+              ) : (
+                ""
+              )
+            }
+          />
+        </GridListTile>
+      </Link>
+    </div>
+=======
     <ButtonBase component={Link} to={`/recipes/${recipeSlug}`}>
       <Card className={classes.root} variant="outlined">
         <CardMedia
@@ -105,5 +145,6 @@ export default function RecipeItem({ recipe }) {
       </Grid> */}
       </Card>
     </ButtonBase>
+>>>>>>> 3f4372bb8b6f6fda53680d94c473082f29f4144c
   );
 }

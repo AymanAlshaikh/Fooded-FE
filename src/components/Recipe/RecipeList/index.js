@@ -1,21 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ChefSearch from "../../Search";
 import RecipeItem from "../RecipeItem";
 import { useStyles } from "./styles";
 
+<<<<<<< HEAD
+import {
+  CircularProgress,
+  GridList,
+  GridListTile,
+  ListSubheader,
+} from "@material-ui/core/";
+import { Add } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
+import { fetchRecipes } from "../../../store/actions/recipeActions";
+import { fetchChefs } from "../../../store/actions/chefActions";
+const RecipeList = ({ chefRecipe, foundRecipe }) => {
+=======
 import { Grid, IconButton } from "@material-ui/core/";
 import { AddBox } from "@material-ui/icons";
 
 const RecipeList = ({ chefRecipe }) => {
+>>>>>>> 3f4372bb8b6f6fda53680d94c473082f29f4144c
   const [search, setSearch] = useState("");
   const classes = useStyles();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
+  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (recipeLoading) dispatch(fetchRecipes());
+    dispatch(fetchChefs());
+  });
   const user = useSelector((state) => state.authReducer.user);
+
   let recipeList;
   if (chefRecipe) {
     recipeList = chefRecipe
+      .filter((recipe) =>
+        recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      )
+      .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
+  } else if (foundRecipe) {
+    recipeList = foundRecipe
       .filter((recipe) =>
         recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
       )
@@ -26,6 +53,8 @@ const RecipeList = ({ chefRecipe }) => {
         recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
+
+  if (recipeLoading) return <CircularProgress />;
   return (
     <Grid container className={classes.root}>
       <Grid container item justify="center">
