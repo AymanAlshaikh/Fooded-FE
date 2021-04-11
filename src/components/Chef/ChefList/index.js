@@ -4,18 +4,9 @@ import ChefSearch from "../../Search";
 import ChefItem from "../ChefItem";
 import { useStyles } from "./styles";
 
-<<<<<<< HEAD
-import {
-  CircularProgress,
-  ListSubheader,
-  GridListTile,
-  GridList,
-} from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { fetchChefs } from "../../../store/actions/chefActions";
-=======
 import { CircularProgress, Grid } from "@material-ui/core";
->>>>>>> 3f4372bb8b6f6fda53680d94c473082f29f4144c
 
 const ChefList = () => {
   const dispatch = useDispatch();
