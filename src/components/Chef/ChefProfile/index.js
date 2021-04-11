@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 //Dev express imports
 import moment from "moment";
-import { CircularProgress, Paper } from "@material-ui/core/";
+import { Button, CircularProgress, Paper } from "@material-ui/core/";
 import {
   Scheduler,
   WeekView,
@@ -53,7 +53,9 @@ const ChefProfile = () => {
     <div>
       <Paper>
         <Scheduler data={appointments}>
-          <button onClick={handleView}>Change View</button>
+          <Button onClick={handleView}>
+            {view === "month" ? "Switch to Week View" : "Switch to Month View"}
+          </Button>
           {view === "month" ? <MonthView /> : <WeekView />}
           <Appointments />
         </Scheduler>
