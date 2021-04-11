@@ -34,7 +34,7 @@ export default function CuisineDetail() {
     (recipe) => recipe.cuisineId === foundCuisine.id
   );
 
-  if (cuisineLoading || recipeLoading) return <CircularProgress />;
+  if (cuisineLoading) return <CircularProgress />;
   return (
     <Card className={classes.root}>
       <CardActionArea>
