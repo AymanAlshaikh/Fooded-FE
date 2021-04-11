@@ -44,8 +44,9 @@ export default function SessionItem({ session }) {
           title={recipe.name}
           subtitle={
             <span>
-              {" "}
-              {`Date: ${session.date}`} {`Time: ${session.time}`}
+              {`Date: ${session.date} `}
+              {` Time: ${session.time} `}
+              {` Duration: ${recipe.duration} Minutes`}
             </span>
           }
           actionIcon={
