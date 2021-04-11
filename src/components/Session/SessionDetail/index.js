@@ -62,7 +62,9 @@ export default function SessionDetail() {
             Time: {foundSession.time}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Duration: {foundRecipe.duration} Minutes
+            Recipe Duration: {foundRecipe.duration} Minutes (
+            {foundRecipe.duration / 60}
+            {foundRecipe.duration >= 120 ? "Hours" : "Hour"})
           </Typography>
         </CardContent>
         {user && user.isChef && foundChef.userId === user.id ? (
