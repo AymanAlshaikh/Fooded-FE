@@ -56,10 +56,13 @@ export default function SessionDetail() {
             {`${foundRecipe.name} by ${foundChef.name}`}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {foundSession.date}
+            Date: {foundSession.date}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {foundSession.time}
+            Time: {foundSession.time}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Duration: {foundRecipe.duration} Minutes
           </Typography>
         </CardContent>
         {user && user.isChef && foundChef.userId === user.id ? (
