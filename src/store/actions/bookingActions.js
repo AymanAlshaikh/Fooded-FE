@@ -5,7 +5,7 @@ export const fetchBookings = () => {
   return async (dispatch) => {
     try {
       const res = await instance.get("/booking");
-      dispatch({ type: types.FETCH_SESSION, payload: res.data });
+      dispatch({ type: types.FETCH_BOOKINGS, payload: res.data });
     } catch (error) {
       console.log("fetchBookings bookingActions Error:", error);
     }
@@ -22,7 +22,7 @@ export const updateBooking = (updatedBooking, recipeId, booking) => async (
       updatedBooking
     );
     dispatch({
-      type: types.UPDATE_SESSION,
+      type: types.UPDATE_BOOKINGS,
       payload: { updatedBooking: res.data },
     });
   } catch (error) {
@@ -33,7 +33,10 @@ export const updateBooking = (updatedBooking, recipeId, booking) => async (
 export const deleteBooking = (bookingId, recipe) => async (dispatch) => {
   try {
     await instance.delete(`/recipes/${recipe.id}/booking/${bookingId}`);
-    dispatch({ type: types.REMOVE_SESSION, payload: { bookingId: bookingId } });
+    dispatch({
+      type: types.REMOVE_BOOKINGS,
+      payload: { bookingId: bookingId },
+    });
   } catch (error) {
     console.log("deleteBooking bookingActions Error:", error);
   }

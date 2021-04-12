@@ -62,7 +62,7 @@ export const updateSession = (
   }
 };
 
-// ICEd
+// DONE
 export const deleteSession = (
   sessionId,
   recipeId,

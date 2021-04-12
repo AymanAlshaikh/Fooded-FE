@@ -5,11 +5,11 @@ import { useStyles } from "./styles";
 
 import {
   CircularProgress,
-  GridListTile,
-  GridListTileBar,
-  IconButton,
+  ButtonBase,
+  Card,
+  CardMedia,
+  CardHeader,
 } from "@material-ui/core";
-import { Info } from "@material-ui/icons/";
 
 export default function ChefItem({ chef }) {
   const classes = useStyles();
@@ -18,25 +18,15 @@ export default function ChefItem({ chef }) {
   const loading = useSelector((state) => state.userReducer.loading);
   if (!_chef || loading) return <CircularProgress />;
   return (
-    <Link to={`/chefs/${_chef.slug}`}>
-      <GridListTile key={_chef.image}>
-        <img
-          src={_chef.image}
-          alt={_chef.username}
-          style={{ height: 500, width: 500 }}
+    <ButtonBase component={Link} to={`/chefs/${_chef.slug}`}>
+      <Card className={classes.root} variant="outlined">
+        <CardMedia
+          image={_chef.image}
+          className={classes.media}
+          title={`Chef ${_chef.username}`}
         />
-        <GridListTileBar
-          title={_chef.username}
-          actionIcon={
-            <IconButton
-              aria-label={`info about ${_chef.username}`}
-              className={classes.icon}
-            >
-              <Info />
-            </IconButton>
-          }
-        />
-      </GridListTile>
-    </Link>
+        <CardHeader title={`Chef ${_chef.username}`} />
+      </Card>
+    </ButtonBase>
   );
 }

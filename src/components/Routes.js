@@ -15,8 +15,12 @@ import RecipeDetail from "./Recipe/RecipeDetail";
 import AddSession from "./Session/AddSession";
 import SessionList from "./Session/SessionList";
 import SessionDetail from "./Session/SessionDetail";
+
+import CuisineList from "./Cuisine/CuisineList";
+
 import Booking from "./Session/Booking";
 import Page404 from "./404";
+import CuisineDetail from "./Cuisine/CuisineDetail";
 
 const Routes = () => {
   return (
@@ -38,6 +42,12 @@ const Routes = () => {
       </Route>
       <Route path="/recipes/:recipeSlug">
         <RecipeDetail />
+      </Route>
+      <Route path="/cuisine/:cuisineSlug">
+        <CuisineDetail />
+      </Route>
+      <Route path="/cuisine">
+        <CuisineList />
       </Route>
       <Route path="/sessions">
         <SessionList />

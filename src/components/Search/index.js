@@ -13,9 +13,12 @@ const Search = ({ setSearch }) => {
     <div className={classes.center}>
       <TextField
         onChange={handleChange}
+        className={classes.field}
         label="Search"
         margin="normal"
         variant="outlined"
+        size="small"
+        fullWidth
       />
     </div>
   );
