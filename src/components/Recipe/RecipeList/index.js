@@ -38,30 +38,27 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
     recipeList = chefRecipe
       .filter(
         (recipe) =>
-          recipe.name
-            .toLocaleLowerCase()
-            .includes(search.toLocaleLowerCase()) ||
-          cuisine.map((cuis) => cuis === recipe.cuisineId.toString())
+          recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        //   ||
+        // cuisine.map((cuis) => cuis === recipe.cuisineId.toString())
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
   } else if (foundRecipe) {
     recipeList = foundRecipe
       .filter(
         (recipe) =>
-          recipe.name
-            .toLocaleLowerCase()
-            .includes(search.toLocaleLowerCase()) ||
-          cuisine.map((cuis) => cuis === recipe.cuisineId.toString())
+          recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        //    ||
+        // cuisine.map((cuis) => cuis === recipe.cuisineId.toString())
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
   } else
     recipeList = recipes
       .filter(
         (recipe) =>
-          recipe.name
-            .toLocaleLowerCase()
-            .includes(search.toLocaleLowerCase()) ||
-          cuisine.map((cuis) => cuis === recipe.cuisineId.toString())
+          recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        //   ||
+        // cuisine.map((cuis) => cuis === recipe.cuisineId.toString())
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
 
@@ -69,7 +66,7 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
   if (recipeLoading) return <CircularProgress />;
   return (
     <Grid container className={classes.root}>
-      <CuisineFilter setCuisine={setCuisine} cuisine={cuisine} />
+      {/* <CuisineFilter setCuisine={setCuisine} cuisine={cuisine} /> */}
       <Grid container item justify="center">
         <Grid item xs={11}>
           <ChefSearch setSearch={setSearch} />
