@@ -44,7 +44,7 @@ const AddRecipe = () => {
   useEffect(() => {
     if (cuisineLoading) dispatch(fetchCuisines());
   });
-  console.log(cuisines);
+
   const cuisineOptions = cuisines.map((cuisine) => (
     <option value={cuisine.id}>{cuisine.name}</option>
   ));
@@ -56,6 +56,7 @@ const AddRecipe = () => {
       name: recipe.name,
       description: recipe.description,
       ingredientDescription: recipe.ingredientDescription,
+      duration: recipe.duration,
     };
   }
   const { handleSubmit, errors, register } = useForm({
@@ -145,6 +146,17 @@ const AddRecipe = () => {
                 onChange={handleImage}
               />
               {errors.image && <p>Recipe Image is required</p>}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                type="number"
+                fullWidth
+                id="duration"
+                label="Recipe Duration"
+                name="duration"
+                inputRef={register({ required: true })}
+              />
+              {errors.duration && <p>Recipe Duration is required</p>}
             </Grid>
             <Grid item xs={12} sm={12}>
               <FormControl className={classes.margin}>
