@@ -28,7 +28,16 @@ export default function CuisineFilter({ setCuisine, cuisine }) {
   });
 
   const handleChange = (event) => {
-    setCuisine([...cuisine, event.target.value]);
+    if (cuisine.includes(event.target.value)) {
+      for (let i = 0; i < cuisine.length; i++) {
+        if (cuisine[i] === event.target.value) {
+          cuisine.splice(i, 1);
+        }
+      }
+    } else {
+      setCuisine([...cuisine, event.target.value]);
+    }
+
     // setCuisine({ ...cuisine, [event.target.name]: event.target.checked });
   };
 
@@ -39,7 +48,7 @@ export default function CuisineFilter({ setCuisine, cuisine }) {
     <FormControlLabel
       control={
         <Checkbox
-          value={cuisine.id}
+          value={parseInt(cuisine.id)}
           //   checked={cuisine.id}
           onChange={handleChange}
           name={cuisine.name}

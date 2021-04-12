@@ -121,8 +121,8 @@ const AddSession = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Grid container spacing={2}>
+            <InputLabel>Session Time</InputLabel>
             <Grid item xs={12} sm={12}>
-              <InputLabel>Session Time</InputLabel>
               <TextField
                 type="time"
                 name="time"
@@ -134,8 +134,8 @@ const AddSession = () => {
               />
               {errors.time && <p>time is required</p>}
             </Grid>
+            <InputLabel>Session Date</InputLabel>
             <Grid item xs={12} sm={12}>
-              <InputLabel>Session Date</InputLabel>
               <TextField
                 type="date"
                 name="date"
@@ -155,10 +155,10 @@ const AddSession = () => {
                 <p>Invalid Date</p>
               )}
             </Grid>
+            <InputLabel htmlFor="demo-customized-select-native">
+              Recipes
+            </InputLabel>
             <Grid item xs={12} sm={12}>
-              <InputLabel htmlFor="demo-customized-select-native">
-                Recipes
-              </InputLabel>
               <FormControl className={classes.margin}>
                 <NativeSelect
                   id="recipeId"

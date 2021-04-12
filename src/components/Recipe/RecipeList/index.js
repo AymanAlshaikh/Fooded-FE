@@ -41,19 +41,27 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
           recipe.name
             .toLocaleLowerCase()
             .includes(search.toLocaleLowerCase()) ||
-          recipe.cuisineId.includes(parseInt(cuisine))
+          recipe.cuisineId.toString().includes(cuisine)
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
   } else if (foundRecipe) {
     recipeList = foundRecipe
-      .filter((recipe) =>
-        recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      .filter(
+        (recipe) =>
+          recipe.name
+            .toLocaleLowerCase()
+            .includes(search.toLocaleLowerCase()) ||
+          recipe.cuisineId.toString().includes(cuisine)
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
   } else
     recipeList = recipes
-      .filter((recipe) =>
-        recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      .filter(
+        (recipe) =>
+          recipe.name
+            .toLocaleLowerCase()
+            .includes(search.toLocaleLowerCase()) ||
+          recipe.cuisineId.toString().includes(cuisine)
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
 
