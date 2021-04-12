@@ -21,8 +21,9 @@ import {
   TextField,
   Button,
   Avatar,
+  Input,
 } from "@material-ui/core";
-import { ScheduleRounded } from "@material-ui/icons";
+import { Label, ScheduleRounded } from "@material-ui/icons";
 import moment from "moment";
 
 const AddSession = () => {
@@ -121,12 +122,12 @@ const AddSession = () => {
         >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
+              <InputLabel>Session Time</InputLabel>
               <TextField
                 type="time"
                 name="time"
                 fullWidth
                 id="time"
-                label="Session Time"
                 required
                 inputRef={register({ required: true })}
                 autoFocus
@@ -134,6 +135,7 @@ const AddSession = () => {
               {errors.time && <p>time is required</p>}
             </Grid>
             <Grid item xs={12} sm={12}>
+              <InputLabel>Session Date</InputLabel>
               <TextField
                 type="date"
                 name="date"
@@ -145,7 +147,6 @@ const AddSession = () => {
                     ? alert("Invalid Date")
                     : setDate(event.target.value)
                 }
-                label="Session Date"
                 inputRef={register({ required: true, validate: checkDate })}
                 autoFocus
               />
@@ -155,10 +156,10 @@ const AddSession = () => {
               )}
             </Grid>
             <Grid item xs={12} sm={12}>
+              <InputLabel htmlFor="demo-customized-select-native">
+                Recipes
+              </InputLabel>
               <FormControl className={classes.margin}>
-                <InputLabel htmlFor="demo-customized-select-native">
-                  Recipes
-                </InputLabel>
                 <NativeSelect
                   id="recipeId"
                   name="recipeId"

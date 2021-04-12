@@ -138,6 +138,7 @@ const AddRecipe = () => {
 
             <Grid item xs={12}>
               <TextField
+                required
                 type="file"
                 fullWidth
                 id="image"
@@ -149,6 +150,7 @@ const AddRecipe = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                required
                 type="number"
                 fullWidth
                 id="duration"
@@ -164,6 +166,7 @@ const AddRecipe = () => {
               </InputLabel>
               <FormControl className={classes.margin}>
                 <NativeSelect
+                  required
                   id="cuisineId"
                   name="cuisineId"
                   inputRef={register({ required: true })}
