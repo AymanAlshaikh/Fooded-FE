@@ -68,9 +68,10 @@ export default function SessionDetail() {
             Time: {foundSession.time}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Recipe Duration: {foundRecipe.duration} Minutes (
-            {foundRecipe.duration / 60}
-            {foundRecipe.duration >= 120 ? "Hours" : "Hour"})
+            Recipe Duration:{" "}
+            {foundRecipe.duration <= 60
+              ? `${foundRecipe.duration} Minutes`
+              : `${timeConvert(foundRecipe.duration)}`}
           </Typography>
         </CardContent>
         {user && user.isChef && foundChef.userId === user.id ? (
@@ -116,4 +117,25 @@ export default function SessionDetail() {
       </div>
     </Card>
   );
+}
+
+function timeConvert(n) {
+  let num = n;
+  let hours = num / 60;
+  let rhours = Math.floor(hours);
+  let minutes = (hours - rhours) * 60;
+  let rminutes = Math.round(minutes);
+  if (rhours > 1) {
+    if (rminutes > 1) {
+      return rhours + " Hours and " + rminutes + " Minutes.";
+    } else {
+      return rhours + " Hours and " + rminutes + " Minute.";
+    }
+  } else {
+    if (rminutes > 1) {
+      return rhours + " Hour and " + rminutes + " Minutes.";
+    } else {
+      return rhours + " Hour and " + rminutes + " Minute.";
+    }
+  }
 }

@@ -8,19 +8,29 @@ import { CircularProgress } from "@material-ui/core/";
 import { useDispatch } from "react-redux";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
 import { fetchChefs } from "../../../store/actions/chefActions";
+import { fetchCuisines } from "../../../store/actions/cuisineActions";
 import { Grid, IconButton } from "@material-ui/core/";
 import { AddBox } from "@material-ui/icons";
+import CuisineFilter from "../CuisineFilter";
 
 const RecipeList = ({ chefRecipe, foundRecipe }) => {
+  useEffect(() => {
+    if (recipeLoading || cuisinesLoading) {
+      dispatch(fetchRecipes());
+      dispatch(fetchChefs());
+      dispatch(fetchCuisines());
+    }
+  });
+  const cuisines = useSelector((state) => state.cuisineReducer.cuisine);
+  const cuisinesLoading = useSelector((state) => state.cuisineReducer.loading);
+  const cuisineIds = cuisines.map((cuisine) => cuisine.id);
+  const [cuisine, setCuisine] = useState(cuisineIds);
+  console.log(cuisine);
   const [search, setSearch] = useState("");
   const classes = useStyles();
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (recipeLoading) dispatch(fetchRecipes());
-    dispatch(fetchChefs());
-  });
   const user = useSelector((state) => state.authReducer.user);
 
   let recipeList;
@@ -43,6 +53,7 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
 
+  console.log(recipeList);
   if (recipeLoading) return <CircularProgress />;
   return (
     <Grid container className={classes.root}>
