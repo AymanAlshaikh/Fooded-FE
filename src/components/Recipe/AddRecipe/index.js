@@ -159,10 +159,10 @@ const AddRecipe = () => {
               {errors.duration && <p>Recipe Duration is required</p>}
             </Grid>
             <Grid item xs={12} sm={12}>
+              <InputLabel htmlFor="demo-customized-select-native">
+                Cuisine
+              </InputLabel>
               <FormControl className={classes.margin}>
-                <InputLabel htmlFor="demo-customized-select-native">
-                  Cuisine
-                </InputLabel>
                 <NativeSelect
                   id="cuisineId"
                   name="cuisineId"
