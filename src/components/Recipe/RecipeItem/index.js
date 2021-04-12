@@ -22,13 +22,17 @@ import { MoreVert } from "@material-ui/icons";
 export default function RecipeItem({ recipe }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  const cuisines = useSelector((state) => state.cuisineReducer.cuisine);
+  const cuisine = cuisines.find((cuisine) => cuisine.id === recipe.cuisineId);
   const chefs = useSelector((state) => state.chefReducer.chef);
   const user = useSelector((state) => state.authReducer.user);
   let chef = null;
   if (user) {
     chef = chefs.find((chef) => chef.userId === user.id);
   }
+
+  const recipeChef = chefs.find((chef) => chef.id === recipe.chefId);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -84,7 +88,7 @@ export default function RecipeItem({ recipe }) {
             </div>
           }
           title={recipe.name}
-          subheader="Chef (...)"
+          subheader={`By Chef ${recipeChef.name}`}
         />
 
         {/* <CardContent></CardContent> */}
@@ -93,7 +97,7 @@ export default function RecipeItem({ recipe }) {
           color="textSecondary"
           variant="subtitle2"
         >
-          Cuisine: (...)
+          Cuisine: {cuisine.name}
           <br />
           Duration:{" "}
           {recipe.duration <= 60
