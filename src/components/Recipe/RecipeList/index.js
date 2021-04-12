@@ -14,6 +14,13 @@ import { AddBox } from "@material-ui/icons";
 import CuisineFilter from "../CuisineFilter";
 
 const RecipeList = ({ chefRecipe, foundRecipe }) => {
+  useEffect(() => {
+    if (recipeLoading || cuisinesLoading) {
+      dispatch(fetchRecipes());
+      dispatch(fetchChefs());
+      dispatch(fetchCuisines());
+    }
+  });
   const cuisines = useSelector((state) => state.cuisineReducer.cuisine);
   const cuisinesLoading = useSelector((state) => state.cuisineReducer.loading);
   const cuisineIds = cuisines.map((cuisine) => cuisine.id);
@@ -24,13 +31,6 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
   const recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (recipeLoading || cuisinesLoading) {
-      dispatch(fetchRecipes());
-      dispatch(fetchChefs());
-      dispatch(fetchCuisines());
-    }
-  });
   const user = useSelector((state) => state.authReducer.user);
 
   let recipeList;
@@ -41,7 +41,7 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
           recipe.name
             .toLocaleLowerCase()
             .includes(search.toLocaleLowerCase()) ||
-          recipe.cuisineId.toString().includes(cuisine)
+          cuisine.map((cuis) => cuis === recipe.cuisineId.toString())
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
   } else if (foundRecipe) {
@@ -51,7 +51,7 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
           recipe.name
             .toLocaleLowerCase()
             .includes(search.toLocaleLowerCase()) ||
-          recipe.cuisineId.toString().includes(cuisine)
+          cuisine.map((cuis) => cuis === recipe.cuisineId.toString())
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
   } else
@@ -61,10 +61,11 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
           recipe.name
             .toLocaleLowerCase()
             .includes(search.toLocaleLowerCase()) ||
-          recipe.cuisineId.toString().includes(cuisine)
+          cuisine.map((cuis) => cuis === recipe.cuisineId.toString())
       )
       .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
 
+  console.log(recipeList);
   if (recipeLoading) return <CircularProgress />;
   return (
     <Grid container className={classes.root}>

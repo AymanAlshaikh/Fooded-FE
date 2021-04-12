@@ -48,7 +48,7 @@ export default function CuisineFilter({ setCuisine, cuisine }) {
     <FormControlLabel
       control={
         <Checkbox
-          value={parseInt(cuisine.id)}
+          value={cuisine.id}
           //   checked={cuisine.id}
           onChange={handleChange}
           name={cuisine.name}
