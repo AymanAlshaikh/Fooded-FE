@@ -113,12 +113,12 @@ export default function SwipeableTemporaryDrawer() {
           </ListItemIcon>
           <ListItemText primary={"Upcoming Sessions"} />
         </ListItem>
-        <ListItem button component={Link} to={"/cuisine"}>
+        {/* <ListItem button component={Link} to={"/cuisine"}>
           <ListItemIcon>
             <RestaurantSharp />
           </ListItemIcon>
           <ListItemText primary={"Cuisine"} />
-        </ListItem>
+        </ListItem> */}
       </List>
       <Divider />
       <List>

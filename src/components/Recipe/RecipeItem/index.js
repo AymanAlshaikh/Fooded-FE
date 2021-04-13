@@ -1,10 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  deleteRecipe,
-  fetchRecipes,
-} from "../../../store/actions/recipeActions";
+import { deleteRecipe } from "../../../store/actions/recipeActions";
 import { useStyles } from "./styles";
 
 import {

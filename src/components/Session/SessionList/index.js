@@ -51,9 +51,11 @@ const SessionList = () => {
       <SessionSearch />
       <div className={classes.root}>
         <GridList cellHeight={180} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-            <ListSubheader component="div">Session</ListSubheader>
-          </GridListTile>
+          <GridListTile
+            key="Subheader"
+            cols={2}
+            style={{ height: "auto" }}
+          ></GridListTile>
           {SessionList}
         </GridList>
         {user && user.isChef ? (

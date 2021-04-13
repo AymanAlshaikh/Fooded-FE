@@ -36,10 +36,10 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     marginTop: 6,
   },
-  logo: { fill: "#f8ece2", stroke: "#f8ece2", strokeWidth: "10px" },
+  logo: { fill: "#31394d", stroke: "#31394d", strokeWidth: "10px" },
 
   inputRoot: {
-    color: "inherit",
+    color: "#31394d",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
