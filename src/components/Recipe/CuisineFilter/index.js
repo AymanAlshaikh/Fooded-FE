@@ -8,20 +8,11 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { useSelector } from "react-redux";
 import { Button } from "@material-ui/core";
 import { RestaurantMenuOutlined } from "@material-ui/icons";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  formControl: {
-    margin: theme.spacing(3),
-  },
-}));
+import { useStyles } from "./styles";
 
 export default function CuisineFilter({ setCuisine, cuisine }) {
   const cuisines = useSelector((state) => state.cuisineReducer.cuisine);
-  const names = cuisines.map((cuisine) => cuisine.name);
-  const [state, setState] = useState(cuisines.map((cuisine) => cuisine.name));
-  const cuisinesLoading = useSelector((state) => state.cuisineReducer.loading);
+
   const classes = useStyles();
 
   const handleChange = (event) => {
@@ -36,31 +27,23 @@ export default function CuisineFilter({ setCuisine, cuisine }) {
     }
   };
 
-  const handleClick = (event) => {
+  const handleReset = () => {
     setCuisine([]);
-    setState({ ...state, [event.target.name]: event.target.checked });
-    // window.location.reload();
   };
 
-  // const handleCheck = () => {
-  //   refresh === false ? setRefresh(true) : setRefresh(false);
-  // };
-
-  let checked = false;
-  console.log(state);
-  const cuisineCheck = cuisines.map((cuisine) => (
+  const cuisineCheck = cuisines.map((_cuisine) => (
     <FormControlLabel
-      key={cuisine.id}
+      key={_cuisine.id}
       control={
         <Checkbox
-          checked={cuisine.name}
+          checked={cuisine.includes(_cuisine.id)}
           checkedIcon={<RestaurantMenuOutlined />}
-          value={cuisine.id}
+          value={_cuisine.id}
           onChange={handleChange}
-          name={cuisine.name}
+          name={_cuisine.name}
         />
       }
-      label={cuisine.name}
+      label={_cuisine.name}
     />
   ));
 
@@ -69,21 +52,11 @@ export default function CuisineFilter({ setCuisine, cuisine }) {
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Select Cuisine</FormLabel>
 
-        <FormGroup>
-          {cuisineCheck}
-          {/* <FormControlLabel
-            control={
-              <Checkbox
-              checked={cuisineIds}
-              onChange={handleChange}
-              name={cuisineNames}
-              />
-            }
-            label={cuisineNames}
-          /> */}
-        </FormGroup>
+        <FormGroup>{cuisineCheck}</FormGroup>
 
-        <Button onClick={handleClick}>Reset Cuisine</Button>
+        <Button color={"primary"} onClick={handleReset}>
+          Reset Cuisine
+        </Button>
       </FormControl>
     </div>
   );
