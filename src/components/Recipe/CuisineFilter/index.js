@@ -18,8 +18,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CuisineFilter({ setCuisine, cuisine }) {
-  const [refresh, setRefresh] = useState("");
   const cuisines = useSelector((state) => state.cuisineReducer.cuisine);
+  const names = cuisines.map((cuisine) => cuisine.name);
+  const [state, setState] = useState(cuisines.map((cuisine) => cuisine.name));
   const cuisinesLoading = useSelector((state) => state.cuisineReducer.loading);
   const classes = useStyles();
 
@@ -37,15 +38,22 @@ export default function CuisineFilter({ setCuisine, cuisine }) {
 
   const handleClick = (event) => {
     setCuisine([]);
-
-    window.location.reload();
+    setState({ ...state, [event.target.name]: event.target.checked });
+    // window.location.reload();
   };
 
+  // const handleCheck = () => {
+  //   refresh === false ? setRefresh(true) : setRefresh(false);
+  // };
+
+  let checked = false;
+  console.log(state);
   const cuisineCheck = cuisines.map((cuisine) => (
     <FormControlLabel
       key={cuisine.id}
       control={
         <Checkbox
+          checked={cuisine.name}
           checkedIcon={<RestaurantMenuOutlined />}
           value={cuisine.id}
           onChange={handleChange}
