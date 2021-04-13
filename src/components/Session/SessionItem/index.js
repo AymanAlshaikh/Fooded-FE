@@ -20,7 +20,8 @@ export default function SessionItem({ session }) {
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
   const chefs = useSelector((state) => state.chefReducer.chef);
-  let chef = null;
+
+  let chef;
   if (user) {
     chef = chefs.find((chef) => chef.userId === user.id);
   }
