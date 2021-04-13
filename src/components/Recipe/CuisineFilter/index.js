@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useSelector } from "react-redux";
-
+import { Button } from "@material-ui/core";
+import { RestaurantMenuOutlined } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -18,38 +18,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CuisineFilter({ setCuisine, cuisine }) {
+  const [refresh, setRefresh] = useState("");
   const cuisines = useSelector((state) => state.cuisineReducer.cuisine);
   const cuisinesLoading = useSelector((state) => state.cuisineReducer.loading);
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    gilad: true,
-    jason: false,
-    antoine: false,
-  });
 
   const handleChange = (event) => {
-    if (cuisine.includes(event.target.value)) {
+    if (cuisine.includes(+event.target.value)) {
       for (let i = 0; i < cuisine.length; i++) {
-        if (cuisine[i] === event.target.value) {
+        if (cuisine[i] === +event.target.value) {
           cuisine.splice(i, 1);
         }
       }
     } else {
-      setCuisine([...cuisine, event.target.value]);
+      setCuisine([...cuisine, +event.target.value]);
     }
-
-    // setCuisine({ ...cuisine, [event.target.name]: event.target.checked });
   };
 
-  const { gilad, jason, antoine } = state;
-  //   const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
+  const handleClick = (event) => {
+    setCuisine([]);
 
-  const cuisineIds = cuisines.map((cuisine) => (
+    window.location.reload();
+  };
+
+  const cuisineCheck = cuisines.map((cuisine) => (
     <FormControlLabel
+      key={cuisine.id}
       control={
         <Checkbox
+          checkedIcon={<RestaurantMenuOutlined />}
           value={cuisine.id}
-          //   checked={cuisine.id}
           onChange={handleChange}
           name={cuisine.name}
         />
@@ -57,25 +55,27 @@ export default function CuisineFilter({ setCuisine, cuisine }) {
       label={cuisine.name}
     />
   ));
-  const cuisineNames = cuisines.map((cuisine) => cuisine.name);
+
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Assign responsibility</FormLabel>
+        <FormLabel component="legend">Select Cuisine</FormLabel>
+
         <FormGroup>
-          {cuisineIds}
+          {cuisineCheck}
           {/* <FormControlLabel
             control={
               <Checkbox
-                checked={cuisineIds}
-                onChange={handleChange}
-                name={cuisineNames}
+              checked={cuisineIds}
+              onChange={handleChange}
+              name={cuisineNames}
               />
             }
             label={cuisineNames}
           /> */}
         </FormGroup>
-        <FormHelperText>Be careful</FormHelperText>
+
+        <Button onClick={handleClick}>Reset Cuisine</Button>
       </FormControl>
     </div>
   );
