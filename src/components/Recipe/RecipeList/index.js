@@ -49,7 +49,7 @@ const RecipeList = ({ recipes }) => {
       <Grid container item justify="center">
         <Grid item xs={11}>
           <ChefSearch setSearch={setSearch} />
-        </Grid>{" "}
+        </Grid>
         <Grid item direction="row-reverse" justify="flex-start">
           {user && user.isChef ? (
             <IconButton component={Link} to="/recipes/new">
