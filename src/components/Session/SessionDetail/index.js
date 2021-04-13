@@ -4,13 +4,18 @@ import { Redirect, useHistory, useParams } from "react-router";
 import { useStyles } from "./styles";
 import { Link } from "react-router-dom";
 import {
+  Grid,
   Card,
-  CardContent,
-  CardActionArea,
+  CardHeader,
+  Menu,
+  MenuItem,
   CardMedia,
   Typography,
   CircularProgress,
   IconButton,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from "@material-ui/core/";
 import BookingList from "../../Booking/BookingList";
 import {
@@ -19,7 +24,14 @@ import {
 } from "../../../store/actions/sessionActions";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
 import { fetchChefs } from "../../../store/actions/chefActions";
-import { DeleteForeverOutlined, Edit, PostAdd } from "@material-ui/icons";
+import { fetchCuisines } from "../../../store/actions/cuisineActions";
+
+import {
+  DeleteForeverOutlined,
+  Edit,
+  MoreVert,
+  ExpandMore,
+} from "@material-ui/icons";
 
 export default function SessionDetail() {
   const classes = useStyles();
@@ -30,95 +42,195 @@ export default function SessionDetail() {
   const allSessions = useSelector((state) => state.sessionReducer.session);
   const allRecipes = useSelector((state) => state.recipeReducer.recipe);
   const allChefs = useSelector((state) => state.chefReducer.chef);
+  const allCuisines = useSelector((state) => state.cuisineReducer.cuisine);
+
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const chefLoading = useSelector((state) => state.chefReducer.loading);
+  const cuisineLoading = useSelector((state) => state.cuisineReducer.cuisine);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   useEffect(() => {
-    if (sessionLoading || recipeLoading || chefLoading) {
+    if (sessionLoading || recipeLoading || chefLoading || cuisineLoading) {
       return (
         dispatch(fetchSessions()),
         dispatch(fetchRecipes()),
-        dispatch(fetchChefs())
+        dispatch(fetchChefs()),
+        dispatch(fetchCuisines())
       );
     }
   }, {});
   if (sessionLoading || recipeLoading || chefLoading)
     return <CircularProgress />;
   const foundSession = allSessions.find((session) => session.id === +sessionId);
-  console.log("foundSession", foundSession);
 
   const foundRecipe = allRecipes.find(
     (recipe) => recipe.id === foundSession.recipeId
+  );
+  const foundCuisine = allCuisines.find(
+    (cuisine) => foundRecipe.cuisineId === cuisine.id
   );
 
   const foundChef = allChefs.find((chef) => chef.id === foundRecipe.chefId);
   if (!foundSession) return <Redirect to="/sessions" />;
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image={foundRecipe.image} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {`${foundRecipe.name} by ${foundChef.name}`}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+    <Grid
+      container
+      // direction="column"
+      justify="center"
+      alignItems="flex-start"
+      xs={12}
+      className={classes.root}
+    >
+      <Card />
+      <Grid xs={12}>
+        <CardHeader
+          title={`Chef ${foundChef.name}'s ${foundRecipe.name}`}
+          subheader="Session Details"
+          action={
+            <div>
+              {user && foundChef.userId === user.id ? (
+                <>
+                  <IconButton
+                    aria-controls="chef-controls"
+                    aria-haspopup="true"
+                    onClick={handleClick}
+                  >
+                    <MoreVert />
+                  </IconButton>
+                  <Menu
+                    id="chef-controls"
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem
+                      component={Link}
+                      to={`/sessions/${sessionId}/edit`}
+                    >
+                      <Edit />
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() =>
+                        dispatch(
+                          deleteSession(
+                            sessionId,
+                            foundRecipe.id,
+                            foundChef,
+                            history
+                          )
+                        )
+                      }
+                    >
+                      <DeleteForeverOutlined />
+                    </MenuItem>
+                  </Menu>{" "}
+                </>
+              ) : (
+                ""
+              )}
+            </div>
+          }
+        />
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        xs={12}
+      >
+        <Grid xs={6}>
+          <CardMedia
+            className={classes.media}
+            image={foundRecipe.image}
+            title={foundRecipe.name}
+          />
+        </Grid>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="flex-start"
+          xs={6}
+        >
+          <Typography
+            className={classes.info}
+            color="textSecondary"
+            variant="subtitle2"
+          >
             Date: {foundSession.date}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+            <br />
             Time: {foundSession.time}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Recipe Duration:{" "}
-            {foundRecipe.duration <= 60
-              ? `${foundRecipe.duration} Minutes`
-              : `${timeConvert(foundRecipe.duration)}`}
-          </Typography>
-        </CardContent>
-        {user && user.isChef && foundChef.userId === user.id ? (
-          <div>
-            <BookingList sessionId={sessionId} />
-          </div>
-        ) : (
-          ""
-        )}
-      </CardActionArea>
-      <div>
-        {user && foundChef.userId !== user.id ? (
-          <Link to={`sessions/${sessionId}/booking`}>
-            <IconButton>
-              <PostAdd />
-            </IconButton>
-          </Link>
-        ) : (
-          ""
-        )}
-      </div>
-      <div>
-        {user && user.isChef && foundChef.userId === user.id ? (
-          <div>
-            <Link to={`/sessions/${sessionId}/edit`}>
-              <IconButton>
-                <Edit />
-              </IconButton>
-            </Link>
-            <IconButton
-              onClick={() =>
-                dispatch(
-                  deleteSession(sessionId, foundRecipe.id, foundChef, history)
-                )
-              }
+          <Accordion className={classes.accordion}>
+            <AccordionSummary
+              expandIcon={<ExpandMore />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
             >
-              <DeleteForeverOutlined />
-            </IconButton>
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
-    </Card>
+              <Typography>Recipe Description</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{foundRecipe.description}</Typography>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion className={classes.accordion}>
+            <AccordionSummary
+              expandIcon={<ExpandMore />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography>Ingredients</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{foundRecipe.ingredients}</Typography>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion className={classes.accordion}>
+            <AccordionSummary
+              expandIcon={<ExpandMore />}
+              aria-controls="panel3a-content"
+              id="panel3a-header"
+            >
+              <Typography>Cuisine</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{foundCuisine.name}</Typography>
+            </AccordionDetails>
+          </Accordion>
+          {user && user.isChef && foundChef.userId === user.id ? (
+            <div>
+              <Accordion className={classes.accordion}>
+                <AccordionSummary
+                  expandIcon={<ExpandMore />}
+                  aria-controls="panel4a-content"
+                  id="panel4a-header"
+                >
+                  <Typography>Bookings</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <BookingList sessionId={sessionId} />
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          ) : (
+            ""
+          )}
+        </Grid>
+      </Grid>
+      <Card />
+    </Grid>
   );
 }
-
 function timeConvert(n) {
   let num = n;
   let hours = num / 60;

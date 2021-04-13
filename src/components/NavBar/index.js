@@ -18,7 +18,7 @@ import { PersonRounded, PersonAddRounded } from "@material-ui/icons/";
 export default function SearchAppBar() {
   const user = useSelector((state) => state.authReducer.user);
   const classes = useStyles();
-  const icon = "f8ece2";
+  const icon = "31394d";
 
   return (
     <div className={classes.root}>
