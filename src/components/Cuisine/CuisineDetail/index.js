@@ -43,7 +43,7 @@ export default function CuisineDetail() {
         </Typography>
         <CardMedia className={classes.media} image={foundRecipe.image} />
         <CardContent>
-          <RecipeList foundRecipe={foundRecipe} />
+          <RecipeList recipes={foundRecipe} />
         </CardContent>
       </CardActionArea>
     </Card>

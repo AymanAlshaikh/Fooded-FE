@@ -13,7 +13,7 @@ import { Grid, IconButton } from "@material-ui/core/";
 import { AddBox } from "@material-ui/icons";
 import CuisineFilter from "../CuisineFilter";
 
-const RecipeList = ({ chefRecipe, foundRecipe }) => {
+const RecipeList = ({ recipes }) => {
   useEffect(() => {
     if (recipeLoading || cuisinesLoading) {
       dispatch(fetchRecipes());
@@ -21,42 +21,31 @@ const RecipeList = ({ chefRecipe, foundRecipe }) => {
       dispatch(fetchCuisines());
     }
   });
-  const cuisines = useSelector((state) => state.cuisineReducer.cuisine);
+
   const cuisinesLoading = useSelector((state) => state.cuisineReducer.loading);
-  const cuisineIds = cuisines.map((cuisine) => cuisine.id);
-  const [cuisine, setCuisine] = useState(cuisineIds);
-  console.log(cuisine);
+  const [cuisine, setCuisine] = useState([]);
   const [search, setSearch] = useState("");
   const classes = useStyles();
-  const recipes = useSelector((state) => state.recipeReducer.recipe);
+  const _recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authReducer.user);
 
-  let recipeList;
-  if (chefRecipe) {
-    recipeList = chefRecipe
-      .filter((recipe) =>
-        recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-      )
-      .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
-  } else if (foundRecipe) {
-    recipeList = foundRecipe
-      .filter((recipe) =>
-        recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-      )
-      .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
-  } else
-    recipeList = recipes
-      .filter((recipe) =>
-        recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-      )
-      .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
-
-  console.log(recipeList);
   if (recipeLoading) return <CircularProgress />;
+  let recipeList = recipes || _recipes;
+
+  recipeList = recipeList
+    .filter(
+      (recipe) => cuisine.includes(recipe.cuisineId) || cuisine.length === 0
+    )
+    .filter((recipe) =>
+      recipe.name.toLowerCase().includes(search.toLowerCase())
+    )
+    .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
+
   return (
     <Grid container className={classes.root}>
+      <CuisineFilter setCuisine={setCuisine} cuisine={cuisine} />
       <Grid container item justify="center">
         <Grid item xs={11}>
           <ChefSearch setSearch={setSearch} />

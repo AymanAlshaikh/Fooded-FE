@@ -30,7 +30,7 @@ export default function ChefDetail() {
         <ChefItem key={_chef.id} chef={_chef} />
       </Grid>
       <Grid item xs={9}>
-        <RecipeList chefRecipe={_chefRecipe} />
+        <RecipeList recipes={_chefRecipe} />
       </Grid>
     </Grid>
   );

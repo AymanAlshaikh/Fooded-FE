@@ -46,7 +46,9 @@ const AddRecipe = () => {
   });
 
   const cuisineOptions = cuisines.map((cuisine) => (
-    <option value={cuisine.id}>{cuisine.name}</option>
+    <option key={cuisine.id} value={cuisine.id}>
+      {cuisine.name}
+    </option>
   ));
 
   let preloadedValues = {};
