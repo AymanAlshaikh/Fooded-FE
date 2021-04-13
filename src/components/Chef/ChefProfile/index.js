@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-
+import { Link, useParams } from "react-router-dom";
 //Dev express imports
 import moment from "moment";
 import { Button, CircularProgress, Paper } from "@material-ui/core/";
@@ -39,7 +39,7 @@ const ChefProfile = () => {
   };
 
   let appointments = [];
-
+  let sessionId = null;
   sessionList.forEach(
     (session) =>
       session !== undefined &&
@@ -57,7 +57,9 @@ const ChefProfile = () => {
             {view === "month" ? "Switch to Week View" : "Switch to Month View"}
           </Button>
           {view === "month" ? <MonthView /> : <WeekView />}
-          <Appointments />
+          <Link to={`sessions/${sessionId}`}>
+            <Appointments />
+          </Link>
         </Scheduler>
       </Paper>
     </div>
