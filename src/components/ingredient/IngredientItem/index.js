@@ -37,7 +37,7 @@ export default function IngredientItem({
     <ButtonBase component={Link} onClick={handleIngredientAdd}>
       <Card className={classes.root} variant="outlined">
         <CardMedia
-          //   image={ingredient.image}
+          image={ingredient.image}
           className={classes.media}
           title={`${ingredient.name}`}
         />

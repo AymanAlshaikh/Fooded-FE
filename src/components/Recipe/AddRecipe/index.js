@@ -24,24 +24,6 @@ import { fetchCuisines } from "../../../store/actions/cuisineActions";
 import IngredientList from "../../ingredient/IngredientList";
 
 const AddRecipe = () => {
-  //ingredients
-  const [ingredients, setIngredients] = useState([]);
-  const _ingredients = useSelector(
-    (state) => state.ingredientReducer.ingredients
-  );
-  let ingredientsNames;
-  if (ingredients !== null) {
-    const matchingIngredients = _ingredients.filter((ingrediant) =>
-      ingredients.includes(ingrediant.id)
-    );
-    ingredientsNames = matchingIngredients.map(
-      (ingredient_) => ` ${ingredient_.name}`
-    );
-    console.log("ingredients: ", ingredients);
-    console.log("matching: ", matchingIngredients);
-    console.log("ingrediants names: ", ingredientsNames);
-  }
-
   const classes = useStyles();
   const { recipeSlug } = useParams();
   const dispatch = useDispatch();
@@ -68,6 +50,31 @@ const AddRecipe = () => {
       {cuisine.name}
     </option>
   ));
+  //ingredients
+  let ingredientPreLoad;
+  if (recipe) {
+    // gets the recipe's ingredients and coverts them into integers then assigns them to ingreientPreLoad
+    ingredientPreLoad = recipe.ingredientDescription.split(",").map((x) => +x);
+    console.log("ingredients pre load: ", ingredientPreLoad);
+  }
+  const [ingredients, setIngredients] = useState(
+    recipe ? ingredientPreLoad : []
+  );
+  const _ingredients = useSelector(
+    (state) => state.ingredientReducer.ingredients
+  );
+  let ingredientsNames;
+  if (ingredients !== null) {
+    const matchingIngredients = _ingredients.filter((ingrediant) =>
+      ingredients.includes(ingrediant.id)
+    );
+    ingredientsNames = matchingIngredients.map(
+      (ingredient_) => ` ${ingredient_.name}`
+    );
+    console.log("ingredients: ", ingredients);
+    console.log("matching: ", matchingIngredients);
+    console.log("ingrediants names: ", ingredientsNames);
+  }
 
   let preloadedValues = {};
 

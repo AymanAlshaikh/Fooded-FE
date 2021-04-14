@@ -31,7 +31,7 @@ const RecipeList = ({ recipes }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authReducer.user);
 
-  if (recipeLoading) return <CircularProgress />;
+  if (recipeLoading || cuisinesLoading) return <CircularProgress />;
   let recipeList = recipes || _recipes;
 
   recipeList = recipeList
