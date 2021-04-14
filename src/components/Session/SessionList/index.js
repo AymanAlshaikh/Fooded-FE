@@ -17,6 +17,7 @@ import { AddBox } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { fetchSessions } from "../../../store/actions/sessionActions";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
+import { fetchChefs } from "../../../store/actions/chefActions";
 import CuisineFilter from "../../Recipe/CuisineFilter";
 import { fetchCuisines } from "../../../store/actions/cuisineActions";
 
@@ -32,8 +33,9 @@ const SessionList = () => {
   useEffect(() => {
     if (sessionLoading || recipeLoading) {
       dispatch(fetchSessions());
+      dispatch(fetchChefs()); //we need this for RecipeItem
       dispatch(fetchRecipes());
-      dispatch(fetchCuisines());
+      dispatch(fetchCuisines()); //we need this for checkboxes
     }
   });
   const SessionList = sessions
