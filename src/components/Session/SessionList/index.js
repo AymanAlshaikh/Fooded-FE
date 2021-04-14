@@ -10,7 +10,6 @@ import {
   GridList,
   GridListTile,
   IconButton,
-  ListSubheader,
   Grid,
 } from "@material-ui/core";
 import { AddBox } from "@material-ui/icons";
