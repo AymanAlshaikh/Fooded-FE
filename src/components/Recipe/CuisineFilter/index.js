@@ -5,7 +5,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useSelector } from "react-redux";
-import { Button } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import { RestaurantMenuOutlined } from "@material-ui/icons";
 import { useStyles } from "./styles";
 
@@ -16,11 +16,8 @@ export default function CuisineFilter({ setCuisine, cuisine }) {
 
   const handleChange = (event) => {
     if (cuisine.includes(+event.target.value)) {
-      for (let i = 0; i < cuisine.length; i++) {
-        if (cuisine[i] === +event.target.value) {
-          cuisine.splice(i, 1);
-        }
-      }
+      let cus = cuisine.filter((cuis) => cuis !== +event.target.value);
+      setCuisine(cus);
     } else {
       setCuisine([...cuisine, +event.target.value]);
     }
@@ -50,8 +47,7 @@ export default function CuisineFilter({ setCuisine, cuisine }) {
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Select Cuisine</FormLabel>
-
-        <FormGroup>{cuisineCheck}</FormGroup>
+        <Grid>{cuisineCheck}</Grid>
 
         <Button color={"primary"} onClick={handleReset}>
           Reset Cuisine
