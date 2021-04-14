@@ -102,15 +102,15 @@ export default function RecipeItem({ recipe }) {
             : `${timeConvert(recipe.duration)}`}
         </Typography>
         {/* <Grid
-        container
-        direction="row-reverse"
-        justify="flex-start"
-        className={classes.button}
-      >
-        <Button component={Link} size="medium" to={`/recipes/${recipeSlug}`}>
+          container
+          direction="row-reverse"
+          justify="flex-start"
+          className={classes.button}
+        > */}
+        {/* <Button component={Link} size="medium" to={`/recipes/${recipeSlug}`}>
           Learn More &gt;&gt;
-        </Button>
-      </Grid> */}
+        </Button> */}
+        {/* </Grid> */}
       </Card>
     </ButtonBase>
   );

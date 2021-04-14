@@ -16,7 +16,9 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Tooltip,
 } from "@material-ui/core/";
+import BookTwoToneIcon from "@material-ui/icons/BookTwoTone";
 import BookingList from "../../Booking/BookingList";
 import {
   deleteSession,
@@ -48,6 +50,9 @@ export default function SessionDetail() {
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const chefLoading = useSelector((state) => state.chefReducer.loading);
   const cuisineLoading = useSelector((state) => state.cuisineReducer.cuisine);
+  const ingredients = useSelector(
+    (state) => state.ingredientReducer.ingredients
+  );
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -80,6 +85,16 @@ export default function SessionDetail() {
   );
 
   const foundChef = allChefs.find((chef) => chef.id === foundRecipe.chefId);
+
+  const ingredientsAsArray = foundRecipe.ingredientDescription.split(",");
+  const _matchingIngredients = ingredientsAsArray.map((ingredient) =>
+    ingredients.filter(
+      (_ingredient) => _ingredient.id.toString() === ingredient
+    )
+  );
+  const _ingredientsNames = _matchingIngredients.map((ingrediant) =>
+    ingrediant.map((inside) => ` ${inside.name},`)
+  );
   if (!foundSession) return <Redirect to="/sessions" />;
   return (
     <Grid
@@ -192,7 +207,7 @@ export default function SessionDetail() {
               <Typography>Ingredients</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{foundRecipe.ingredients}</Typography>
+              <Typography>{_ingredientsNames.map((x) => x)}</Typography>
             </AccordionDetails>
           </Accordion>
           <Accordion className={classes.accordion}>
@@ -207,6 +222,11 @@ export default function SessionDetail() {
               <Typography>{foundCuisine.name}</Typography>
             </AccordionDetails>
           </Accordion>
+          <Link to={`/sessions/${sessionId}/booking`}>
+            <Tooltip title="Book now">
+              <BookTwoToneIcon color="action" style={{ fontSize: 33 }} />
+            </Tooltip>
+          </Link>
           {user && user.isChef && foundChef.userId === user.id ? (
             <div>
               <Accordion className={classes.accordion}>

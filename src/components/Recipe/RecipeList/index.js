@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ChefSearch from "../../Search";
 import RecipeItem from "../RecipeItem";
 import { useStyles } from "./styles";
+import Pagination from "@material-ui/lab/Pagination";
 import { CircularProgress } from "@material-ui/core/";
 import { useDispatch } from "react-redux";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
@@ -31,13 +32,29 @@ const RecipeList = ({ recipes }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authReducer.user);
 
+  //Pagination
+  const [page, setPage] = useState(1);
+  let RecipesPerPage;
+  let d = 8;
+  let start = page * d - d;
+  let end = page * d;
+  const recipeLength = _recipes.length / d;
+  const settingRecipePerPage = () => {
+    RecipesPerPage = _recipes.slice(start, end);
+    return RecipesPerPage;
+  };
+  settingRecipePerPage();
+  const handleChange = (event, value) => {
+    setPage(value);
+    // settingRecipePerPage();
+  };
+
   if (recipeLoading || cuisinesLoading) return <CircularProgress />;
   let recipeList = recipes || _recipes;
 
-  recipeList = recipeList
-    .filter(
-      (recipe) => cuisine.includes(recipe.cuisineId) || cuisine.length === 0
-    )
+  recipeList = RecipesPerPage.filter(
+    (recipe) => cuisine.includes(recipe.cuisineId) || cuisine.length === 0
+  )
     .filter((recipe) =>
       recipe.name.toLowerCase().includes(search.toLowerCase())
     )
@@ -63,6 +80,7 @@ const RecipeList = ({ recipes }) => {
       <Grid container item className={classes.root}>
         {recipeList}
       </Grid>
+      <Pagination count={recipeLength} page={page} onChange={handleChange} />
     </Grid>
   );
 };
