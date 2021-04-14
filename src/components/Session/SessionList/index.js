@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SessionSearch from "../Search";
@@ -16,8 +16,10 @@ import { useDispatch } from "react-redux";
 import { fetchSessions } from "../../../store/actions/sessionActions";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
 import { fetchChefs } from "../../../store/actions/chefActions";
+import CuisineFilter from "../../Recipe/CuisineFilter";
 
 const SessionList = () => {
+  const [cuisine, setCuisine] = useState([]);
   const classes = useStyles();
   const sessions = useSelector((state) => state.sessionReducer.session);
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);
@@ -31,9 +33,11 @@ const SessionList = () => {
       dispatch(fetchRecipes());
     }
   });
-  const SessionList = sessions.map((session) => (
-    <SessionItem key={session.id} session={session} />
-  ));
+  const SessionList = sessions
+    .filter(
+      (session) => cuisine.includes(session.cuisineId) || cuisine.length === 0
+    )
+    .map((session) => <SessionItem key={session.id} session={session} />);
 
   if (sessionLoading || recipeLoading)
     return (
@@ -43,12 +47,15 @@ const SessionList = () => {
     );
   return (
     <div>
+      <CuisineFilter cuisine={cuisine} setCuisine={setCuisine} />
       <SessionSearch />
       <div className={classes.root}>
         <GridList cellHeight={180} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-            <ListSubheader component="div">Session</ListSubheader>
-          </GridListTile>
+          <GridListTile
+            key="Subheader"
+            cols={2}
+            style={{ height: "auto" }}
+          ></GridListTile>
           {SessionList}
         </GridList>
         {user && user.isChef ? (

@@ -8,48 +8,48 @@ import { CircularProgress } from "@material-ui/core/";
 import { useDispatch } from "react-redux";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
 import { fetchChefs } from "../../../store/actions/chefActions";
+import { fetchCuisines } from "../../../store/actions/cuisineActions";
 import { Grid, IconButton } from "@material-ui/core/";
 import { AddBox } from "@material-ui/icons";
+import CuisineFilter from "../CuisineFilter";
 
-const RecipeList = ({ chefRecipe, foundRecipe }) => {
+const RecipeList = ({ recipes }) => {
+  useEffect(() => {
+    if (recipeLoading || cuisinesLoading) {
+      dispatch(fetchRecipes());
+      dispatch(fetchChefs());
+      dispatch(fetchCuisines());
+    }
+  });
+
+  const cuisinesLoading = useSelector((state) => state.cuisineReducer.loading);
+  const [cuisine, setCuisine] = useState([]);
   const [search, setSearch] = useState("");
   const classes = useStyles();
-  const recipes = useSelector((state) => state.recipeReducer.recipe);
+  const _recipes = useSelector((state) => state.recipeReducer.recipe);
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (recipeLoading) dispatch(fetchRecipes());
-    dispatch(fetchChefs());
-  });
   const user = useSelector((state) => state.authReducer.user);
 
-  let recipeList;
-  if (chefRecipe) {
-    recipeList = chefRecipe
-      .filter((recipe) =>
-        recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-      )
-      .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
-  } else if (foundRecipe) {
-    recipeList = foundRecipe
-      .filter((recipe) =>
-        recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-      )
-      .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
-  } else
-    recipeList = recipes
-      .filter((recipe) =>
-        recipe.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-      )
-      .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
-
   if (recipeLoading) return <CircularProgress />;
+  let recipeList = recipes || _recipes;
+
+  recipeList = recipeList
+    .filter(
+      (recipe) => cuisine.includes(recipe.cuisineId) || cuisine.length === 0
+    )
+    .filter((recipe) =>
+      recipe.name.toLowerCase().includes(search.toLowerCase())
+    )
+    .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
+
   return (
     <Grid container className={classes.root}>
+      <CuisineFilter setCuisine={setCuisine} cuisine={cuisine} />
       <Grid container item justify="center">
         <Grid item xs={11}>
           <ChefSearch setSearch={setSearch} />
-        </Grid>{" "}
+        </Grid>
         <Grid item direction="row-reverse" justify="flex-start">
           {user && user.isChef ? (
             <IconButton component={Link} to="/recipes/new">
