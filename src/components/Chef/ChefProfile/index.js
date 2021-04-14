@@ -16,11 +16,14 @@ const ChefProfile = () => {
   const user = useSelector((state) => state.authReducer.user);
   const userLoading = useSelector((state) => state.authReducer.loading);
   const recipes = useSelector((state) => state.recipeReducer.recipe);
+  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const sessions = useSelector((state) => state.sessionReducer.session);
+  const sessionLoading = useSelector((state) => state.sessionReducer.loading);
 
   const chefs = useSelector((state) => state.chefReducer.chef);
   const chefLoading = useSelector((state) => state.chefReducer.loading);
-  if (chefLoading || userLoading) return <CircularProgress />;
+  if (chefLoading || userLoading || sessionLoading || recipeLoading)
+    return <CircularProgress />;
   const thisChef = chefs.find((chef) => chef.userId === user.id);
   const ChefID = thisChef.id;
 
@@ -40,11 +43,18 @@ const ChefProfile = () => {
 
   let appointments = [];
   let sessionId = null;
+
   sessionList.forEach(
     (session) =>
       session !== undefined &&
       appointments.push({
-        title: `session ${session.id}`,
+        title: (
+          <Button component={Link} to={`/sessions/${session.id}`}>
+            {`${session.time} `}
+            <br />
+            {`Session Recipe: ${session.recipeName}`}
+          </Button>
+        ),
         startDate: new Date(moment(session.date)),
         endDate: new Date(moment(session.date).add(1, "hour")),
       })
@@ -57,9 +67,8 @@ const ChefProfile = () => {
             {view === "month" ? "Switch to Week View" : "Switch to Month View"}
           </Button>
           {view === "month" ? <MonthView /> : <WeekView />}
-          <Link to={`sessions/${sessionId}`}>
-            <Appointments />
-          </Link>
+
+          <Appointments />
         </Scheduler>
       </Paper>
     </div>
