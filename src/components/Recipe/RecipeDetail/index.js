@@ -23,6 +23,20 @@ export default function RecipeDetail() {
   const recipe = useSelector((state) =>
     state.recipeReducer.recipe.find((recipe) => recipe.slug === recipeSlug)
   );
+  console.log(recipe.ingredientDescription);
+  //ingredients names
+  const ingredients = useSelector(
+    (state) => state.ingredientReducer.ingredients
+  );
+  const ingredientsAsArray = recipe.ingredientDescription.split(",");
+  const _matchingIngredients = ingredientsAsArray.map((ingredient) =>
+    ingredients.filter(
+      (_ingredient) => _ingredient.id.toString() === ingredient
+    )
+  );
+  const _ingredientsNames = _matchingIngredients.map((ingrediant) =>
+    ingrediant.map((inside) => ` ${inside.name},`)
+  );
 
   const chefs = useSelector((state) => state.chefReducer.chef);
   const user = useSelector((state) => state.authReducer.user);
@@ -56,7 +70,7 @@ export default function RecipeDetail() {
           Description: {recipe.description}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          Ingredients: {recipe.ingredientDescription}
+          Ingredients: {_ingredientsNames}
         </Typography>
       </CardContent>
       {user && user.isChef && chef.id === recipe.chefId ? (

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useParams, Link } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { addRecipe, updateRecipe } from "../../../store/actions/recipeActions";
 import { useStyles } from "./styles";
 
-import Link1 from "@material-ui/core/Link";
 import {
   CssBaseline,
   CircularProgress,
@@ -22,6 +21,7 @@ import {
 } from "@material-ui/core";
 import { Fastfood } from "@material-ui/icons";
 import { fetchCuisines } from "../../../store/actions/cuisineActions";
+import IngredientList from "../../ingredient/IngredientList";
 
 const AddRecipe = () => {
   const classes = useStyles();
@@ -50,6 +50,31 @@ const AddRecipe = () => {
       {cuisine.name}
     </option>
   ));
+  //ingredients
+  let ingredientPreLoad;
+  if (recipe) {
+    // gets the recipe's ingredients and coverts them into integers then assigns them to ingreientPreLoad
+    ingredientPreLoad = recipe.ingredientDescription.split(",").map((x) => +x);
+    console.log("ingredients pre load: ", ingredientPreLoad);
+  }
+  const [ingredients, setIngredients] = useState(
+    recipe ? ingredientPreLoad : []
+  );
+  const _ingredients = useSelector(
+    (state) => state.ingredientReducer.ingredients
+  );
+  let ingredientsNames;
+  if (ingredients !== null) {
+    const matchingIngredients = _ingredients.filter((ingrediant) =>
+      ingredients.includes(ingrediant.id)
+    );
+    ingredientsNames = matchingIngredients.map(
+      (ingredient_) => ` ${ingredient_.name}`
+    );
+    console.log("ingredients: ", ingredients);
+    console.log("matching: ", matchingIngredients);
+    console.log("ingrediants names: ", ingredientsNames);
+  }
 
   let preloadedValues = {};
 
@@ -81,6 +106,14 @@ const AddRecipe = () => {
       dispatch(updateRecipe(data, image, chefId, recipe));
       history.replace("/recipes");
     } else {
+      data = {
+        ...data,
+        ingredientId: ingredients,
+        ingredientDescription: ingredients.toString(),
+      };
+      console.log("info being sent to the action: ", data);
+      console.log("type of ingrediants in data: ", typeof ingredients);
+      console.log("ingaradiants value: ", ingredients);
       dispatch(addRecipe(data, image, chefId));
       history.replace("/recipes");
     }
@@ -127,13 +160,16 @@ const AddRecipe = () => {
               {errors.description && <p>Description is required</p>}
             </Grid>
             <Grid item xs={12} sm={12}>
-              <TextField
-                required
-                fullWidth
-                id="ingredientDescription"
-                label="Ingredients"
-                name="ingredientDescription"
-                inputRef={register({ required: true })}
+              <Typography component="h1" variant="h5">
+                choose your ingredients
+              </Typography>
+              <Typography component="h1" variant="h5">
+                {ingredients !== null &&
+                  `selected ingredients: ${ingredientsNames}`}
+              </Typography>
+              <IngredientList
+                setIngredients={setIngredients}
+                ingredients={ingredients}
               />
               {errors.ingredientDescription && <p>Ingredients are required</p>}
             </Grid>
