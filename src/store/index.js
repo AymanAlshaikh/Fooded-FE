@@ -9,6 +9,10 @@ import { fetchUsers } from "./actions/userActions";
 import { fetchRecipes } from "./actions/recipeActions";
 import { fetchChefs } from "./actions/chefActions";
 import { fetchSessions } from "./actions/sessionActions";
+
+import { fetchIngredients } from "./actions/ingredientActions";
+import { fetchIngredientRecipes } from "./actions/ingredientRecipeActions";
+
 import { fetchCuisines } from "./actions/cuisineActions";
 import { fetchBookings } from "./actions/bookingActions";
 
@@ -21,6 +25,9 @@ const store = createStore(
 
 store.dispatch(checkForToken());
 store.dispatch(fetchUsers());
+store.dispatch(fetchSessions());
+store.dispatch(fetchIngredients());
+store.dispatch(fetchIngredientRecipes());
 
 // store.dispatch(fetchProfile());
 // store.dispatch(fetchRecipes());

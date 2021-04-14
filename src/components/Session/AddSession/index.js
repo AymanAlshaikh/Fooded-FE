@@ -45,7 +45,9 @@ const AddSession = () => {
   );
 
   const recipeOptions = chefRecipes.map((recipe) => (
-    <option value={recipe.id}>{recipe.name}</option>
+    <option key={recipe.id} value={recipe.id}>
+      {recipe.name}
+    </option>
   ));
 
   let preloadedValues = {};
