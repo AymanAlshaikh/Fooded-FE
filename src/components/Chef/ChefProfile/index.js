@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 //Dev express imports
 import moment from "moment";
-import { Button, CircularProgress, Paper } from "@material-ui/core/";
+import { Button, CircularProgress, Grid, Paper } from "@material-ui/core/";
 import {
   Scheduler,
   WeekView,

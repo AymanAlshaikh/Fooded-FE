@@ -12,6 +12,8 @@ import {
   IconButton,
   Typography,
   Tooltip,
+  Grid,
+  Button,
 } from "@material-ui/core/";
 import { PersonRounded, PersonAddRounded } from "@material-ui/icons/";
 
@@ -33,18 +35,14 @@ export default function SearchAppBar() {
             <SwipeableTemporaryDrawer />
           </IconButton>
 
-          <Typography
-            component={Link}
-            to={"/"}
-            className={classes.title}
-            noWrap
-          >
+          <Typography component={Link} to="/" className={classes.title} noWrap>
             <img src={navLogo} alt={""} style={{ height: 40 }} />
           </Typography>
+
           {user ? (
-            <>
-              <Typography> Hello, {user.username}.</Typography>
-            </>
+            <Button component={Link} to="profile">
+              <Typography>Hello, {user.username}.</Typography>
+            </Button>
           ) : (
             <>
               <Tooltip title="Sign Up">
