@@ -22,7 +22,6 @@ export default function IngredientItem({
   const handleIngredientAdd = () => {
     if (ingredients === null) {
       setIngredients(ingredient.id);
-      console.log(ingredients.lenght());
     } else if (ingredients.includes(ingredient.id)) {
       for (let i = 0; i < ingredients.length; i++) {
         if (ingredients[i] === ingredient.id) {
