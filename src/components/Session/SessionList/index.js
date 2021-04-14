@@ -9,28 +9,33 @@ import {
   CircularProgress,
   GridList,
   GridListTile,
+  IconButton,
   ListSubheader,
+  Grid,
 } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { AddBox } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { fetchSessions } from "../../../store/actions/sessionActions";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
 import { fetchChefs } from "../../../store/actions/chefActions";
 import CuisineFilter from "../../Recipe/CuisineFilter";
+import { fetchCuisines } from "../../../store/actions/cuisineActions";
 
 const SessionList = () => {
   const [cuisine, setCuisine] = useState([]);
   const classes = useStyles();
   const sessions = useSelector((state) => state.sessionReducer.session);
   const sessionLoading = useSelector((state) => state.sessionReducer.loading);
+  const cuisineLoading = useSelector((state) => state.cuisineReducer.loading);
   const recipeLoading = useSelector((state) => state.recipeReducer.loading);
   const user = useSelector((state) => state.authReducer.user);
   const dispatch = useDispatch();
   useEffect(() => {
     if (sessionLoading || recipeLoading) {
       dispatch(fetchSessions());
-      dispatch(fetchChefs());
+      dispatch(fetchChefs()); //we need this for RecipeItem
       dispatch(fetchRecipes());
+      dispatch(fetchCuisines()); //we need this for checkboxes
     }
   });
   const SessionList = sessions
@@ -39,7 +44,7 @@ const SessionList = () => {
     )
     .map((session) => <SessionItem key={session.id} session={session} />);
 
-  if (sessionLoading || recipeLoading)
+  if (sessionLoading || recipeLoading || cuisineLoading)
     return (
       <div className={classes.root}>
         <CircularProgress />
@@ -58,13 +63,15 @@ const SessionList = () => {
           ></GridListTile>
           {SessionList}
         </GridList>
-        {user && user.isChef ? (
-          <Link to="/sessions/new">
-            <Add />
-          </Link>
-        ) : (
-          ""
-        )}
+        <Grid item direction="row-reverse" justify="flex-start">
+          {user && user.isChef ? (
+            <IconButton component={Link} to="/sessions/new">
+              <AddBox />
+            </IconButton>
+          ) : (
+            ""
+          )}
+        </Grid>
       </div>
     </div>
   );
