@@ -22,6 +22,5 @@ export const useStyles = makeStyles({
     fontSize: "1.3rem",
     display: "flex",
     position: "absolute",
-    marginTop: 2,
   },
 });
