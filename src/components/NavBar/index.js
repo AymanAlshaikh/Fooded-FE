@@ -40,7 +40,7 @@ export default function SearchAppBar() {
           </Typography>
 
           {user ? (
-            <Button component={Link} to="profile">
+            <Button component={Link} to="/profile">
               <Typography>Hello, {user.username}.</Typography>
             </Button>
           ) : (
