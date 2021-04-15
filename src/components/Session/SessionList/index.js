@@ -7,9 +7,9 @@ import { useStyles } from "./styles";
 
 import {
   CircularProgress,
-  GridList,
-  GridListTile,
-  IconButton,
+  Tooltip,
+  Button,
+  Fab,
   Grid,
 } from "@material-ui/core";
 import { AddBox } from "@material-ui/icons";
@@ -50,21 +50,41 @@ const SessionList = () => {
       </div>
     );
   return (
-    <Grid container className={classes.root}>
+    <Grid container className={classes.root} alignItems="center">
       <CuisineFilter cuisine={cuisine} setCuisine={setCuisine} />
       <SessionSearch />
+      <Grid
+        item
+        direction="row-reverse"
+        justify="flex-end"
+        alignItems="flex-end"
+      >
+        {user && user.isChef ? (
+          // <Button component={Link} to="/sessions/new">
+          //   Add New Session
+          // </Button>
+
+          <Tooltip title="Add New Session">
+            <Fab component={Link} to="/sessions/new">
+              <AddBox />
+            </Fab>
+          </Tooltip>
+        ) : (
+          ""
+        )}
+      </Grid>
       <div>
         <Grid container item className={classes.root}>
           {SessionList}
         </Grid>
         <Grid item direction="row-reverse" justify="flex-start">
-          {user && user.isChef ? (
+          {/* {user && user.isChef ? (
             <IconButton component={Link} to="/sessions/new">
               <AddBox />
             </IconButton>
           ) : (
             ""
-          )}
+          )} */}
         </Grid>
       </div>
     </Grid>

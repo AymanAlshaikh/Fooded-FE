@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { fetchRecipes } from "../../../store/actions/recipeActions";
 import { fetchChefs } from "../../../store/actions/chefActions";
 import { fetchCuisines } from "../../../store/actions/cuisineActions";
-import { Grid, IconButton } from "@material-ui/core/";
+import { Grid, Fab } from "@material-ui/core/";
 import { AddBox } from "@material-ui/icons";
 import CuisineFilter from "../CuisineFilter";
 
@@ -44,7 +44,7 @@ const RecipeList = ({ recipes }) => {
     .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
 
   return (
-    <Grid container className={classes.root}>
+    <Grid container className={classes.root} alignItems="center">
       <CuisineFilter setCuisine={setCuisine} cuisine={cuisine} />
       <Grid container item justify="center">
         <Grid item xs={11}>
@@ -52,9 +52,9 @@ const RecipeList = ({ recipes }) => {
         </Grid>
         <Grid item direction="row-reverse" justify="flex-start">
           {user && user.isChef ? (
-            <IconButton component={Link} to="/recipes/new">
+            <Fab component={Link} to="/recipes/new">
               <AddBox />
-            </IconButton>
+            </Fab>
           ) : (
             ""
           )}

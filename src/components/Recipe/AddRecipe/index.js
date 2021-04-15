@@ -71,9 +71,6 @@ const AddRecipe = () => {
     ingredientsNames = matchingIngredients.map(
       (ingredient_) => ` ${ingredient_.name}`
     );
-    console.log("ingredients: ", ingredients);
-    console.log("matching: ", matchingIngredients);
-    console.log("ingrediants names: ", ingredientsNames);
   }
 
   let preloadedValues = {};
@@ -103,6 +100,11 @@ const AddRecipe = () => {
   const chefId = chef.id;
   const onSubmit = (data) => {
     if (recipe) {
+      data = {
+        ...data,
+        ingredientId: ingredients,
+        ingredientDescription: ingredients.toString(),
+      };
       dispatch(updateRecipe(data, image, chefId, recipe));
       history.replace("/recipes");
     } else {
@@ -111,9 +113,6 @@ const AddRecipe = () => {
         ingredientId: ingredients,
         ingredientDescription: ingredients.toString(),
       };
-      console.log("info being sent to the action: ", data);
-      console.log("type of ingrediants in data: ", typeof ingredients);
-      console.log("ingaradiants value: ", ingredients);
       dispatch(addRecipe(data, image, chefId));
       history.replace("/recipes");
     }
@@ -159,21 +158,6 @@ const AddRecipe = () => {
               />
               {errors.description && <p>Description is required</p>}
             </Grid>
-            <Grid item xs={12} sm={12}>
-              <Typography component="h1" variant="h5">
-                choose your ingredients
-              </Typography>
-              <Typography component="h1" variant="h5">
-                {ingredients !== null &&
-                  `selected ingredients: ${ingredientsNames}`}
-              </Typography>
-              <IngredientList
-                setIngredients={setIngredients}
-                ingredients={ingredients}
-              />
-              {errors.ingredientDescription && <p>Ingredients are required</p>}
-            </Grid>
-
             <Grid item xs={12}>
               <TextField
                 required
@@ -212,6 +196,19 @@ const AddRecipe = () => {
                   {cuisineOptions}
                 </NativeSelect>
               </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Typography variant="caption">Choose your ingredients</Typography>
+              <br />
+              <Typography variant="overline">
+                {ingredients !== null &&
+                  `Selected ingredients: ${ingredientsNames}`}
+              </Typography>
+              <IngredientList
+                setIngredients={setIngredients}
+                ingredients={ingredients}
+              />
+              {errors.ingredientDescription && <p>Ingredients are required</p>}
             </Grid>
           </Grid>
           <Button
