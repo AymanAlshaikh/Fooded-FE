@@ -39,6 +39,11 @@ const RecipeList = ({ recipes }) => {
   let d = 8;
   let start = page * d - d;
   let end = page * d;
+  // in case if the total of the rest of the recipes are less than 8, in other words in case
+  // if the total of the recipes can't be divided equily on 8
+  if (end > _recipes.length) {
+    end = _recipes.length;
+  }
   const recipeLength = _recipes.length / d;
   const settingRecipePerPage = () => {
     RecipesPerPage = _recipes.slice(start, end);
