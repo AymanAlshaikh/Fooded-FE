@@ -46,13 +46,14 @@ export default function CuisineFilter({ setCuisine, cuisine }) {
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Select Cuisine</FormLabel>
+        <FormLabel component="legend">Filter by Cuisine</FormLabel>
 
-        <Grid>{cuisineCheck}</Grid>
-
-        <Button color={"primary"} onClick={handleReset}>
-          Reset Cuisine
-        </Button>
+        <Grid>
+          {cuisineCheck}{" "}
+          <Button color={"primary"} onClick={handleReset}>
+            Reset Cuisine
+          </Button>
+        </Grid>
       </FormControl>
     </div>
   );
