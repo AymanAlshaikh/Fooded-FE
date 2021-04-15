@@ -90,7 +90,7 @@ export default function SessionDetail() {
       xs={12}
       className={classes.root}
     >
-      <Card />
+      <Card justify="center" />
       <Grid xs={12}>
         <CardHeader
           title={`Chef ${foundChef.name}'s ${foundRecipe.name}`}
@@ -144,11 +144,17 @@ export default function SessionDetail() {
       <Grid
         container
         direction="row"
-        justify="center"
+        justify="flex-start"
         alignItems="center"
         xs={12}
       >
-        <Grid xs={6}>
+        <Grid
+          container
+          direction="column"
+          justify="flex-start"
+          alignItems="flex-start"
+          xs={6}
+        >
           <CardMedia
             className={classes.media}
             image={foundRecipe.image}
@@ -158,73 +164,81 @@ export default function SessionDetail() {
         <Grid
           container
           direction="column"
-          justify="center"
+          justify="flex-start"
           alignItems="flex-start"
           xs={6}
         >
-          <Typography
-            className={classes.info}
-            color="textSecondary"
-            variant="subtitle2"
+          <Grid
+            item
+            direction="row"
+            justify="flex-start"
+            alignItems="flex-start"
+            xs={12}
           >
-            Date: {foundSession.date}
-            <br />
-            Time: {foundSession.time}
-          </Typography>
-          <Accordion className={classes.accordion}>
-            <AccordionSummary
-              expandIcon={<ExpandMore />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
+            <Typography
+              className={classes.info}
+              color="textSecondary"
+              variant="subtitle2"
             >
-              <Typography>Recipe Description</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>{foundRecipe.description}</Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion className={classes.accordion}>
-            <AccordionSummary
-              expandIcon={<ExpandMore />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Ingredients</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>{foundRecipe.ingredients}</Typography>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion className={classes.accordion}>
-            <AccordionSummary
-              expandIcon={<ExpandMore />}
-              aria-controls="panel3a-content"
-              id="panel3a-header"
-            >
-              <Typography>Cuisine</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>{foundCuisine.name}</Typography>
-            </AccordionDetails>
-          </Accordion>
-          {user && user.isChef && foundChef.userId === user.id ? (
-            <div>
-              <Accordion className={classes.accordion}>
-                <AccordionSummary
-                  expandIcon={<ExpandMore />}
-                  aria-controls="panel4a-content"
-                  id="panel4a-header"
-                >
-                  <Typography>Bookings</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <BookingList sessionId={sessionId} />
-                </AccordionDetails>
-              </Accordion>
-            </div>
-          ) : (
-            ""
-          )}
+              Date: {foundSession.date}
+              <br />
+              Time: {foundSession.time}
+            </Typography>
+            <Accordion className={classes.accordion}>
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography>Recipe Description</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>{foundRecipe.description}</Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion className={classes.accordion}>
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+              >
+                <Typography>Ingredients</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>{foundRecipe.ingredients}</Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion className={classes.accordion}>
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                aria-controls="panel3a-content"
+                id="panel3a-header"
+              >
+                <Typography>Cuisine</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>{foundCuisine.name}</Typography>
+              </AccordionDetails>
+            </Accordion>
+            {user && user.isChef && foundChef.userId === user.id ? (
+              <div>
+                <Accordion className={classes.accordion}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMore />}
+                    aria-controls="panel4a-content"
+                    id="panel4a-header"
+                  >
+                    <Typography>Bookings</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <BookingList sessionId={sessionId} />
+                  </AccordionDetails>
+                </Accordion>
+              </div>
+            ) : (
+              ""
+            )}
+          </Grid>
         </Grid>
       </Grid>
       <Card />
