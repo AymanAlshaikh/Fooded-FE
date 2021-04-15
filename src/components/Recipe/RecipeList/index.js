@@ -44,7 +44,7 @@ const RecipeList = ({ recipes }) => {
   if (end > _recipes.length) {
     end = _recipes.length;
   }
-  const recipeLength = _recipes.length / d;
+  const recipeLength = Math.ceil(_recipes.length / d);
   const settingRecipePerPage = () => {
     RecipesPerPage = _recipes.slice(start, end);
     return RecipesPerPage;
@@ -65,6 +65,7 @@ const RecipeList = ({ recipes }) => {
       recipe.name.toLowerCase().includes(search.toLowerCase())
     )
     .map((recipe) => <RecipeItem key={recipe.id} recipe={recipe} />);
+  console.log(page);
 
   return (
     <Grid container className={classes.root}>
