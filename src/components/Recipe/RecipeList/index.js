@@ -35,6 +35,7 @@ const RecipeList = ({ recipes }) => {
   //Pagination
   const [page, setPage] = useState(1);
   let RecipesPerPage;
+  //d is number of ricipes in each page
   let d = 8;
   let start = page * d - d;
   let end = page * d;
