@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core";
 export const useStyles = makeStyles((theme) => ({
   root: {
     // flexGrow: 1,
-    minWidth: 250,
+    minWidth: 20,
     backgroundColor: theme.palette.secondary.dark,
     margin: 25,
     border: 6,
@@ -43,7 +43,7 @@ export const useStyles = makeStyles((theme) => ({
     // justify: "auto",
     margin: "2.5% auto",
     width: "95%",
-    height: 240,
+    height: 20,
     borderRadius: 25,
     borderBottomLeftRadius: 0,
     borderTopRightRadius: 0,
