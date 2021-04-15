@@ -16,6 +16,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Tooltip,
 } from "@material-ui/core/";
 import BookingList from "../../Booking/BookingList";
 import {
@@ -112,26 +113,30 @@ export default function SessionDetail() {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem
-                      component={Link}
-                      to={`/sessions/${sessionId}/edit`}
-                    >
-                      <Edit />
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() =>
-                        dispatch(
-                          deleteSession(
-                            sessionId,
-                            foundRecipe.id,
-                            foundChef,
-                            history
+                    <Tooltip title="Edit Session Details">
+                      <MenuItem
+                        component={Link}
+                        to={`/sessions/${sessionId}/edit`}
+                      >
+                        <Edit />
+                      </MenuItem>
+                    </Tooltip>
+                    <Tooltip title="Delete Session">
+                      <MenuItem
+                        onClick={() =>
+                          dispatch(
+                            deleteSession(
+                              sessionId,
+                              foundRecipe.id,
+                              foundChef,
+                              history
+                            )
                           )
-                        )
-                      }
-                    >
-                      <DeleteForeverOutlined />
-                    </MenuItem>
+                        }
+                      >
+                        <DeleteForeverOutlined />
+                      </MenuItem>
+                    </Tooltip>
                   </Menu>{" "}
                 </>
               ) : (
@@ -193,7 +198,9 @@ export default function SessionDetail() {
                 <Typography>Recipe Description</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>{foundRecipe.description}</Typography>
+                <Typography color={"secondary"}>
+                  {foundRecipe.description}
+                </Typography>
               </AccordionDetails>
             </Accordion>
             <Accordion className={classes.accordion}>
@@ -205,7 +212,9 @@ export default function SessionDetail() {
                 <Typography>Ingredients</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>{foundRecipe.ingredients}</Typography>
+                <Typography color={"secondary"}>
+                  {foundRecipe.ingredientDescription}
+                </Typography>
               </AccordionDetails>
             </Accordion>
             <Accordion className={classes.accordion}>
@@ -217,10 +226,10 @@ export default function SessionDetail() {
                 <Typography>Cuisine</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>{foundCuisine.name}</Typography>
+                <Typography color={"secondary"}>{foundCuisine.name}</Typography>
               </AccordionDetails>
             </Accordion>
-            {user && user.isChef && foundChef.userId === user.id ? (
+            {/* {user && user.isChef && foundChef.userId === user.id ? (
               <div>
                 <Accordion className={classes.accordion}>
                   <AccordionSummary
@@ -237,7 +246,7 @@ export default function SessionDetail() {
               </div>
             ) : (
               ""
-            )}
+            )} */}
           </Grid>
         </Grid>
       </Grid>

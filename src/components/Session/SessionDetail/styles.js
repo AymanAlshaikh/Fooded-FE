@@ -48,7 +48,7 @@ export const useStyles = makeStyles((theme) => ({
     borderBottomLeftRadius: 0,
     borderTopRightRadius: 0,
     boxShadow: "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)",
-    zIndex: 2000,
+    // zIndex: 2000,
   },
   accordion: {
     backgroundColor: theme.palette.secondary.dark,
