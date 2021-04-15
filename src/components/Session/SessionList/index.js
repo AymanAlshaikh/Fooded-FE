@@ -50,18 +50,13 @@ const SessionList = () => {
       </div>
     );
   return (
-    <div>
+    <Grid container className={classes.root}>
       <CuisineFilter cuisine={cuisine} setCuisine={setCuisine} />
       <SessionSearch />
-      <div className={classes.root}>
-        <GridList cellHeight={180} className={classes.gridList}>
-          <GridListTile
-            key="Subheader"
-            cols={2}
-            style={{ height: "auto" }}
-          ></GridListTile>
+      <div>
+        <Grid container item className={classes.root}>
           {SessionList}
-        </GridList>
+        </Grid>
         <Grid item direction="row-reverse" justify="flex-start">
           {user && user.isChef ? (
             <IconButton component={Link} to="/sessions/new">
@@ -72,7 +67,7 @@ const SessionList = () => {
           )}
         </Grid>
       </div>
-    </div>
+    </Grid>
   );
 };
 export default SessionList;
