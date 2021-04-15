@@ -32,7 +32,9 @@ import {
   Edit,
   MoreVert,
   ExpandMore,
+  PostAdd,
 } from "@material-ui/icons";
+import { booking } from "../../../store/actions/bookingActions";
 
 export default function SessionDetail() {
   const classes = useStyles();
@@ -72,7 +74,7 @@ export default function SessionDetail() {
   if (sessionLoading || recipeLoading || chefLoading)
     return <CircularProgress />;
   const foundSession = allSessions.find((session) => session.id === +sessionId);
-
+  console.log(foundSession);
   const foundRecipe = allRecipes.find(
     (recipe) => recipe.id === foundSession.recipeId
   );
@@ -248,6 +250,15 @@ export default function SessionDetail() {
               ""
             )} */}
           </Grid>
+          {user && user.id !== foundChef.userId ? (
+            // <Link to={`/sessions/${sessionId}/booking`}>
+            <IconButton component={Link} to={`sessions/${sessionId}/booking`}>
+              <PostAdd />
+            </IconButton>
+          ) : (
+            // </Link>
+            ""
+          )}
         </Grid>
       </Grid>
       <Card />
