@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useParams, Link } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { addRecipe, updateRecipe } from "../../../store/actions/recipeActions";
 import { useStyles } from "./styles";
 
-import Link1 from "@material-ui/core/Link";
 import {
   CssBaseline,
   CircularProgress,
@@ -22,6 +21,7 @@ import {
 } from "@material-ui/core";
 import { Fastfood } from "@material-ui/icons";
 import { fetchCuisines } from "../../../store/actions/cuisineActions";
+import IngredientList from "../../ingredient/IngredientList";
 
 const AddRecipe = () => {
   const classes = useStyles();
@@ -44,10 +44,34 @@ const AddRecipe = () => {
   useEffect(() => {
     if (cuisineLoading) dispatch(fetchCuisines());
   });
-  console.log(cuisines);
+
   const cuisineOptions = cuisines.map((cuisine) => (
-    <option value={cuisine.id}>{cuisine.name}</option>
+    <option key={cuisine.id} value={cuisine.id}>
+      {cuisine.name}
+    </option>
   ));
+  //ingredients
+  let ingredientPreLoad;
+  if (recipe) {
+    // gets the recipe's ingredients and coverts them into integers then assigns them to ingreientPreLoad
+    ingredientPreLoad = recipe.ingredientDescription.split(",").map((x) => +x);
+    console.log("ingredients pre load: ", ingredientPreLoad);
+  }
+  const [ingredients, setIngredients] = useState(
+    recipe ? ingredientPreLoad : []
+  );
+  const _ingredients = useSelector(
+    (state) => state.ingredientReducer.ingredients
+  );
+  let ingredientsNames;
+  if (ingredients !== null) {
+    const matchingIngredients = _ingredients.filter((ingrediant) =>
+      ingredients.includes(ingrediant.id)
+    );
+    ingredientsNames = matchingIngredients.map(
+      (ingredient_) => ` ${ingredient_.name}`
+    );
+  }
 
   let preloadedValues = {};
 
@@ -56,6 +80,7 @@ const AddRecipe = () => {
       name: recipe.name,
       description: recipe.description,
       ingredientDescription: recipe.ingredientDescription,
+      duration: recipe.duration,
     };
   }
   const { handleSubmit, errors, register } = useForm({
@@ -75,9 +100,19 @@ const AddRecipe = () => {
   const chefId = chef.id;
   const onSubmit = (data) => {
     if (recipe) {
+      data = {
+        ...data,
+        ingredientId: ingredients,
+        ingredientDescription: ingredients.toString(),
+      };
       dispatch(updateRecipe(data, image, chefId, recipe));
       history.replace("/recipes");
     } else {
+      data = {
+        ...data,
+        ingredientId: ingredients,
+        ingredientDescription: ingredients.toString(),
+      };
       dispatch(addRecipe(data, image, chefId));
       history.replace("/recipes");
     }
@@ -123,20 +158,9 @@ const AddRecipe = () => {
               />
               {errors.description && <p>Description is required</p>}
             </Grid>
-            <Grid item xs={12} sm={12}>
-              <TextField
-                required
-                fullWidth
-                id="ingredientDescription"
-                label="Ingredients"
-                name="ingredientDescription"
-                inputRef={register({ required: true })}
-              />
-              {errors.ingredientDescription && <p>Ingredients are required</p>}
-            </Grid>
-
             <Grid item xs={12}>
               <TextField
+                required
                 type="file"
                 fullWidth
                 id="image"
@@ -146,12 +170,25 @@ const AddRecipe = () => {
               />
               {errors.image && <p>Recipe Image is required</p>}
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                type="number"
+                fullWidth
+                id="duration"
+                label="Recipe Duration"
+                name="duration"
+                inputRef={register({ required: true })}
+              />
+              {errors.duration && <p>Recipe Duration is required</p>}
+            </Grid>
             <Grid item xs={12} sm={12}>
+              <InputLabel htmlFor="demo-customized-select-native">
+                Cuisine
+              </InputLabel>
               <FormControl className={classes.margin}>
-                <InputLabel htmlFor="demo-customized-select-native">
-                  Cuisine
-                </InputLabel>
                 <NativeSelect
+                  required
                   id="cuisineId"
                   name="cuisineId"
                   inputRef={register({ required: true })}
@@ -159,6 +196,19 @@ const AddRecipe = () => {
                   {cuisineOptions}
                 </NativeSelect>
               </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Typography variant="caption">Choose your ingredients</Typography>
+              <br />
+              <Typography variant="overline">
+                {ingredients !== null &&
+                  `Selected ingredients: ${ingredientsNames}`}
+              </Typography>
+              <IngredientList
+                setIngredients={setIngredients}
+                ingredients={ingredients}
+              />
+              {errors.ingredientDescription && <p>Ingredients are required</p>}
             </Grid>
           </Grid>
           <Button

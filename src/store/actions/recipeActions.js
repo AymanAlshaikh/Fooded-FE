@@ -19,6 +19,7 @@ export const addRecipe = (newRecipe, image, chefId) => async (dispatch) => {
     const formData = new FormData();
     for (const key in newRecipe) formData.append(key, newRecipe[key]);
     formData.append("image", image);
+    console.log("coming from recipeActions: ", formData);
     const res = await instance.post(`/chefs/${chefId}/recipes`, formData);
     console.log("-----------GGGG---------", res.data);
     dispatch({

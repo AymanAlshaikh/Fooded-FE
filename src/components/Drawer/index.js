@@ -20,7 +20,6 @@ import {
 import {
   AccountCircle,
   Fastfood,
-  LockOpen,
   Home,
   AssignmentInd,
   ExitToApp,
@@ -65,16 +64,6 @@ export default function SwipeableTemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List component="nav">
-        {/* <img src={innerLogo} style={{ height: 30 }} /> */}
-
-        {user ? (
-          <>
-            <Typography> Hello, {user.username}.</Typography>
-            <Divider />
-          </>
-        ) : (
-          ""
-        )}
         <ListItem
           button
           component={Link}
@@ -122,14 +111,14 @@ export default function SwipeableTemporaryDrawer() {
           <ListItemIcon>
             <VoiceChat style={{ color: icon }} />
           </ListItemIcon>
-          <ListItemText primary={"Sessions"} />
+          <ListItemText primary={"Upcoming Sessions"} />
         </ListItem>
-        <ListItem button component={Link} to={"/cuisine"}>
+        {/* <ListItem button component={Link} to={"/cuisine"}>
           <ListItemIcon>
             <RestaurantSharp />
           </ListItemIcon>
           <ListItemText primary={"Cuisine"} />
-        </ListItem>
+        </ListItem> */}
       </List>
       <Divider />
       <List>
@@ -171,32 +160,17 @@ export default function SwipeableTemporaryDrawer() {
             </ListItem>
           </div>
         ) : (
-          <div>
-            <ListItem
-              button
-              component={Link}
-              to={"/signin"}
-              selected={selectedIndex === 6}
-              onClick={(event) => handleListItemClick(event, 6)}
+          <ListItem button component={Link} to={"/signup"}>
+            <Typography
+              style={{
+                paddingLeft: "2.5em",
+                paddingTop: "1em",
+                paddingBottom: "1em",
+              }}
             >
-              <ListItemIcon>
-                <LockOpen style={{ color: icon }} />
-              </ListItemIcon>
-              <ListItemText primary={"Sign in"} />
-            </ListItem>
-            <ListItem
-              button
-              component={Link}
-              to={"/signup"}
-              selected={selectedIndex === 7}
-              onClick={(event) => handleListItemClick(event, 7)}
-            >
-              <ListItemIcon>
-                <LockOpen style={{ color: icon }} />
-              </ListItemIcon>
-              <ListItemText primary={"Join FoodED"} />
-            </ListItem>
-          </div>
+              Join FoodED for more
+            </Typography>
+          </ListItem>
         )}
       </List>
     </div>

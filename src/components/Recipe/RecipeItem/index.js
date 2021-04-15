@@ -1,10 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  deleteRecipe,
-  fetchRecipes,
-} from "../../../store/actions/recipeActions";
+import { deleteRecipe } from "../../../store/actions/recipeActions";
 import { useStyles } from "./styles";
 
 import {
@@ -16,20 +13,25 @@ import {
   CardHeader,
   Menu,
   MenuItem,
+  CircularProgress,
 } from "@material-ui/core";
 import { MoreVert } from "@material-ui/icons";
 
 export default function RecipeItem({ recipe }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  const cuisines = useSelector((state) => state.cuisineReducer.cuisine);
   const chefs = useSelector((state) => state.chefReducer.chef);
   const user = useSelector((state) => state.authReducer.user);
+  const cuisinesLoading = useSelector((state) => state.cuisineReducer.loading);
   let chef = null;
   if (user) {
     chef = chefs.find((chef) => chef.userId === user.id);
   }
   const [anchorEl, setAnchorEl] = React.useState(null);
+  if (cuisinesLoading) return <CircularProgress />;
+  const cuisine = cuisines.find((cuisine) => cuisine.id === recipe.cuisineId);
+  const recipeChef = chefs.find((chef) => chef.id === recipe.chefId);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -84,7 +86,7 @@ export default function RecipeItem({ recipe }) {
             </div>
           }
           title={recipe.name}
-          subheader="Chef (...)"
+          subheader={`By Chef ${recipeChef.name}`}
         />
 
         {/* <CardContent></CardContent> */}
@@ -93,9 +95,12 @@ export default function RecipeItem({ recipe }) {
           color="textSecondary"
           variant="subtitle2"
         >
-          Cuisine: (...)
+          Cuisine: {cuisine.name}
           <br />
-          Duration: (...)
+          Duration:{" "}
+          {recipe.duration <= 60
+            ? `${recipe.duration} Minutes`
+            : `${timeConvert(recipe.duration)}`}
         </Typography>
         {/* <Grid
         container
@@ -110,4 +115,25 @@ export default function RecipeItem({ recipe }) {
       </Card>
     </ButtonBase>
   );
+}
+
+function timeConvert(n) {
+  let num = n;
+  let hours = num / 60;
+  let rhours = Math.floor(hours);
+  let minutes = (hours - rhours) * 60;
+  let rminutes = Math.round(minutes);
+  if (rhours > 1) {
+    if (rminutes > 1) {
+      return rhours + " Hours and " + rminutes + " Minutes.";
+    } else {
+      return rhours + " Hours and " + rminutes + " Minute.";
+    }
+  } else {
+    if (rminutes > 1) {
+      return rhours + " Hour and " + rminutes + " Minutes.";
+    } else {
+      return rhours + " Hour and " + rminutes + " Minute.";
+    }
+  }
 }

@@ -13,6 +13,7 @@ export const useStyles = makeStyles({
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
+    height: 780,
   },
   content: {
     textAlign: "center",

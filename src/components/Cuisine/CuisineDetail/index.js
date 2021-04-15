@@ -18,7 +18,7 @@ export default function CuisineDetail() {
   const { cuisineSlug } = useParams();
 
   const cuisineLoading = useSelector((state) => state.cuisineReducer.loading);
-  const recipeLoading = useSelector((state) => state.recipeReducer.loading);
+  // const recipeLoading = useSelector((state) => state.recipeReducer.loading);
 
   const allCuisine = useSelector((state) => state.cuisineReducer.cuisine);
 
@@ -43,7 +43,7 @@ export default function CuisineDetail() {
         </Typography>
         <CardMedia className={classes.media} image={foundRecipe.image} />
         <CardContent>
-          <RecipeList foundRecipe={foundRecipe} />
+          <RecipeList recipes={foundRecipe} />
         </CardContent>
       </CardActionArea>
     </Card>
